@@ -20,6 +20,29 @@
   ::selection{background:#F15A22;color:#FFF;}
   :focus-visible{outline:2px solid #F15A22;outline-offset:3px;}
   @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+
+  @media (max-width:860px){
+    [data-r]{grid-template-columns:1fr !important;}
+    [data-r="rail"]{gap:40px !important;padding-top:48px !important;}
+    [data-r="rail"]>aside{position:static !important;top:auto !important;}
+    [data-r="row"]{align-items:start !important;gap:10px !important;}
+    [data-r="cardhead"]{flex-wrap:wrap !important;}
+    [data-r="legend"]{flex-direction:column !important;gap:8px !important;grid-template-columns:none !important;}
+    [data-r="split"]>div:last-child{min-height:0 !important;aspect-ratio:16/10;border-left:none !important;border-top:1px solid #E4E0D8 !important;padding:0 !important;}
+    [data-r="split"]>figure:last-child{border-left:none !important;border-top:1px solid #E4E0D8 !important;}
+    [data-r="split"]>div:last-child img{width:100% !important;height:100% !important;object-fit:cover;object-position:center top;}
+    main{padding-left:20px !important;padding-right:20px !important;}
+    header>div,footer{padding-left:20px !important;padding-right:20px !important;}
+    [data-logo]{white-space:nowrap;}
+    nav{gap:18px !important;}
+    section,figure,blockquote,ol,ul,article,aside{max-width:100% !important;}
+  }
+  @media (max-width:560px){
+    nav{gap:13px !important;font-size:10.5px !important;}
+    [data-logo] span:last-child{font-size:14px !important;}
+    main{padding-left:16px !important;padding-right:16px !important;}
+    header>div,footer{padding-left:16px !important;padding-right:16px !important;}
+  }
 </style>
 </helmet>
 
@@ -27,7 +50,7 @@
 
   <header style="position:sticky;top:0;z-index:20;background:rgba(247,245,242,0.86);backdrop-filter:blur(12px);border-bottom:1px solid #E4E0D8">
     <div style="max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px">
-      <a href="index.html" style="display:flex;align-items:center;gap:10px">
+      <a href="index.html" data-logo style="display:flex;align-items:center;gap:10px">
         <img decoding="async" src="JorgeBrand.png" alt="Jorge de Lima" style="width:24px;height:24px;border-radius:5px;flex-shrink:0;display:block">
         <span style="font-size:15px;font-weight:600;letter-spacing:-0.015em">Jorge de Lima</span>
       </a>
@@ -74,7 +97,7 @@
     <section id="work" style="padding:96px 0 0">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding-bottom:18px;border-bottom:1px solid #16181C;flex-wrap:wrap">
         <h2 style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:#16181C;margin:0">Selected work</h2>
-        <div style="display:flex;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D">
+        <div data-r="legend" style="display:flex;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D">
           <span style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;background:#1F6F54;border-radius:50%"></span>Confirmed — hypothesis measured</span>
           <span style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;background:#A29C93;border-radius:50%"></span>Shipped — evidence partial</span>
           <span style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;border:1.5px solid #A29C93;border-radius:50%"></span>Pending — awaiting data</span>
@@ -82,10 +105,10 @@
       </div>
 
       <div data-reveal="" style="margin-top:28px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden">
-      <a data-card="" href="b4b-registration.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:0;isolation:isolate">
+      <a data-card="" href="b4b-registration.html" data-r="split" style="position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:0;isolation:isolate">
         <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.09),transparent 65%);z-index:2"></span>
         <div style="padding:34px 36px 36px;display:flex;flex-direction:column;gap:22px;position:relative;z-index:3">
-          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+          <div data-r="cardhead" style="display:flex;align-items:center;justify-content:space-between;gap:16px">
             <span style="display:flex;align-items:baseline;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8A857D"><span style="color:#F15A22">01</span>Booking.com for Business · Onboarding</span>
             <span style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#1F6F54;background:rgba(31,111,84,0.10);padding:5px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0"><span style="width:7px;height:7px;background:#1F6F54;border-radius:50%;flex-shrink:0"></span>Confirmed · Shipped</span>
           </div>
@@ -107,7 +130,7 @@
           <img loading="lazy" decoding="async" src="./b4b_registration-hero-ms63xqqt-b6lp.jpg" alt="b4b_registration-hero" width="2400" height="1668" style="max-width: 100%; height: auto; display: block; object-fit: cover; width: 2400px; aspect-ratio: 2400 / 1668">
         </div>
       </a>
-        <a data-card="" href="b4b-tips-getting-started.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-top:1px solid #EFEBE3;isolation:isolate">
+        <a data-card="" href="b4b-tips-getting-started.html" data-r="row" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-top:1px solid #EFEBE3;isolation:isolate">
           <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
           <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
             <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">02</span>
@@ -116,7 +139,7 @@
           </div>
           <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;white-space:nowrap">Handed off →</span>
         </a>
-        <a data-card="" href="b4b-team-budgets.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-top:1px solid #EFEBE3;isolation:isolate">
+        <a data-card="" href="b4b-team-budgets.html" data-r="row" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-top:1px solid #EFEBE3;isolation:isolate">
           <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
           <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
             <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">03</span>
@@ -128,9 +151,9 @@
       </div>
 
       <div data-reveal="" style="margin-top:16px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden">
-        <div style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)">
+        <div data-r="split" style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)">
           <div style="padding:30px 36px 30px;display:flex;flex-direction:column;align-items:flex-start;gap:14px">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%">
+            <div data-r="cardhead" style="display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%">
               <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8A857D">02 / Google Store · via PHQ Studios</span>
               <span style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;border:1px solid #E4E0D8;padding:5px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0"><span style="width:7px;height:7px;border:1.5px solid #A29C93;border-radius:50%;flex-shrink:0"></span>3 pending</span>
             </div>
@@ -142,7 +165,7 @@
           </div>
         </div>
         <div style="border-top:1px solid #EFEBE3">
-          <a data-card="" href="google-store-paypal.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-bottom:1px solid #EFEBE3;isolation:isolate">
+          <a data-card="" href="google-store-paypal.html" data-r="row" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-bottom:1px solid #EFEBE3;isolation:isolate">
             <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
             <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
               <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">AU</span>
@@ -151,7 +174,7 @@
             </div>
             <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;white-space:nowrap">Launches Aug 2026 →</span>
           </a>
-          <a data-card="" href="google-store-tokyo.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-bottom:1px solid #EFEBE3;isolation:isolate">
+          <a data-card="" href="google-store-tokyo.html" data-r="row" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-bottom:1px solid #EFEBE3;isolation:isolate">
             <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
             <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
               <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">JP</span>
@@ -160,7 +183,7 @@
             </div>
             <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;white-space:nowrap">Launches Aug 2026 →</span>
           </a>
-          <a data-card="" href="google-store-paidy.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;isolation:isolate">
+          <a data-card="" href="google-store-paidy.html" data-r="row" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;isolation:isolate">
             <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
             <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
               <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">JP</span>
@@ -173,9 +196,9 @@
       </div>
 
       <div data-reveal="" style="margin-top:16px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden">
-        <div style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)">
+        <div data-r="split" style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)">
           <div style="padding:30px 36px 30px;display:flex;flex-direction:column;align-items:flex-start;gap:14px">
-            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%">
+            <div data-r="cardhead" style="display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%">
               <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8A857D">03 / Unleashed Software</span>
               <span style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;border:1px solid #E4E0D8;padding:5px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0"><span style="width:7px;height:7px;background:#A29C93;border-radius:50%;flex-shrink:0"></span>2 shipped</span>
             </div>
@@ -188,7 +211,7 @@
           </div>
         </div>
         <div style="border-top:1px solid #EFEBE3">
-          <a data-card="" href="unleashed-dashboard.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-bottom:1px solid #EFEBE3;isolation:isolate">
+          <a data-card="" href="unleashed-dashboard.html" data-r="row" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-bottom:1px solid #EFEBE3;isolation:isolate">
             <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
             <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
               <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">01</span>
@@ -197,7 +220,7 @@
             </div>
             <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;white-space:nowrap">Shipped →</span>
           </a>
-          <a data-card="" href="unleashed-mobile-app.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;isolation:isolate">
+          <a data-card="" href="unleashed-mobile-app.html" data-r="row" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;isolation:isolate">
             <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
             <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
               <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">02</span>
@@ -214,7 +237,7 @@
     <section style="padding:96px 0 0">
       <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding-bottom:18px;border-bottom:1px solid #16181C">
         <h2 style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;margin:0">What colleagues say</h2>
-        <a href="https://www.linkedin.com/in/jorge-delima/details/recommendations/" style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#6E6A64">All recommendations ↗</a>
+        <a href="https://www.linkedin.com/in/jorge-delima/details/recommendations/" target="_blank" rel="noopener" style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#6E6A64">All recommendations ↗</a>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:28px">
         <blockquote data-reveal="" style="margin:0;padding:26px 28px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:12px;display:flex;flex-direction:column;gap:18px">
@@ -240,8 +263,8 @@
       <div style="border-top:1px solid #16181C;padding-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px;align-items:end">
         <h2 style="font-size:clamp(28px,3.4vw,44px);font-weight:500;letter-spacing:-0.03em;line-height:1.05;margin:0;max-width:22ch">Got a hypothesis that needs testing?</h2>
         <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end">
-          <a href="mailto:hi@jorgedelima.design" style="padding:14px 22px;background:#F15A22;color:#FFF;border-radius:100px;font-size:14.5px;font-weight:600;letter-spacing:-0.01em" style-hover="background:#16181C;color:#FFF">hi@jorgedelima.design</a>
-          <a href="https://www.linkedin.com/in/jorge-de-lima-03618a17/" style="padding:14px 22px;border:1px solid #C9C3B9;border-radius:100px;font-size:14.5px;font-weight:600;letter-spacing:-0.01em" style-hover="border-color:#16181C;color:#16181C">LinkedIn ↗</a>
+          <a href="mailto:hi@jorgedelima.design?subject=Portfolio%20enquiry" style="display:inline-flex;align-items:center;justify-content:center;line-height:1;padding:15px 24px;background:#F15A22;color:#FFF;border-radius:100px;font-size:14.5px;font-weight:600;letter-spacing:-0.01em" style-hover="background:#16181C;color:#FFF">hi@jorgedelima.design</a>
+          <a href="https://www.linkedin.com/in/jorge-de-lima-03618a17/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:center;line-height:1;padding:14px 24px;border:1px solid #C9C3B9;border-radius:100px;font-size:14.5px;font-weight:600;letter-spacing:-0.01em" style-hover="border-color:#16181C;color:#16181C">LinkedIn ↗</a>
         </div>
       </div>
     </section>
