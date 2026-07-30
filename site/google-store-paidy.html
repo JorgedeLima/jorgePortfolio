@@ -28,7 +28,7 @@
   <header style="position:sticky;top:0;z-index:20;background:rgba(247,245,242,0.86);backdrop-filter:blur(12px);border-bottom:1px solid #E4E0D8">
     <div style="max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px">
       <a href="index.html" style="display:flex;align-items:center;gap:10px">
-        <img src="JorgeBrand.png" alt="Jorge de Lima" style="width:24px;height:24px;border-radius:5px;flex-shrink:0;display:block">
+        <img decoding="async" src="JorgeBrand.png" alt="Jorge de Lima" style="width:24px;height:24px;border-radius:5px;flex-shrink:0;display:block">
         <span style="font-size:15px;font-weight:600;letter-spacing:-0.015em">Jorge de Lima</span>
       </a>
       <nav aria-label="Primary" style="display:flex;align-items:center;gap:26px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.08em;text-transform:uppercase">
@@ -48,7 +48,7 @@
     </section>
 
     <figure style="margin:44px 0 0;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden;background:#FFFFFF">
-      <img src="paidy_hero.png" alt="Google Store Japan financing page hero, Paidy and Splitit" style="width:100%;display:block">
+      <img loading="lazy" decoding="async" src="paidy_hero.jpg" alt="Google Store Japan financing page hero, Paidy and Splitit" style="width:100%;display:block">
     </figure>
 
     <section aria-label="Hypothesis ledger" style="margin:44px 0 0;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden">
@@ -124,8 +124,8 @@
           <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">Benchmarking Apple, Samsung, three national mobile carriers, and two major electronics retailers surfaced a consistent trade-off: sites either buried detail behind navigation to stay clean, or exposed everything and became dense and slow on mobile. Neither fully solved what this page needed — showing two providers side by side without visually favouring either.</p>
           <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">We front-loaded the page with what users want to know at a glance, then layered granular detail underneath, mobile-first throughout. A side-by-side comparison table tested well on desktop in round one, but on mobile it ran long and dense enough that we recommended dropping it for an accordion pattern instead, even though the client preferred the desktop version. Mobile usability took priority over a stakeholder's initial preference.</p>
           <div data-reveal style="display:grid;grid-template-columns:1fr 1fr;gap:16px;max-width:66ch;margin:0 0 24px;align-items:start">
-            <figure style="margin:0"><img src="paidy_table_desktop.png" alt="Desktop instalment comparison table" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"><figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:10px 0 0"><span style="color:#F15A22">Desktop</span>Comparison table — tested well</figcaption></figure>
-            <figure style="margin:0"><img src="paidy_table_mobile.png" alt="Same comparison table on mobile, long and dense" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"><figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:10px 0 0"><span style="color:#F15A22">Mobile · rejected</span>Same table, too long and dense</figcaption></figure>
+            <figure style="margin:0"><img loading="lazy" decoding="async" src="paidy_table_desktop.jpg" alt="Desktop instalment comparison table" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"><figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:10px 0 0"><span style="color:#F15A22">Desktop</span>Comparison table — tested well</figcaption></figure>
+            <figure style="margin:0"><img loading="lazy" decoding="async" src="paidy_table_mobile.jpg" alt="Same comparison table on mobile, long and dense" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"><figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:10px 0 0"><span style="color:#F15A22">Mobile · rejected</span>Same table, too long and dense</figcaption></figure>
           </div>
         </section>
 
@@ -133,7 +133,7 @@
           <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Solution</h2>
           <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">The hero module originally carried a CTA for Paidy with no equivalent for Splitit, which read as lopsided, so we removed both hero CTAs and moved sign-up into the details module below, where both providers sit with equal visual weight.</p>
           <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">Two modules were new additions specific to Paidy: an in-store payment module tied to the physical Google Store opening in Omotesando, walking users through the same QR-code sign-up in person, and an account log-in module so users already registered with either provider could check their status without leaving the page.</p>
-          <figure data-reveal style="margin:0 0 24px;max-width:66ch"><img src="paidy_final.png" alt="Details module with Paidy and Splitit at equal visual weight" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"><figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:10px 0 0"><span style="color:#F15A22">Final UI</span>Details module — both providers at equal weight</figcaption></figure>
+          <figure data-reveal style="margin:0 0 24px;max-width:66ch"><img loading="lazy" decoding="async" src="paidy_final.jpg" alt="Details module with Paidy and Splitit at equal visual weight" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"><figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:10px 0 0"><span style="color:#F15A22">Final UI</span>Details module — both providers at equal weight</figcaption></figure>
         </section>
 
         <section id="reflection" style="margin:0 0 8px">
