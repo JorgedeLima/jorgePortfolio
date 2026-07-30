@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/motion@11.18.2/dist/motion.js"></script>
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#F7F5F2;color:#16181C;font-family:'Instrument Sans','Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:#16181C;text-decoration:none;}
+  a:hover{color:#F15A22;}
+  ::selection{background:#F15A22;color:#FFF;}
+  :focus-visible{outline:2px solid #F15A22;outline-offset:3px;}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#F7F5F2">
+
+  <header style="position:sticky;top:0;z-index:20;background:rgba(247,245,242,0.86);backdrop-filter:blur(12px);border-bottom:1px solid #E4E0D8">
+    <div style="max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="index.html" style="display:flex;align-items:center;gap:10px">
+        <img decoding="async" src="JorgeBrand.png" alt="Jorge de Lima" style="width:24px;height:24px;border-radius:5px;flex-shrink:0;display:block">
+        <span style="font-size:15px;font-weight:600;letter-spacing:-0.015em">Jorge de Lima</span>
+      </a>
+      <nav aria-label="Primary" style="display:flex;align-items:center;gap:26px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.08em;text-transform:uppercase">
+        <a href="#work">Work</a>
+        <a href="about.html">About</a>
+        <a href="https://drive.google.com/file/d/1Ngj1LA45lq3D074LdzEIiqrNIhVst-Ym/view?usp=sharing" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px">Resume <span style="color:#A29C93">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="max-width:1180px;margin:0 auto;padding:0 32px">
+
+    <section style="padding:104px 0 0;display:grid;grid-template-columns:minmax(0,1fr);gap:0">
+      <p data-hero="" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6E6A64;margin:0 0 26px;display:flex;align-items:center;gap:12px">
+        Senior Product Designer
+        <span style="flex:1;height:1px;background:#E4E0D8"></span>
+        Hypothesis-led
+      </p>
+      <h1 data-hero="" style="font-size:clamp(40px,6.4vw,80px);font-weight:500;letter-spacing:-0.035em;line-height:0.98;margin:0;max-width:16ch;text-wrap:balance">I design with hypotheses, not assumptions.</h1>
+      <p data-hero="" style="font-size:19px;line-height:1.55;color:#4A4740;margin:30px 0 0;max-width:52ch;text-wrap:pretty">I write the bet down before I design it, then test whether it held. Research, engineering and product are in the room throughout, because the insights that matter usually surface in that overlap.</p>
+    </section>
+
+    <sc-if value="{{ proofPoints }}" hint-placeholder-val="{{ true }}">
+    <section style="padding:72px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;border-top:1px solid #E4E0D8;margin-top:72px">
+      <div data-reveal="" style="padding:28px 32px 30px 0;border-right:1px solid #E4E0D8">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;color:#F15A22;margin:0 0 14px">01 — SEQUENCING</p>
+        <h3 style="font-size:20px;font-weight:600;letter-spacing:-0.02em;margin:0 0 10px">Fix it before you rebuild it.</h3>
+        <p style="font-size:15px;line-height:1.6;color:#6E6A64;margin:0;text-wrap:pretty">On Booking.com for Business I repaired what we could inside the legacy system first and tested each change, so the full redesign was a decision backed by evidence rather than a leap.</p>
+      </div>
+      <div data-reveal="" data-reveal-delay="0.08" style="padding:28px 32px 30px;border-right:1px solid #E4E0D8">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;color:#F15A22;margin:0 0 14px">02 — SCOPE</p>
+        <h3 style="font-size:20px;font-weight:600;letter-spacing:-0.02em;margin:0 0 10px">Descope to the decision.</h3>
+        <p style="font-size:15px;line-height:1.6;color:#6E6A64;margin:0;text-wrap:pretty">Unleashed's dashboard was an operational data dump. I cut it down to what teams actually needed to make a faster call, and nothing else.</p>
+      </div>
+      <div data-reveal="" data-reveal-delay="0.16" style="padding:28px 0 30px 32px">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;color:#F15A22;margin:0 0 14px">03 — OVERLAP</p>
+        <h3 style="font-size:20px;font-weight:600;letter-spacing:-0.02em;margin:0 0 10px">Work in the overlap, not after it.</h3>
+        <p style="font-size:15px;line-height:1.6;color:#6E6A64;margin:0;text-wrap:pretty">Researchers, engineers and PMs throughout the project. Twenty-plus moderated sessions, AI-built prototypes, MVPs run in parallel with the live control.</p>
+      </div>
+    </section>
+    </sc-if>
+
+    <section id="work" style="padding:96px 0 0">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding-bottom:18px;border-bottom:1px solid #16181C;flex-wrap:wrap">
+        <h2 style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;color:#16181C;margin:0">Selected work</h2>
+        <div style="display:flex;gap:20px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D">
+          <span style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;background:#1F6F54;border-radius:50%"></span>Confirmed — hypothesis measured</span>
+          <span style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;background:#A29C93;border-radius:50%"></span>Shipped — evidence partial</span>
+          <span style="display:flex;align-items:center;gap:7px"><span style="width:8px;height:8px;border:1.5px solid #A29C93;border-radius:50%"></span>Pending — awaiting data</span>
+        </div>
+      </div>
+
+      <div data-reveal="" style="margin-top:28px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden">
+      <a data-card="" href="b4b-registration.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:0;isolation:isolate">
+        <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.09),transparent 65%);z-index:2"></span>
+        <div style="padding:34px 36px 36px;display:flex;flex-direction:column;gap:22px;position:relative;z-index:3">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:16px">
+            <span style="display:flex;align-items:baseline;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8A857D"><span style="color:#F15A22">01</span>Booking.com for Business · Onboarding</span>
+            <span style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#1F6F54;background:rgba(31,111,84,0.10);padding:5px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0"><span style="width:7px;height:7px;background:#1F6F54;border-radius:50%;flex-shrink:0"></span>Confirmed · Shipped</span>
+          </div>
+          <h3 style="font-size:clamp(26px,2.6vw,34px);font-weight:500;letter-spacing:-0.03em;line-height:1.05;margin:0;max-width:20ch">Designing trust at the entry point</h3>
+          <p style="font-size:15.5px;line-height:1.6;color:#6E6A64;margin:0;max-width:44ch;text-wrap:pretty">Rewriting the registration flow from a written value hypothesis to a shipped, measured result — MVP run in parallel with the live control so the outcome could be attributed.</p>
+          <div style="display:flex;gap:36px;margin-top:auto;padding-top:14px;border-top:1px solid #EFEBE3">
+            <div>
+              <p style="font-size:34px;font-weight:500;letter-spacing:-0.035em;margin:0;color:#16181C"><span data-count="53" data-count-pre="−" data-count-suf="%">−53%</span></p>
+              <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A857D;margin:4px 0 0">Error rate</p>
+            </div>
+            <div>
+              <p style="font-size:34px;font-weight:500;letter-spacing:-0.035em;margin:0;color:#16181C"><span data-count="46" data-count-pre="−" data-count-suf="%">−46%</span></p>
+              <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A857D;margin:4px 0 0">Task time</p>
+            </div>
+            <div style="display:flex;align-items:flex-end;margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#16181C">Read →</div>
+          </div>
+        </div>
+        <div style="border-left:1px solid #E4E0D8;background:#0A2A5E;min-height:320px;overflow:hidden">
+          <img loading="lazy" decoding="async" src="./b4b_registration-hero-ms63xqqt-b6lp.jpg" alt="b4b_registration-hero" width="2400" height="1668" style="max-width: 100%; height: auto; display: block; object-fit: cover; width: 2400px; aspect-ratio: 2400 / 1668">
+        </div>
+      </a>
+        <a data-card="" href="b4b-tips-getting-started.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-top:1px solid #EFEBE3;isolation:isolate">
+          <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
+          <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">02</span>
+            <span style="font-size:18px;font-weight:600;letter-spacing:-0.02em">Tips to getting started</span>
+            <span style="font-size:14.5px;color:#8A857D">An onboarding signal wired into a personalised dashboard widget</span>
+          </div>
+          <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;white-space:nowrap">Handed off →</span>
+        </a>
+        <a data-card="" href="b4b-team-budgets.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-top:1px solid #EFEBE3;isolation:isolate">
+          <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
+          <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">03</span>
+            <span style="font-size:18px;font-weight:600;letter-spacing:-0.02em">Team management &amp; budget governance</span>
+            <span style="font-size:14.5px;color:#8A857D">Scaling teams past onboarding, then governing the spend</span>
+          </div>
+          <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;white-space:nowrap">Shipped · +805% invites →</span>
+        </a>
+      </div>
+
+      <div data-reveal="" style="margin-top:16px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden">
+        <div style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)">
+          <div style="padding:30px 36px 30px;display:flex;flex-direction:column;align-items:flex-start;gap:14px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8A857D">02 / Google Store · via PHQ Studios</span>
+              <span style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;border:1px solid #E4E0D8;padding:5px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0"><span style="width:7px;height:7px;border:1.5px solid #A29C93;border-radius:50%;flex-shrink:0"></span>3 pending</span>
+            </div>
+            <h3 style="font-size:clamp(24px,2.4vw,31px);font-weight:500;letter-spacing:-0.03em;line-height:1.08;margin:0;max-width:26ch">Three launches across two markets</h3>
+            <p style="font-size:15.5px;line-height:1.6;color:#6E6A64;margin:0;max-width:44ch;text-wrap:pretty">Payments and retail work for Google Store in Australia and Japan — each one a market-behaviour question before it was an interface question.</p>
+          </div>
+          <div style="border-left:1px solid #E4E0D8;background:#FFFFFF;min-height:260px;overflow:hidden">
+            <img loading="lazy" decoding="async" src="paidy_hero.jpg" alt="Google Store Japan financing page hero, Paidy and Splitit" style="width:100%;height:100%;object-fit:cover;object-position:left center;display:block">
+          </div>
+        </div>
+        <div style="border-top:1px solid #EFEBE3">
+          <a data-card="" href="google-store-paypal.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-bottom:1px solid #EFEBE3;isolation:isolate">
+            <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
+            <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">AU</span>
+              <span style="font-size:18px;font-weight:600;letter-spacing:-0.02em">Introducing PayPal Pay in 4</span>
+              <span style="font-size:14.5px;color:#8A857D">Moving a buried payment option to the front of the consideration funnel</span>
+            </div>
+            <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;white-space:nowrap">Launches Aug 2026 →</span>
+          </a>
+          <a data-card="" href="google-store-tokyo.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-bottom:1px solid #EFEBE3;isolation:isolate">
+            <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
+            <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">JP</span>
+              <span style="font-size:18px;font-weight:600;letter-spacing:-0.02em">Launching a physical store, digitally</span>
+              <span style="font-size:14.5px;color:#8A857D">Omotesando, translated into a phased mobile-first campaign</span>
+            </div>
+            <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;white-space:nowrap">Launches Aug 2026 →</span>
+          </a>
+          <a data-card="" href="google-store-paidy.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;isolation:isolate">
+            <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
+            <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">JP</span>
+              <span style="font-size:18px;font-weight:600;letter-spacing:-0.02em">Balancing two payment providers</span>
+              <span style="font-size:14.5px;color:#8A857D">Paidy alongside Splitit, with neither reading as the default</span>
+            </div>
+            <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;white-space:nowrap">In creative review →</span>
+          </a>
+        </div>
+      </div>
+
+      <div data-reveal="" style="margin-top:16px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden">
+        <div style="display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr)">
+          <div style="padding:30px 36px 30px;display:flex;flex-direction:column;align-items:flex-start;gap:14px">
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8A857D">03 / Unleashed Software</span>
+              <span style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;border:1px solid #E4E0D8;padding:5px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0"><span style="width:7px;height:7px;background:#A29C93;border-radius:50%;flex-shrink:0"></span>2 shipped</span>
+            </div>
+            <h3 style="font-size:clamp(24px,2.4vw,31px);font-weight:500;letter-spacing:-0.03em;line-height:1.08;margin:0;max-width:26ch">Designing for decision speed, not data density</h3>
+            <p style="font-size:15.5px;line-height:1.6;color:#6E6A64;margin:0;max-width:44ch;text-wrap:pretty">Two shipped projects for inventory-heavy operations teams: a dashboard that stopped being a data dump, and a mobile app built around intent rather than parity.</p>
+          </div>
+          <div style="border-left: 1px solid #E4E0D8; background: url(&quot;./unleasheddashboard-hero-ms63pabq-e8l8.jpg&quot;) center / cover no-repeat; min-height: 260px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; padding: 24px">
+            <p style="font-family: 'IBM Plex Mono',monospace; font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: #8A857D; margin: 0; display: none">Hero visual</p>
+            <p style="font-family: 'IBM Plex Mono',monospace; font-size: 11px; color: #A29C93; margin: 0; max-width: 26ch; line-height: 1.5; display: none">Drop a dashboard or mobile app visual</p>
+          </div>
+        </div>
+        <div style="border-top:1px solid #EFEBE3">
+          <a data-card="" href="unleashed-dashboard.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;border-bottom:1px solid #EFEBE3;isolation:isolate">
+            <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
+            <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">01</span>
+              <span style="font-size:18px;font-weight:600;letter-spacing:-0.02em">Operational clarity at scale</span>
+              <span style="font-size:14.5px;color:#8A857D">Dashboard reorganised around decision velocity</span>
+            </div>
+            <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;white-space:nowrap">Shipped →</span>
+          </a>
+          <a data-card="" href="unleashed-mobile-app.html" style="position:relative;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px;padding:22px 36px;isolation:isolate">
+            <span data-glow="" aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(340px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
+            <div style="position:relative;z-index:2;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap">
+              <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">02</span>
+              <span style="font-size:18px;font-weight:600;letter-spacing:-0.02em">Operational mobility</span>
+              <span style="font-size:14.5px;color:#8A857D">Mobile app built on contextual intent, not feature parity</span>
+            </div>
+            <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;white-space:nowrap">Shipped →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <sc-if value="{{ testimonials }}" hint-placeholder-val="{{ true }}">
+    <section style="padding:96px 0 0">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding-bottom:18px;border-bottom:1px solid #16181C">
+        <h2 style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;margin:0">What colleagues say</h2>
+        <a href="https://www.linkedin.com/in/jorge-delima/details/recommendations/" style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#6E6A64">All recommendations ↗</a>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:28px">
+        <blockquote data-reveal="" style="margin:0;padding:26px 28px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:12px;display:flex;flex-direction:column;gap:18px">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F15A22;margin:0">Managed Jorge directly</p>
+          <p style="font-size:16px;line-height:1.6;color:#37342E;margin:0;text-wrap:pretty">“Jorge has been an invaluable and highly respected member of the Serko Design team. Over the past three years, he has consistently demonstrated creativity, dedication, and an exceptional work ethic in his role as Senior Product Designer.”</p>
+          <footer style="margin-top:auto"><span style="display:block;font-size:14.5px;font-weight:600;letter-spacing:-0.01em">Melissa Helyer-Akhara</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8A857D;margin-top:4px;line-height:1.5">Global Head of Design &amp; Product Design, Serko</span></footer>
+        </blockquote>
+        <blockquote data-reveal="" data-reveal-delay="0.08" style="margin:0;padding:26px 28px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:12px;display:flex;flex-direction:column;gap:18px">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F15A22;margin:0">Same team, B4B</p>
+          <p style="font-size:16px;line-height:1.6;color:#37342E;margin:0;text-wrap:pretty">“He always kept a strong focus on the customer experience, finding innovative ways to delight customers and remove friction. His focus on A11Y and mobile-first design increased usage and conversion rate for our part of the product. Jorge worked well both on large projects and on fast-turnaround growth experiments, taking time to coordinate with both product and engineering on designs that could be built easily and work well.”</p>
+          <footer style="margin-top:auto"><span style="display:block;font-size:14.5px;font-weight:600;letter-spacing:-0.01em">James Scholz</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8A857D;margin-top:4px;line-height:1.5">Lead Product Manager, Booking.com for Business</span></footer>
+        </blockquote>
+        <blockquote data-reveal="" data-reveal-delay="0.16" style="margin:0;padding:26px 28px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:12px;display:flex;flex-direction:column;gap:18px">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:#F15A22;margin:0">Activation growth team</p>
+          <p style="font-size:16px;line-height:1.6;color:#37342E;margin:0;text-wrap:pretty">“Jorge's design ability comes from a deep curious nature, he's not afraid to address the status quo and bring in fresh out of the box ideas. I've thoroughly enjoyed working with Jorge while at Serko within the activation growth team.”</p>
+          <footer style="margin-top:auto"><span style="display:block;font-size:14.5px;font-weight:600;letter-spacing:-0.01em">Sobia Mughal</span><span style="display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#8A857D;margin-top:4px;line-height:1.5">Senior Marketing Manager ANZ, Workday</span></footer>
+        </blockquote>
+      </div>
+    </section>
+    </sc-if>
+
+    <section data-reveal="" style="padding:96px 0 0">
+      <div style="border-top:1px solid #16181C;padding-top:40px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px;align-items:end">
+        <h2 style="font-size:clamp(28px,3.4vw,44px);font-weight:500;letter-spacing:-0.03em;line-height:1.05;margin:0;max-width:22ch">Got a hypothesis that needs testing?</h2>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end">
+          <a href="mailto:hi@jorgedelima.design" style="padding:14px 22px;background:#F15A22;color:#FFF;border-radius:100px;font-size:14.5px;font-weight:600;letter-spacing:-0.01em" style-hover="background:#16181C;color:#FFF">hi@jorgedelima.design</a>
+          <a href="https://www.linkedin.com/in/jorge-de-lima-03618a17/" style="padding:14px 22px;border:1px solid #C9C3B9;border-radius:100px;font-size:14.5px;font-weight:600;letter-spacing:-0.01em" style-hover="border-color:#16181C;color:#16181C">LinkedIn ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer style="max-width:1180px;margin:72px auto 0;padding:26px 32px 56px;border-top:1px solid #E4E0D8;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#8A857D">
+    <span>Jorge de Lima · Senior Product Designer · 2026</span>
+    <span>Powered by Jorge &amp; Claude</span>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;proofPoints&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;testimonials&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;animate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
+class Component extends DCLogic {
+  async componentDidMount() {
+    const fx = await import('./motion-fx.js');
+    this.fx = fx;
+    if (this.props.animate !== false) {
+      fx.heroStagger(this.root);
+      fx.reveal(this.root);
+      fx.countUp(this.root);
+    }
+    fx.cardHover(this.root);
+  }
+  get root() { return document; }
+  renderVals() {
+    return {
+      proofPoints: this.props.proofPoints !== false,
+      testimonials: this.props.testimonials !== false
+    };
+  }
+}
+
+</script>
+</body>
+</html>
