@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/motion@11.18.2/dist/motion.js"></script>
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#F7F5F2;color:#16181C;font-family:'Instrument Sans','Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:#16181C;text-decoration:none;}
+  a:hover{color:#F15A22;}
+  ::selection{background:#F15A22;color:#FFF;}
+  :focus-visible{outline:2px solid #F15A22;outline-offset:3px;}
+  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#F7F5F2">
+
+  <header style="position:sticky;top:0;z-index:20;background:rgba(247,245,242,0.86);backdrop-filter:blur(12px);border-bottom:1px solid #E4E0D8">
+    <div style="max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="index.html" style="display:flex;align-items:center;gap:10px">
+        <img src="JorgeBrand.png" alt="Jorge de Lima" style="width:24px;height:24px;border-radius:5px;flex-shrink:0;display:block">
+        <span style="font-size:15px;font-weight:600;letter-spacing:-0.015em">Jorge de Lima</span>
+      </a>
+      <nav aria-label="Primary" style="display:flex;align-items:center;gap:26px;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.08em;text-transform:uppercase">
+        <a href="index.html#work">Work</a>
+        <a href="about.html">About</a>
+        <a href="https://drive.google.com/file/d/1Ngj1LA45lq3D074LdzEIiqrNIhVst-Ym/view?usp=sharing" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px">Resume <span style="color:#A29C93">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main style="max-width:1180px;margin:0 auto;padding:0 32px">
+
+    <section style="padding:72px 0 0">
+      <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8A857D;margin:0 0 24px">Case study 07 · Unleashed Software</p>
+      <h1 style="font-size:clamp(36px,5.6vw,64px);font-weight:500;letter-spacing:-0.035em;line-height:1;margin:0;max-width:22ch;text-wrap:balance">Operational clarity at scale</h1>
+      <p style="font-size:19px;line-height:1.55;color:#4A4740;margin:26px 0 0;max-width:56ch;text-wrap:pretty">Redesigning the Unleashed dashboard around decision velocity instead of data volume.</p>
+    </section>
+
+    <figure style="margin:44px 0 0;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden;background:#FFFFFF">
+      <img src="unl_hero.png" alt="Unleashed inventory operator in a warehouse" style="width:100%;display:block">
+    </figure>
+
+    <section aria-label="Hypothesis ledger" style="margin:44px 0 0;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 28px;border-bottom:1px solid #EFEBE3;background:rgba(241,90,34,0.045);flex-wrap:wrap">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#F15A22;margin:0">Hypothesis ledger</p>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:0">Shipped · outcomes directional</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+        <div style="padding:24px 28px;border-right:1px solid #EFEBE3">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A857D;margin:0 0 10px">Hypothesis</p>
+          <p style="font-size:15.5px;line-height:1.55;margin:0;text-wrap:pretty">If the dashboard reduces interpretation time rather than adding more data, teams will make faster operational calls and stop exporting to spreadsheets.</p>
+        </div>
+        <div style="padding:24px 28px;border-right:1px solid #EFEBE3">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A857D;margin:0 0 10px">Testing for</p>
+          <ul style="margin:0;padding-left:16px;font-size:15.5px;line-height:1.6">
+            <li>Higher signal-to-noise ratio</li>
+            <li>Increased daily dashboard engagement</li>
+            <li>Reduced dependency on external exports</li>
+          </ul>
+        </div>
+        <div style="padding:24px 28px">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A857D;margin:0 0 10px">Status</p>
+          <span style="display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6E6A64;border:1px solid #E4E0D8;padding:7px 12px;border-radius:100px"><span style="width:7px;height:7px;border:1.5px solid #A29C93;border-radius:50%"></span>Shipped — directional results</span>
+          <p style="font-size:15px;line-height:1.55;color:#6E6A64;margin:12px 0 0">Engagement up and export reliance down. No published figures I can share, so the outcomes here are directional rather than measured.</p>
+        </div>
+      </div>
+    </section>
+
+    <div style="display:grid;grid-template-columns:212px minmax(0,1fr);gap:64px;align-items:start;padding:72px 0 0">
+
+      <aside style="position:sticky;top:96px">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#8A857D;margin:0 0 12px">Contents</p>
+        <div style="height:2px;background:#E4E0D8;border-radius:2px;overflow:hidden;margin-bottom:18px">
+          <span data-progress style="display:block;height:100%;width:100%;background:#F15A22;transform:scaleX(0)"></span>
+        </div>
+        <nav style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;line-height:1.35">
+          <a data-rail-link="context" href="#context" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Context & challenge</a>
+          <a data-rail-link="role" href="#role" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Role & contribution</a>
+          <a data-rail-link="research" href="#research" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Research & insights</a>
+          <a data-rail-link="goals" href="#goals" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Goals & strategic objectives</a>
+          <a data-rail-link="strategy" href="#strategy" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Design strategy & approach</a>
+          <a data-rail-link="solution" href="#solution" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Solution</a>
+          <a data-rail-link="results" href="#results" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Results & impact</a>
+          <a data-rail-link="reflection" href="#reflection" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Reflection & learnings</a>
+        </nav>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#A29C93;margin:28px 0 0;padding-top:16px;border-top:1px solid #E4E0D8;line-height:1.7">Senior Creative Designer<br>Dashboard · SaaS<br>Shipped</p>
+      </aside>
+
+      <article data-article style="padding-bottom:24px">
+
+        <section id="context" style="margin:0 0 56px">
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Context & challenge</h2>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">The Unleashed dashboard served inventory-heavy businesses managing complex supply chains. Data was abundant but lacked prioritisation.</p>
+          <blockquote data-reveal style="margin:0 0 24px;padding:22px 26px;background:#FFFEFC;border:1px solid #E4E0D8;border-left:3px solid #F15A22;border-radius:10px;max-width:62ch"><p style="font-size:16.5px;line-height:1.65;margin:0;color:#37342E;text-wrap:pretty">Users weren't struggling with access — they were struggling with meaning.</p></blockquote>
+        </section>
+
+        <section id="role" style="margin:0 0 56px">
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Role & contribution</h2>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">As Senior Creative Designer on the dashboard workstream, I owned the reframing as much as the interface.</p>
+          <ul data-reveal style="margin:0 0 20px;padding-left:20px;max-width:66ch">
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Reframed dashboard objectives around decision velocity</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Defined the hierarchy strategy for data surfacing</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Led cross-functional alignment on KPI prioritisation</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Delivered the interaction and layout redesign</li>
+          </ul>
+        </section>
+
+        <section id="research" style="margin:0 0 56px">
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Research & insights</h2>
+          <ol data-reveal style="margin:0 0 24px;padding:0;list-style:none;display:grid;gap:1px;background:#E4E0D8;border:1px solid #E4E0D8;border-radius:10px;overflow:hidden;max-width:66ch">
+            <li style="background:#FFFEFC;padding:18px 20px;display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">01</span><span style="font-size:16px;line-height:1.6;color:#37342E">Users relied on external spreadsheets rather than the dashboard itself.</span></li>
+            <li style="background:#FFFEFC;padding:18px 20px;display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">02</span><span style="font-size:16px;line-height:1.6;color:#37342E">Critical metrics were buried beneath everything else the system knew.</span></li>
+            <li style="background:#FFFEFC;padding:18px 20px;display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">03</span><span style="font-size:16px;line-height:1.6;color:#37342E">Cognitive overload slowed decision-making, even for experienced operators.</span></li>
+          </ol>
+          <blockquote data-reveal style="margin:0 0 24px;padding:22px 26px;background:#FFFEFC;border:1px solid #E4E0D8;border-left:3px solid #F15A22;border-radius:10px;max-width:62ch"><p style="font-size:16.5px;line-height:1.65;margin:0;color:#37342E;text-wrap:pretty">Dashboards should reduce interpretation time, not increase it.</p></blockquote>
+          <figure data-reveal style="margin:0 0 24px;max-width:66ch"><img src="unl_research.png" alt="Affinity mapping session synthesis" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"><figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:10px 0 0"><span style="color:#F15A22">Research</span>Session synthesis — clustering what teams actually used</figcaption></figure>
+        </section>
+
+        <section id="goals" style="margin:0 0 56px">
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Goals & strategic objectives</h2>
+          <ul data-reveal style="margin:0 0 20px;padding-left:20px;max-width:66ch">
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Improve signal-to-noise ratio</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Increase daily dashboard engagement</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Reduce dependency on external exports</li>
+          </ul>
+        </section>
+
+        <section id="strategy" style="margin:0 0 56px">
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Design strategy & approach</h2>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">Four principles carried the redesign, applied in this order so that prioritisation came before presentation.</p>
+          <ul data-reveal style="margin:0 0 20px;padding-left:20px;max-width:66ch">
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Data hierarchy — what has to be seen first, every time</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Progressive detail — depth on demand rather than by default</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Modular card architecture — composable, reorderable widgets</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Clear visual weighting — importance readable at a glance</li>
+          </ul>
+          <figure data-reveal style="margin:0 0 24px;max-width:66ch"><img src="unl_before_after.png" alt="Legacy Unleashed dashboard" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"><figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:10px 0 0"><span style="color:#F15A22">Before</span>Legacy dashboard — everything at equal weight</figcaption></figure>
+        </section>
+
+        <section id="solution" style="margin:0 0 56px">
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Solution</h2>
+          <ul data-reveal style="margin:0 0 20px;padding-left:20px;max-width:66ch">
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Reorganised KPI structure</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Introduced modular dashboard widgets</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Improved filtering and drill-down interaction</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Enhanced visual consistency and scanning clarity</li>
+          </ul>
+          <figure data-reveal style="margin:0 0 24px;max-width:66ch"><img src="unl_final.png" alt="Redesigned dashboard with widgets, filters and drill-down" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"><figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:10px 0 0"><span style="color:#F15A22">Final UI</span>Dashboard, desktop — widgets, filters and drill-down</figcaption></figure>
+        </section>
+
+        <section id="results" style="margin:0 0 56px">
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Results & impact</h2>
+          <ul data-reveal style="margin:0 0 20px;padding-left:20px;max-width:66ch">
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Increased dashboard engagement</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Reduced export reliance</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Improved user confidence in operational insights</li>
+          </ul>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">The honest caveat: these outcomes are directional. The team tracked engagement and export behaviour, but I have no published figures to attach to them.</p>
+        </section>
+
+        <section id="reflection" style="margin:0 0 8px">
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Reflection & learnings</h2>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">Data-heavy environments demand ruthless prioritisation. This project reinforced the importance of designing for decision speed, not data density — the hardest conversations were about what to remove, not what to add.</p>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">Future direction: predictive alerts and anomaly surfacing, so the dashboard raises its hand instead of waiting to be read.</p>
+        </section>
+
+      </article>
+    </div>
+
+    <a data-card data-reveal href="unleashed-mobile-app.html" style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:30px 36px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;margin:56px 0 0;isolation:isolate;flex-wrap:wrap">
+      <span data-glow aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
+      <div style="position:relative;z-index:2">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8A857D;margin:0 0 10px">Next case study</p>
+        <p style="font-size:25px;font-weight:500;letter-spacing:-0.03em;margin:0">Operational mobility</p>
+      </div>
+      <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#F15A22">Unleashed mobile app →</span>
+    </a>
+
+  </main>
+
+  <footer style="max-width:1180px;margin:56px auto 0;padding:26px 32px 56px;border-top:1px solid #E4E0D8;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#8A857D">
+    <a href="index.html">← All work</a>
+    <span>hi@jorgedelima.design</span>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  async componentDidMount() {
+    const fx = await import('./motion-fx.js');
+    fx.reveal(document);
+    fx.countUp(document);
+    fx.cardHover(document);
+    fx.scrollProgress(document);
+  }
+  renderVals() { return {}; }
+}
+
+</script>
+</body>
+</html>
