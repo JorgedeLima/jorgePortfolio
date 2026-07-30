@@ -25,12 +25,7 @@
     [data-r]{grid-template-columns:1fr !important;}
     [data-r="rail"]{gap:40px !important;padding-top:48px !important;}
     [data-r="rail"]>aside{position:static !important;top:auto !important;}
-    [data-r="row"]{align-items:start !important;gap:10px !important;}
     [data-r="cardhead"]{flex-wrap:wrap !important;}
-    [data-r="legend"]{flex-direction:column !important;gap:8px !important;grid-template-columns:none !important;}
-    [data-r="split"]>div:last-child{min-height:0 !important;aspect-ratio:16/10;border-left:none !important;border-top:1px solid #E4E0D8 !important;padding:0 !important;}
-    [data-r="split"]>figure:last-child{border-left:none !important;border-top:1px solid #E4E0D8 !important;}
-    [data-r="split"]>div:last-child img{width:100% !important;height:100% !important;object-fit:cover;object-position:center top;}
     main{padding-left:20px !important;padding-right:20px !important;}
     header>div,footer{padding-left:20px !important;padding-right:20px !important;}
     [data-logo]{white-space:nowrap;}
@@ -44,7 +39,6 @@
     header>div,footer{padding-left:16px !important;padding-right:16px !important;}
   }
 </style>
-<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><rect width="200" height="200" fill="#F7F5F2"></rect><rect x="76" y="46" width="48" height="108" rx="8" fill="#16181C"></rect><rect x="82" y="52" width="36" height="96" rx="4" fill="#F15A22"></rect><circle cx="100" cy="140" r="4" fill="#F7F5F2"></circle></svg></template>
 </helmet>
 
 <div style="min-height:100vh;background:#F7F5F2">
@@ -68,35 +62,31 @@
     <section style="padding:72px 0 0">
       <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#8A857D;margin:0 0 24px">Case study 08 · Unleashed Software</p>
       <h1 style="font-size:clamp(36px,5.6vw,64px);font-weight:500;letter-spacing:-0.035em;line-height:1;margin:0;max-width:22ch;text-wrap:balance">Operational mobility</h1>
-      <p style="font-size:19px;line-height:1.55;color:#4A4740;margin:26px 0 0;max-width:56ch;text-wrap:pretty">Rebuilding the Unleashed mobile app around contextual intent rather than feature parity.</p>
+      <p style="font-size:19px;line-height:1.55;color:#4A4740;margin:26px 0 0;max-width:56ch;text-wrap:pretty">Designing the Unleashed mobile app around contextual intent rather than feature parity.</p>
     </section>
 
     <figure style="margin:44px 0 0;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden;background:#FFFFFF">
       <img loading="lazy" decoding="async" src="unlapp_hero.jpg" alt="Unleashed mobile app in use, orders screen" style="width:100%;display:block">
     </figure>
 
-    <section aria-label="Hypothesis ledger" style="margin:44px 0 0;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden">
+    <section aria-label="Hypothesis ledger" style="margin:32px 0 0;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden">
       <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 28px;border-bottom:1px solid #EFEBE3;background:rgba(241,90,34,0.045);flex-wrap:wrap">
         <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:#F15A22;margin:0">Hypothesis ledger</p>
-        <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:0">Shipped · outcomes directional</p>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:0">Working assumption · no formal research on record</p>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
         <div style="padding:24px 28px;border-right:1px solid #EFEBE3">
-          <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A857D;margin:0 0 10px">Hypothesis</p>
-          <p style="font-size:15.5px;line-height:1.55;margin:0;text-wrap:pretty">If mobile prioritises the few high-frequency checks people actually do away from a desk, engagement and task efficiency rise — without porting the full desktop feature set.</p>
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A857D;margin:0 0 10px">Working assumption</p>
+          <p style="font-size:15.5px;line-height:1.55;margin:0;text-wrap:pretty">Prioritising a small set of high-frequency mobile tasks over full feature parity would improve mobile engagement and task efficiency.</p>
         </div>
         <div style="padding:24px 28px;border-right:1px solid #EFEBE3">
-          <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A857D;margin:0 0 10px">Testing for</p>
-          <ul style="margin:0;padding-left:16px;font-size:15.5px;line-height:1.6">
-            <li>High-frequency operational tasks enabled</li>
-            <li>Less friction in mobile interactions</li>
-            <li>Improved responsiveness and perceived speed</li>
-          </ul>
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A857D;margin:0 0 10px">Note</p>
+          <p style="font-size:15.5px;line-height:1.55;margin:0;text-wrap:pretty">No formal research sessions are confirmed for this project. The rationale below is inference from context, not documented findings.</p>
         </div>
         <div style="padding:24px 28px">
           <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A857D;margin:0 0 10px">Status</p>
-          <span style="display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6E6A64;border:1px solid #E4E0D8;padding:7px 12px;border-radius:100px"><span style="width:7px;height:7px;border:1.5px solid #A29C93;border-radius:50%"></span>Shipped — directional results</span>
-          <p style="font-size:15px;line-height:1.55;color:#6E6A64;margin:12px 0 0">Mobile engagement and task efficiency both improved. Directional again: no published figures to attach.</p>
+          <span style="display:inline-flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6E6A64;border:1px solid #E4E0D8;padding:7px 12px;border-radius:100px"><span style="width:7px;height:7px;background:#A29C93;border-radius:50%"></span>Shipped — no metrics</span>
+          <p style="font-size:15px;line-height:1.55;color:#6E6A64;margin:12px 0 0">Shipped; no outcome data was collected.</p>
         </div>
       </div>
     </section>
@@ -109,103 +99,73 @@
           <span data-progress style="display:block;height:100%;width:100%;background:#F15A22;transform:scaleX(0)"></span>
         </div>
         <nav style="display:flex;flex-direction:column;gap:11px;font-size:13.5px;line-height:1.35">
-          <a data-rail-link="context" href="#context" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Context & challenge</a>
-          <a data-rail-link="role" href="#role" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Role & contribution</a>
-          <a data-rail-link="research" href="#research" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Research & insights</a>
-          <a data-rail-link="goals" href="#goals" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Goals & strategic objectives</a>
-          <a data-rail-link="strategy" href="#strategy" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Design strategy & approach</a>
+          <a data-rail-link="context" href="#context" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Context &amp; challenge</a>
+          <a data-rail-link="role" href="#role" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Role &amp; contribution</a>
+          <a data-rail-link="rationale" href="#rationale" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Design rationale</a>
+          <a data-rail-link="goals" href="#goals" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Goals &amp; objectives</a>
+          <a data-rail-link="strategy" href="#strategy" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Strategy &amp; approach</a>
           <a data-rail-link="solution" href="#solution" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Solution</a>
-          <a data-rail-link="results" href="#results" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Results & impact</a>
-          <a data-rail-link="reflection" href="#reflection" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Reflection & learnings</a>
+          <a data-rail-link="status" href="#status" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Status</a>
+          <a data-rail-link="reflection" href="#reflection" style="display:flex;align-items:center;gap:10px;color:#8A857D"><span data-tick style="width:10px;height:2px;background:#D8D3CA;flex-shrink:0"></span>Reflection</a>
         </nav>
-        <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#A29C93;margin:28px 0 0;padding-top:16px;border-top:1px solid #E4E0D8;line-height:1.7">Senior Creative Designer<br>Mobile app · SaaS<br>Shipped</p>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:#A29C93;margin:28px 0 0;padding-top:16px;border-top:1px solid #E4E0D8;line-height:1.7">Senior Creative Designer<br>Mobile · UX &amp; visual<br>Shipped</p>
       </aside>
 
       <article data-article style="padding-bottom:24px">
 
         <section id="context" style="margin:0 0 56px">
-          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Context & challenge</h2>
-          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">Inventory and operational users needed real-time visibility outside the office. The existing mobile experience lacked both parity and clarity — and the instinct in the room was to close the parity gap.</p>
-          <blockquote data-reveal style="margin:0 0 24px;padding:22px 26px;background:#FFFEFC;border:1px solid #E4E0D8;border-left:3px solid #F15A22;border-radius:10px;max-width:62ch"><p style="font-size:16.5px;line-height:1.65;margin:0;color:#37342E;text-wrap:pretty">The goal wasn't feature parity — it was contextual mobility.</p></blockquote>
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Context &amp; challenge</h2>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0;max-width:66ch;text-wrap:pretty">Inventory and operational users needed a way to check on things away from a desk, and the existing mobile app didn't clearly serve that need.</p>
         </section>
 
         <section id="role" style="margin:0 0 56px">
-          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Role & contribution</h2>
-          <ul data-reveal style="margin:0 0 20px;padding-left:20px;max-width:66ch">
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Defined the mobile-first prioritisation framework</li>
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Led the experience simplification strategy</li>
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Coordinated with backend teams on data optimisation</li>
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Oversaw interaction design and mobile UI system alignment</li>
-          </ul>
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Role &amp; contribution</h2>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">Jorge (Senior Creative Designer) and Junior (Principal Designer) owned UX and visual design, including the app's look and feel. Development was outsourced to an external, China-based development partner; the design team directed the build rather than writing it.</p>
+          <div data-reveal style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:#E4E0D8;border:1px solid #E4E0D8;border-radius:10px;overflow:hidden;max-width:66ch">
+            <div style="background:#FFFEFC;padding:16px 18px"><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A857D;margin:0 0 6px">Design</p><p style="font-size:14.5px;margin:0">Jorge, Junior</p></div>
+            <div style="background:#FFFEFC;padding:16px 18px"><p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:#8A857D;margin:0 0 6px">Development</p><p style="font-size:14.5px;margin:0">Outsourced partner (China)</p></div>
+          </div>
         </section>
 
-        <section id="research" style="margin:0 0 56px">
-          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Research & insights</h2>
-          <ol data-reveal style="margin:0 0 24px;padding:0;list-style:none;display:grid;gap:1px;background:#E4E0D8;border:1px solid #E4E0D8;border-radius:10px;overflow:hidden;max-width:66ch">
-            <li style="background:#FFFEFC;padding:18px 20px;display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">01</span><span style="font-size:16px;line-height:1.6;color:#37342E">Users opened mobile primarily for quick checks, not sustained work.</span></li>
-            <li style="background:#FFFEFC;padding:18px 20px;display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">02</span><span style="font-size:16px;line-height:1.6;color:#37342E">Complex workflows were rarely completed on a phone at all.</span></li>
-            <li style="background:#FFFEFC;padding:18px 20px;display:grid;grid-template-columns:28px minmax(0,1fr);gap:14px"><span style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#F15A22">03</span><span style="font-size:16px;line-height:1.6;color:#37342E">Speed and clarity outweighed feature breadth every time.</span></li>
-          </ol>
-          <figure data-reveal style="margin:0 0 24px;max-width:66ch"><img loading="lazy" decoding="async" src="unlapp_research.jpg" alt="Barcode scanning on the warehouse floor" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"><figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:10px 0 0"><span style="color:#F15A22">Research</span>Task context — scanning on the floor, not at a desk</figcaption></figure>
+        <section id="rationale" style="margin:0 0 56px">
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 8px">Design rationale</h2>
+          <p data-reveal style="font-size:13px;font-style:italic;color:#8A857D;margin:0 0 16px">Renamed from "Research &amp; insights" — no formal research sessions are confirmed for this project.</p>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0;max-width:66ch;text-wrap:pretty">Mobile use in an operational, warehouse-type context tends toward quick checks rather than sustained work, which argued for a small set of high-frequency tasks done well rather than porting the full desktop feature set across.</p>
         </section>
 
         <section id="goals" style="margin:0 0 56px">
-          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Goals & strategic objectives</h2>
-          <ul data-reveal style="margin:0 0 20px;padding-left:20px;max-width:66ch">
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Enable high-frequency operational tasks</li>
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Goals &amp; strategic objectives</h2>
+          <ul data-reveal style="margin:0;padding-left:20px;max-width:66ch">
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Enable high-frequency operational tasks on mobile</li>
             <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Reduce friction in mobile interactions</li>
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Improve responsiveness and perceived speed</li>
+            <li style="font-size:16.5px;line-height:1.6;color:#37342E">Improve perceived speed</li>
           </ul>
         </section>
 
         <section id="strategy" style="margin:0 0 56px">
-          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Design strategy & approach</h2>
-          <ul data-reveal style="margin:0 0 20px;padding-left:20px;max-width:66ch">
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Contextual prioritisation — what matters when you are standing in a warehouse</li>
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Streamlined task flows</li>
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Simplified navigation architecture</li>
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Clear touch interaction affordances</li>
-          </ul>
-          <figure data-reveal style="margin:0 0 24px;max-width:66ch"><img loading="lazy" decoding="async" src="unlapp_flows.jpg" alt="Concept, flow and interface exploration tree with discarded branches" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"><figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:10px 0 0"><span style="color:#F15A22">Exploration</span>Concept → flow → interface, with the branches we cut</figcaption></figure>
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Design strategy &amp; approach</h2>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0;max-width:66ch;text-wrap:pretty">Contextual prioritisation over feature parity: streamlined task flows, simplified navigation, clear touch affordances.</p>
         </section>
 
         <section id="solution" style="margin:0 0 56px">
           <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Solution</h2>
-          <ul data-reveal style="margin:0 0 20px;padding-left:20px;max-width:66ch">
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Redesigned core mobile flows</li>
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Reduced step count in key actions</li>
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Improved search and quick-access functions</li>
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Aligned UI with the desktop ecosystem for continuity</li>
-          </ul>
-          <figure data-reveal style="margin:0 0 24px;max-width:66ch"><img loading="lazy" decoding="async" src="unlapp_final.jpg" alt="Unleashed mobile app screens across key flows" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"><figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;color:#8A857D;margin:10px 0 0"><span style="color:#F15A22">Final UI</span>Mobile app screens — key flows</figcaption></figure>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 24px;max-width:66ch;text-wrap:pretty">Directed the mobile UI redesign and partnered with the outsourced development team to get the design built as intended: fewer steps in key actions, improved search and quick-access patterns.</p>
+          <figure data-reveal style="margin:0;max-width:66ch"><img loading="lazy" decoding="async" src="unlapp_final.jpg" alt="Unleashed mobile app screens across key flows" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF"></figure>
         </section>
 
-        <section id="results" style="margin:0 0 56px">
-          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Results & impact</h2>
-          <ul data-reveal style="margin:0 0 20px;padding-left:20px;max-width:66ch">
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Increased mobile engagement</li>
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Improved task completion efficiency</li>
-            <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Strengthened ecosystem coherence</li>
-          </ul>
+        <section id="status" style="margin:0 0 56px">
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Status</h2>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0">Shipped. No outcome metrics available.</p>
         </section>
 
         <section id="reflection" style="margin:0 0 8px">
-          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Reflection & learnings</h2>
-          <blockquote data-reveal style="margin:0 0 24px;padding:22px 26px;background:#FFFEFC;border:1px solid #E4E0D8;border-left:3px solid #F15A22;border-radius:10px;max-width:62ch"><p style="font-size:16.5px;line-height:1.65;margin:0;color:#37342E;text-wrap:pretty">Mobile isn't a smaller desktop — it's a different intent space.</p></blockquote>
-          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0 0 20px;max-width:66ch;text-wrap:pretty">This project sharpened how the team defines feature priority: by context rather than parity. Future potential is offline-first capability for warehouse environments, where connectivity is the real constraint.</p>
+          <h2 data-reveal style="font-size:13px;font-family:'IBM Plex Mono',monospace;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:#F15A22;margin:0 0 16px">Reflection &amp; learnings</h2>
+          <blockquote data-reveal style="margin:0 0 20px;padding:20px 24px;background:#FFFEFC;border:1px solid #E4E0D8;border-left:3px solid #F15A22;border-radius:10px;max-width:62ch"><p style="font-size:17px;font-style:italic;line-height:1.6;margin:0;color:#37342E">Mobile isn't a smaller desktop — it's a different intent space.</p></blockquote>
+          <p data-reveal style="font-size:17.5px;line-height:1.7;color:#37342E;margin:0;max-width:66ch;text-wrap:pretty">This project sharpened how the team defines feature priority: by context rather than parity. Future potential is offline-first capability for warehouse environments, where connectivity is the real constraint.</p>
         </section>
 
       </article>
     </div>
-
-    <a data-card data-reveal href="b4b-registration.html" style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:30px 36px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;margin:56px 0 0;isolation:isolate;flex-wrap:wrap">
-      <span data-glow aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%)"></span>
-      <div style="position:relative;z-index:2">
-        <p style="font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:0.12em;text-transform:uppercase;color:#8A857D;margin:0 0 10px">Next case study</p>
-        <p style="font-size:25px;font-weight:500;letter-spacing:-0.03em;margin:0">Designing trust at the entry point</p>
-      </div>
-      <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#F15A22">Booking.com for Business →</span>
-    </a>
 
   </main>
 
@@ -222,8 +182,6 @@ class Component extends DCLogic {
   async componentDidMount() {
     const fx = await import('./motion-fx.js');
     fx.reveal(document);
-    fx.countUp(document);
-    fx.cardHover(document);
     fx.scrollProgress(document);
   }
   renderVals() { return {}; }
