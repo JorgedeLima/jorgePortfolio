@@ -20,6 +20,29 @@
   ::selection{background:#F15A22;color:#FFF;}
   :focus-visible{outline:2px solid #F15A22;outline-offset:3px;}
   @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+
+  @media (max-width:860px){
+    [data-r]{grid-template-columns:1fr !important;}
+    [data-r="rail"]{gap:40px !important;padding-top:48px !important;}
+    [data-r="rail"]>aside{position:static !important;top:auto !important;}
+    [data-r="row"]{align-items:start !important;gap:10px !important;}
+    [data-r="cardhead"]{flex-wrap:wrap !important;}
+    [data-r="legend"]{flex-direction:column !important;gap:8px !important;grid-template-columns:none !important;}
+    [data-r="split"]>div:last-child{min-height:0 !important;aspect-ratio:16/10;border-left:none !important;border-top:1px solid #E4E0D8 !important;padding:0 !important;}
+    [data-r="split"]>figure:last-child{border-left:none !important;border-top:1px solid #E4E0D8 !important;}
+    [data-r="split"]>div:last-child img{width:100% !important;height:100% !important;object-fit:cover;object-position:center top;}
+    main{padding-left:20px !important;padding-right:20px !important;}
+    header>div,footer{padding-left:20px !important;padding-right:20px !important;}
+    [data-logo]{white-space:nowrap;}
+    nav{gap:18px !important;}
+    section,figure,blockquote,ol,ul,article,aside{max-width:100% !important;}
+  }
+  @media (max-width:560px){
+    nav{gap:13px !important;font-size:10.5px !important;}
+    [data-logo] span:last-child{font-size:14px !important;}
+    main{padding-left:16px !important;padding-right:16px !important;}
+    header>div,footer{padding-left:16px !important;padding-right:16px !important;}
+  }
 </style>
 </helmet>
 
@@ -27,7 +50,7 @@
 
   <header style="position:sticky;top:0;z-index:20;background:rgba(247,245,242,0.86);backdrop-filter:blur(12px);border-bottom:1px solid #E4E0D8">
     <div style="max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px">
-      <a href="index.html" style="display:flex;align-items:center;gap:10px">
+      <a href="index.html" data-logo style="display:flex;align-items:center;gap:10px">
         <img decoding="async" src="JorgeBrand.png" alt="Jorge de Lima" style="width:24px;height:24px;border-radius:5px;flex-shrink:0;display:block">
         <span style="font-size:15px;font-weight:600;letter-spacing:-0.015em">Jorge de Lima</span>
       </a>
@@ -77,7 +100,7 @@
       </div>
     </section>
 
-    <div style="display:grid;grid-template-columns:212px minmax(0,1fr);gap:64px;align-items:start;padding:72px 0 0">
+    <div data-r="rail" style="display:grid;grid-template-columns:212px minmax(0,1fr);gap:64px;align-items:start;padding:72px 0 0">
 
       <aside style="position:sticky;top:96px">
         <p style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:#8A857D;margin:0 0 12px">Contents</p>
