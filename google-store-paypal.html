@@ -32,7 +32,8 @@
   a:hover{color:#F15A22;}
   ::selection{background:#F15A22;color:#FFF;}
   :focus-visible{outline:2px solid #F15A22;outline-offset:3px;}
-  @media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important;}}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{animation:none !important;transition:none !important;}}
 
   @media (max-width:860px){
     [data-r]{grid-template-columns:1fr !important;}
