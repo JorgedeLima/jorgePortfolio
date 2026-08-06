@@ -86,8 +86,11 @@
         <p data-hero style="font-size:18.5px;line-height:1.65;color:#37342E;margin:0 0 18px;max-width:60ch;text-wrap:pretty">On Booking.com for Business that meant fixing what we could inside a legacy system before committing to a full redesign, testing each change to confirm it actually worked rather than guessing. On Unleashed's dashboard it meant descoping an operational data dump down to what teams actually needed to make faster decisions.</p>
         <p data-hero style="font-size:18.5px;line-height:1.65;color:#37342E;margin:0;max-width:60ch;text-wrap:pretty">I work closely with research, engineering and product throughout a project, not after the fact, because the insights that matter usually surface in that overlap.</p>
       </div>
-      <figure data-reveal style="margin:0;aspect-ratio:4/5;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden;background:#EFEBE3">
-        <video src="AboutMe_hero.mp4" autoplay muted loop playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+      <figure data-reveal style="margin:0;position:relative;aspect-ratio:4/5;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden;background:#EFEBE3">
+        <video src="AboutMe_hero.mp4" autoplay muted playsinline preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+        <button data-replay type="button" aria-label="Play video again" title="Play again" style="position:absolute;bottom:14px;right:14px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;padding:0;border:none;border-radius:50%;background:rgba(22,24,28,0.62);color:#FFF;cursor:pointer;opacity:0;visibility:hidden;pointer-events:none;will-change:opacity;transition:opacity 0.3s,background 0.2s" style-hover="background:#F15A22">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v4.5h4.5"></path></svg>
+        </button>
       </figure>
     </section>
 
@@ -161,12 +164,41 @@ class Component extends DCLogic {
     fx.heroStagger(document);
     fx.reveal(document);
     const v = document.querySelector('video[src="AboutMe_hero.mp4"]');
-    if (v) {
-      v.muted = true;
-      v.loop = true;
-      v.playsInline = true;
-      v.play().catch(() => {});
-    }
+    const btn = document.querySelector('[data-replay]');
+    if (!v) return;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.volume = 0;
+    v.loop = false;
+    v.playsInline = true;
+    // Audio can never be re-enabled, by any path.
+    v.addEventListener('volumechange', () => {
+      if (!v.muted || v.volume !== 0) { v.muted = true; v.volume = 0; }
+    });
+    // Hidden means truly hidden: no focus, no pointer target, not announced.
+    const show = () => {
+      if (!btn) return;
+      btn.style.visibility = 'visible';
+      btn.style.pointerEvents = 'auto';
+      btn.style.opacity = '1';
+      btn.removeAttribute('inert');
+    };
+    const hide = () => {
+      if (!btn) return;
+      btn.style.opacity = '0';
+      btn.style.pointerEvents = 'none';
+      btn.setAttribute('inert', '');
+      setTimeout(() => { if (btn.style.opacity === '0') btn.style.visibility = 'hidden'; }, 320);
+    };
+    v.play().catch(show);
+    if (!btn) return;
+    btn.setAttribute('inert', '');
+    v.addEventListener('ended', show);
+    btn.addEventListener('click', () => {
+      hide();
+      v.currentTime = 0;
+      v.play().catch(show);
+    });
   }
   renderVals() { return {}; }
 }
