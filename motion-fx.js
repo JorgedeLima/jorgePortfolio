@@ -117,10 +117,10 @@ export async function scrollProgress(root) {
 
   const paint = i => links.forEach((l, n) => {
     const on = n === i;
-    l.style.color = on ? '#16181C' : '#8A857D';
+    l.style.color = on ? '#16181C' : '#6E6A64';
     const tick = l.querySelector('[data-tick]');
     if (tick) {
-      tick.style.background = on ? '#F15A22' : '#D8D3CA';
+      tick.style.background = on ? '#B8430F' : '#D8D3CA';
       tick.style.width = on ? '20px' : '10px';
     }
   });
