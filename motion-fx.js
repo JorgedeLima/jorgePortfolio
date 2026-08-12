@@ -95,13 +95,17 @@ export async function countUp(root) {
     const dec = (el.dataset.countDec | 0);
     const pre = el.dataset.countPre || '';
     const suf = el.dataset.countSuf || '';
+    const group = el.dataset.countGroup !== undefined;
+    const fmt = v => group
+      ? v.toLocaleString('en-US', { minimumFractionDigits: dec, maximumFractionDigits: dec })
+      : v.toFixed(dec);
     let done = false;
     m.inView(el, () => {
       if (done) return;
       done = true;
       m.animate(0, to, {
         duration: 1.1, ease: EASE,
-        onUpdate: v => { el.textContent = pre + v.toFixed(dec) + suf; }
+        onUpdate: v => { el.textContent = pre + fmt(v) + suf; }
       });
     });
   });
