@@ -262,6 +262,16 @@
             <li style="font-size:16.5px;line-height:1.6;color:#37342E;margin-bottom:8px">Introduced visual indicators for policy constraints</li>
             <li style="font-size:16.5px;line-height:1.6;color:#37342E">Improved the interaction patterns for editing and reviewing budgets</li>
           </ul>
+          <figure data-reveal style="margin:0 0 24px;max-width:66ch">
+            <div data-gif-frame style="position:relative;border:1px solid #E4E0D8;border-radius:12px;overflow:hidden;background:#FFFFFF;line-height:0">
+              <img data-gif decoding="async" src="HotelBudget_add_budget.gif" alt="Adding a hotel budget for a new country: choosing the location, then the budget field switching to that country's local currency" style="width:100%;display:block">
+              <canvas data-gif-still aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;display:none"></canvas>
+              <button data-gif-replay type="button" aria-label="Replay animation" title="Replay" style="position:absolute;bottom:14px;right:14px;width:38px;height:38px;display:flex;align-items:center;justify-content:center;padding:0;border:none;border-radius:50%;background:rgba(22,24,28,0.62);color:#FFF;cursor:pointer;opacity:0;visibility:hidden;pointer-events:none;will-change:opacity;transition:opacity 0.3s,background 0.2s" style-hover="background:#B8430F">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"></path><path d="M3 4v4.5h4.5"></path></svg>
+              </button>
+            </div>
+            <figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6E6A64;margin:10px 0 0"><span style="color:#B8430F">Interaction</span>Adding a budget abroad — currency follows the chosen location</figcaption>
+          </figure>
           <figure data-reveal style="margin:0;max-width:66ch">
             <img loading="lazy" decoding="async" src="budget_overview_dashboard.jpg" alt="Budget overview dashboard with per-city budgets and row-level actions" style="width:100%;display:block;border:1px solid #E4E0D8;border-radius:12px;background:#FFFFFF">
             <figcaption style="display:flex;align-items:baseline;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#6E6A64;margin:10px 0 0"><span style="color:#B8430F">Final UI</span>Budget overview — country, city and per-row actions</figcaption>
@@ -303,6 +313,117 @@ class Component extends DCLogic {
     fx.countUp(document);
     fx.cardHover(document);
     fx.scrollProgress(document);
+    this.setupGif();
+  }
+
+  // GIFs always loop and expose no playback API. To play once, we snapshot the
+  // last frame to a canvas, swap it in, and re-request the GIF on replay.
+  // Sum the real per-frame delays out of the GIF's Graphic Control Extensions
+  // rather than assuming a frame rate.
+  static gifDuration(buf) {
+    const b = new Uint8Array(buf);
+    let i = 13, total = 0;
+    if (b[10] & 0x80) i += 3 * (2 << (b[10] & 7)); // skip global colour table
+    const skipBlocks = () => { while (b[i]) i += b[i] + 1; i++; };
+    while (i < b.length) {
+      if (b[i] === 0x21) {
+        if (b[i + 1] === 0xF9) total += ((b[i + 5] << 8) | b[i + 4]) * 10; // delay, 1/100s
+        i += 2;
+        skipBlocks();
+      } else if (b[i] === 0x2C) {
+        const flags = b[i + 9];
+        i += 10;
+        if (flags & 0x80) i += 3 * (2 << (flags & 7)); // local colour table
+        i++; // LZW min code size
+        skipBlocks();
+      } else break;
+    }
+    return total;
+  }
+
+  setupGif() {
+    const wrap = document.querySelector('[data-gif-frame]');
+    if (!wrap) return;
+    const img = wrap.querySelector('[data-gif]');
+    const still = wrap.querySelector('[data-gif-still]');
+    const btn = wrap.querySelector('[data-gif-replay]');
+    const base = img.getAttribute('src');
+    let DURATION = 20150; // this file's measured total; re-derived from the bytes below
+    let timer, blobUrl;
+
+    const showBtn = () => {
+      btn.style.visibility = 'visible';
+      btn.style.pointerEvents = 'auto';
+      btn.style.opacity = '1';
+      btn.removeAttribute('inert');
+    };
+    const hideBtn = () => {
+      btn.style.opacity = '0';
+      btn.style.pointerEvents = 'none';
+      btn.setAttribute('inert', '');
+      setTimeout(() => { if (btn.style.opacity === '0') btn.style.visibility = 'hidden'; }, 320);
+    };
+    const freeze = () => {
+      const w = img.naturalWidth, h = img.naturalHeight;
+      if (!w) return showBtn();
+      still.width = w;
+      still.height = h;
+      still.getContext('2d').drawImage(img, 0, 0, w, h);
+      still.style.display = 'block';
+      img.style.visibility = 'hidden';
+      showBtn();
+    };
+    // A new object URL restarts the animation from frame 0 with no network
+    // request — a ?cachebuster on src is rejected by the host (403).
+    const play = () => {
+      clearTimeout(timer);
+      hideBtn();
+      still.style.display = 'none';
+      img.style.visibility = 'visible';
+      if (blobUrl) {
+        const prev = img.src;
+        img.src = blobUrl;
+        if (prev.startsWith('blob:') && prev !== blobUrl) URL.revokeObjectURL(prev);
+      }
+      timer = setTimeout(freeze, DURATION);
+    };
+
+    // If anything fails to decode, fall back to the plain file rather than
+    // leaving a collapsed container.
+    img.addEventListener('error', () => {
+      clearTimeout(timer);
+      still.style.display = 'none';
+      img.style.visibility = 'visible';
+      if (img.getAttribute('src') !== base) img.src = base;
+      showBtn();
+    });
+
+    btn.setAttribute('inert', '');
+    btn.addEventListener('click', play);
+
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const start = () => {
+      if (reduced) {
+        // Don't animate unprompted; hold the first frame behind the replay control.
+        if (img.complete && img.naturalWidth) freeze();
+        else img.addEventListener('load', freeze, { once: true });
+        return;
+      }
+      const io = new IntersectionObserver(entries => {
+        if (entries.some(e => e.isIntersecting)) { io.disconnect(); play(); }
+      }, { threshold: 0.25 });
+      io.observe(wrap);
+    };
+
+    fetch(base)
+      .then(r => (r.ok ? r.arrayBuffer() : Promise.reject(r.status)))
+      .then(buf => {
+        const total = Component.gifDuration(buf);
+        if (total > 0) DURATION = total;
+        blobUrl = URL.createObjectURL(new Blob([buf], { type: 'image/gif' }));
+      })
+      .catch(() => {})
+      .finally(start);
   }
   renderVals() { return {}; }
 }
