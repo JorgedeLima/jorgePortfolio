@@ -12,50 +12,86 @@ const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matc
 export async function reveal(root) {
   const m = await M();
   const els = [...root.querySelectorAll('[data-reveal]')];
-  if (!m || reduced()) { els.forEach(e => (e.style.opacity = '1')); return; }
-  const state = new WeakSet();
-  const show = (el, animated) => {
-    if (state.has(el)) return;
-    state.add(el);
-    if (animated) {
-      const d = parseFloat(el.dataset.revealDelay || 0);
-      m.animate(el, { opacity: [0, 1], y: [16, 0] }, { duration: 0.7, delay: d, ease: EASE });
-    } else {
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-    }
+  if (reduced()) { els.forEach(e => { e.style.opacity = '1'; }); return; }
+
+  // The end state is written to inline style and the movement is a CSS
+  // transition, so a reveal can never depend on the animation library
+  // committing styles — if anything fails, the element still ends visible.
+  const EASE_CSS = 'cubic-bezier(0.16,1,0.3,1)';
+  const show = el => {
+    if (el.dataset.revealed) return;
+    el.dataset.revealed = '1';
+    const d = parseFloat(el.dataset.revealDelay || 0);
+    el.style.transition = `opacity 0.7s ${EASE_CSS} ${d}s, transform 0.7s ${EASE_CSS} ${d}s`;
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    setTimeout(() => { el.style.willChange = 'auto'; }, (d + 0.8) * 1000);
   };
+  const showNow = el => {
+    if (el.dataset.revealed) return;
+    el.dataset.revealed = '1';
+    el.style.transition = 'none';
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+    el.style.willChange = 'auto';
+  };
+
   els.forEach(el => {
     el.style.opacity = '0';
+    el.style.transform = 'translateY(16px)';
     el.style.willChange = 'opacity, transform';
-    m.inView(el, () => show(el, true), { margin: '0px 0px -10% 0px' });
   });
-  // Sweep: anything already scrolled past (or into view) after a jump/fling
-  // must never be left hidden, even if the observer missed it.
-  let queued = false;
-  const sweep = () => {
-    queued = false;
-    els.forEach(el => {
-      if (state.has(el)) return;
-      const r = el.getBoundingClientRect();
-      if (r.bottom < 0) show(el, false);
-      else if (r.top < window.innerHeight) show(el, true);
-    });
+
+  const inViewport = el => {
+    const r = el.getBoundingClientRect();
+    return r.top < window.innerHeight * 0.9 && r.bottom > 0;
   };
-  const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(sweep); } };
+  const sweep = () => els.forEach(el => {
+    if (el.dataset.revealed) return;
+    const r = el.getBoundingClientRect();
+    if (r.bottom < 0) showNow(el);      // already scrolled past
+    else if (inViewport(el)) show(el);
+  });
+
+  if (typeof IntersectionObserver === 'function') {
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        show(e.target);
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -10% 0px' });
+    els.forEach(el => io.observe(el));
+  }
+
+  let queued = false;
+  const onScroll = () => { if (!queued) { queued = true; requestAnimationFrame(() => { queued = false; sweep(); }); } };
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('hashchange', onScroll);
   window.addEventListener('resize', onScroll, { passive: true });
-  setTimeout(sweep, 1200);
+  requestAnimationFrame(sweep);
+  // Last resort: nothing stays hidden, whatever went wrong.
+  setTimeout(() => els.forEach(el => { if (!el.dataset.revealed) showNow(el); }), 3000);
 }
 
 export async function heroStagger(root) {
-  const m = await M();
   const els = [...root.querySelectorAll('[data-hero]')];
-  if (!m || reduced()) { els.forEach(e => (e.style.opacity = '1')); return; }
-  els.forEach(e => { e.style.opacity = '0'; });
-  m.animate(els, { opacity: [0, 1], y: [18, 0] },
-    { duration: 0.8, delay: m.stagger(0.06, { startDelay: 0.05 }), ease: EASE });
+  if (reduced()) { els.forEach(e => { e.style.opacity = '1'; }); return; }
+  const EASE_CSS = 'cubic-bezier(0.16,1,0.3,1)';
+  els.forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(18px)';
+  });
+  requestAnimationFrame(() => els.forEach((el, i) => {
+    const d = 0.05 + i * 0.06;
+    el.style.transition = `opacity 0.8s ${EASE_CSS} ${d}s, transform 0.8s ${EASE_CSS} ${d}s`;
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  }));
+  // Guarantee: hero copy is never left hidden.
+  setTimeout(() => els.forEach(el => {
+    if (getComputedStyle(el).opacity !== '1') { el.style.transition = 'none'; el.style.opacity = '1'; el.style.transform = 'none'; }
+  }), 2500);
 }
 
 // Cursor-follow highlight + subtle lift on work cards.
