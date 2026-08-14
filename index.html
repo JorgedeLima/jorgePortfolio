@@ -68,6 +68,7 @@
     [data-r="cardhead"]{flex-wrap:wrap !important;}
     [data-r="legend"]{flex-direction:column !important;gap:8px !important;grid-template-columns:none !important;}
     [data-r="split"]>div:last-child{min-height:0 !important;aspect-ratio:16/10;border-left:none !important;border-top:1px solid #E4E0D8 !important;padding:0 !important;}
+    [data-r="split"]>div:last-child[data-ph]{padding:24px !important;}
     [data-r="split"]>figure:last-child{border-left:none !important;border-top:1px solid #E4E0D8 !important;}
     [data-r="split"]>div:last-child img{width:100% !important;height:100% !important;object-fit:cover;object-position:center top;}
     main{padding-left:20px !important;padding-right:20px !important;}
@@ -282,6 +283,32 @@
           </a>
         </div>
       </div>
+      <a data-card data-reveal href="tic-company.html" data-r="split" style="position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);margin-top:16px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden;isolation:isolate">
+        <span data-glow aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%);z-index:2"></span>
+        <div style="position:relative;z-index:3;padding:30px 36px;display:flex;flex-direction:column;align-items:flex-start;gap:14px">
+          <div data-r="cardhead" style="display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#6E6A64">04 / TicCompany · freelance</span>
+            <span style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;border:1px solid #E4E0D8;padding:5px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0"><span style="width:7px;height:7px;background:#6E6A64;border-radius:50%;flex-shrink:0"></span>Shipped — no metrics</span>
+          </div>
+          <h3 style="font-size:clamp(24px,2.4vw,31px);font-weight:500;letter-spacing:-0.03em;line-height:1.08;margin:0;max-width:26ch">Redesigning the QA client environment</h3>
+          <p style="font-size:15.5px;line-height:1.6;color:#6E6A64;margin:0;max-width:44ch;text-wrap:pretty">Reframing quality assurance as part of a professional&rsquo;s identity on a marketplace, not a standalone feature.</p>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;margin:auto 0 0;padding-top:14px">Read →</span>
+        </div>
+        <div data-card-media style="border-left:1px solid #E4E0D8;min-height:260px;background:#FFFFFF url(&quot;./ticcompany_hero.png&quot;) center / cover no-repeat"></div>
+      </a>
+      <a data-card data-reveal href="personal-projects.html" data-r="split" style="position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);margin-top:16px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;overflow:hidden;isolation:isolate">
+        <span data-glow aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(241,90,34,0.08),transparent 65%);z-index:2"></span>
+        <div style="position:relative;z-index:3;padding:30px 36px;display:flex;flex-direction:column;align-items:flex-start;gap:14px">
+          <div data-r="cardhead" style="display:flex;align-items:center;justify-content:space-between;gap:16px;width:100%">
+            <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#6E6A64">05 / Personal projects</span>
+            <span style="display:flex;align-items:center;gap:7px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;border:1px solid #E4E0D8;padding:5px 10px;border-radius:100px;white-space:nowrap;flex-shrink:0"><span style="width:7px;height:7px;border:1.5px solid #A29C93;border-radius:50%;flex-shrink:0"></span>3 ventures</span>
+          </div>
+          <h3 style="font-size:clamp(24px,2.4vw,31px);font-weight:500;letter-spacing:-0.03em;line-height:1.08;margin:0;max-width:26ch">Outside of client work</h3>
+          <p style="font-size:15.5px;line-height:1.6;color:#6E6A64;margin:0;max-width:44ch;text-wrap:pretty">A cleaning business I co-own, a salon site for a friend, and a pixel-art game in development.</p>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#6E6A64;margin:auto 0 0;padding-top:14px">Read →</span>
+        </div>
+        <div data-card-media style="border-left:1px solid #E4E0D8;min-height:260px;background:#FFFFFF url(&quot;./personal_projects_hero.png&quot;) center / cover no-repeat"></div>
+      </a>
     </section>
 
     <sc-if value="{{ testimonials }}" hint-placeholder-val="{{ true }}">

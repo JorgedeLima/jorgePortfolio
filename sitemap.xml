@@ -2,67 +2,79 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.jorgedelima.design/</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.jorgedelima.design/about.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.jorgedelima.design/b4b-registration.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.jorgedelima.design/b4b-tips-getting-started.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.jorgedelima.design/b4b-team-budgets.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.jorgedelima.design/google-store-paypal.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.jorgedelima.design/google-store-tokyo.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.jorgedelima.design/google-store-paidy.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.jorgedelima.design/unleashed-dashboard.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.jorgedelima.design/unleashed-mobile-app.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.jorgedelima.design/unleashed-feature-releases.html</loc>
-    <lastmod>2026-08-13</lastmod>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.jorgedelima.design/tic-company.html</loc>
+    <lastmod>2026-08-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.jorgedelima.design/personal-projects.html</loc>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
