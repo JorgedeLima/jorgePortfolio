@@ -218,7 +218,7 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   async componentDidMount() {
-    const fx = await import('./motion-fx.js');
+    const fx = await import('./motion-fx.js?v=2');
     fx.reveal(document);
     fx.countUp(document);
     fx.cardHover(document);

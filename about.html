@@ -174,7 +174,7 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   async componentDidMount() {
-    const fx = await import('./motion-fx.js');
+    const fx = await import('./motion-fx.js?v=2');
     fx.heroStagger(document);
     fx.reveal(document);
     const v = document.querySelector('video[src="AboutMe_hero.mp4"]');
