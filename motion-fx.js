@@ -148,36 +148,81 @@ export async function countUp(root) {
 }
 
 // Sticky rail: scroll-driven progress line + active section marking.
+// Deliberately native: driven by scroll position + getBoundingClientRect rather
+// than the animation library, because a silent failure here breaks reading
+// orientation on long case studies (the library's scroll/inView helpers have
+// failed to apply on some pages in production).
 export async function scrollProgress(root) {
-  const m = await M();
   const bar = root.querySelector('[data-progress]');
   const article = root.querySelector('[data-article]');
   const links = [...root.querySelectorAll('[data-rail-link]')];
-  const sections = links.map(l => root.querySelector(`#${l.dataset.railLink}`)).filter(Boolean);
+  const sections = links.map(l => root.querySelector('#' + l.dataset.railLink));
 
-  const paint = i => links.forEach((l, n) => {
-    const on = n === i;
-    l.style.color = on ? '#16181C' : '#6E6A64';
-    const tick = l.querySelector('[data-tick]');
-    if (tick) {
-      tick.style.background = on ? '#B8430F' : '#D8D3CA';
-      tick.style.width = on ? '20px' : '10px';
-    }
-  });
-  paint(0);
-
-  if (!m) return;
-  if (bar && article) {
-    bar.style.transformOrigin = 'left';
-    m.scroll(m.animate(bar, { scaleX: [0, 1] }, { ease: 'linear' }),
-      { target: article, offset: ['start center', 'end end'] });
-  }
-  sections.forEach((s, i) => {
-    m.inView(s, () => { paint(i); return () => {}; }, { margin: '-45% 0px -50% 0px' });
-  });
+  // Click-to-jump first, so navigation works even if anything below throws.
   links.forEach(l => l.addEventListener('click', e => {
+    const t = root.querySelector('#' + l.dataset.railLink);
+    if (!t) return;
     e.preventDefault();
-    const t = root.querySelector(`#${l.dataset.railLink}`);
-    if (t) window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 110, behavior: reduced() ? 'auto' : 'smooth' });
+    window.scrollTo({ top: t.getBoundingClientRect().top + window.scrollY - 110, behavior: reduced() ? 'auto' : 'smooth' });
   }));
+
+  if (!links.length) return;
+
+  let current = -1;
+  const paint = i => {
+    if (i === current) return;
+    current = i;
+    links.forEach((l, n) => {
+      const on = n === i;
+      l.style.color = on ? '#16181C' : '#6E6A64';
+      l.style.transition = 'color 0.25s ease';
+      const tick = l.querySelector('[data-tick]');
+      if (tick) {
+        tick.style.transition = 'background 0.25s ease, width 0.25s ease';
+        tick.style.background = on ? '#B8430F' : '#D8D3CA';
+        tick.style.width = on ? '20px' : '10px';
+      }
+    });
+  };
+
+  if (bar) {
+    bar.style.transformOrigin = 'left';
+    bar.style.transform = 'scaleX(0)';
+    bar.style.willChange = 'transform';
+  }
+
+  const update = () => {
+    if (bar && article) {
+      const r = article.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // 0 when the article top reaches mid-viewport, 1 when its end reaches the bottom.
+      const total = r.height - vh * 0.5;
+      const done = vh * 0.5 - r.top;
+      const p = total > 0 ? Math.min(1, Math.max(0, done / total)) : (r.top <= vh * 0.5 ? 1 : 0);
+      bar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+    }
+    // Active section = the last one whose top has passed the reading line.
+    const line = window.innerHeight * 0.45;
+    let active = 0;
+    sections.forEach((sec, i) => { if (sec && sec.getBoundingClientRect().top <= line) active = i; });
+    paint(active);
+  };
+
+  let queued = false;
+  const onScroll = () => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => { queued = false; update(); });
+  };
+  // Capture phase on document: scroll events don't bubble, so this is the only
+  // way to catch pages whose scrolling happens in a wrapper rather than window.
+  document.addEventListener('scroll', onScroll, { passive: true, capture: true });
+  window.addEventListener('resize', onScroll, { passive: true });
+  // Late-loading images and embeds change section offsets.
+  window.addEventListener('load', onScroll);
+  // Reconciliation tick: a scroll event missed while the pointer is over an
+  // embedded iframe would otherwise leave the rail stale. update() is pure
+  // measurement and paint() no-ops when nothing changed, so this is cheap.
+  setInterval(() => { if (!document.hidden) update(); }, 400);
+  update();
 }
