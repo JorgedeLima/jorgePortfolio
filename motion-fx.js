@@ -156,7 +156,10 @@ export async function scrollProgress(root) {
   const bar = root.querySelector('[data-progress]');
   const article = root.querySelector('[data-article]');
   const links = [...root.querySelectorAll('[data-rail-link]')];
-  const sections = links.map(l => root.querySelector('#' + l.dataset.railLink));
+  // Resolved lazily, not at mount: the article's sections are streamed in after
+  // componentDidMount runs, so caching them here captures nulls forever.
+  const sections = new Array(links.length).fill(null);
+  const secFor = i => sections[i] || (sections[i] = root.querySelector('#' + links[i].dataset.railLink));
 
   // Click-to-jump first, so navigation works even if anything below throws.
   links.forEach(l => l.addEventListener('click', e => {
@@ -204,7 +207,11 @@ export async function scrollProgress(root) {
     // Active section = the last one whose top has passed the reading line.
     const line = window.innerHeight * 0.45;
     let active = 0;
-    sections.forEach((sec, i) => { if (sec && sec.getBoundingClientRect().top <= line) active = i; });
+    links.forEach((l, i) => { const sec = secFor(i); if (sec && sec.getBoundingClientRect().top <= line) active = i; });
+    // At the end of the page the final section may be too short to ever cross
+    // the reading line, so clamp to the last item once we're at the bottom.
+    const doc = document.documentElement;
+    if (window.scrollY + window.innerHeight >= doc.scrollHeight - 2) active = links.length - 1;
     paint(active);
   };
 

@@ -358,7 +358,7 @@
 <script type="text/x-dc" data-dc-script data-props="{&quot;proofPoints&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;testimonials&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Sections&quot;},&quot;animate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Motion&quot;}}">
 class Component extends DCLogic {
   async componentDidMount() {
-    const fx = await import('./motion-fx.js?v=2');
+    const fx = await import('./motion-fx.js?v=4');
     this.fx = fx;
     if (this.props.animate !== false) {
       fx.heroStagger(this.root);
