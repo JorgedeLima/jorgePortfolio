@@ -43,6 +43,9 @@
   a:hover{color:#B8430F;}
   ::selection{background:#B8430F;color:#FFF;}
   :focus-visible{outline:2px solid #F15A22;outline-offset:3px;}
+  a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #F15A22;outline-offset:3px;border-radius:2px;}
+  [data-skip]{position:absolute;left:-9999px;top:0;}
+  [data-skip]:focus,[data-skip]:focus-visible{left:16px !important;top:16px !important;z-index:100;outline:2px solid #F15A22;outline-offset:3px;}
   html{scroll-behavior:smooth;scroll-padding-top:88px;}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{animation:none !important;transition:none !important;}}
   @media (max-width:860px){
