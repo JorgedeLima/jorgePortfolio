@@ -45,7 +45,8 @@
   :focus-visible{outline:2px solid #F15A22;outline-offset:3px;}
   a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #F15A22;outline-offset:3px;border-radius:2px;}
   [data-skip]{position:absolute;left:-9999px;top:0;}
-  [data-skip]:focus,[data-skip]:focus-visible{left:16px !important;top:16px !important;z-index:100;outline:2px solid #F15A22;outline-offset:3px;}
+  [data-skip]:focus,[data-skip]:focus-visible,[data-skip][data-skip-open]{left:16px !important;top:16px !important;z-index:100;outline:2px solid #F15A22;outline-offset:3px;}
+  [data-focus-kb]{outline:2px solid #F15A22 !important;outline-offset:3px !important;border-radius:2px;}
   html{scroll-behavior:smooth;scroll-padding-top:88px;}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{animation:none !important;transition:none !important;}}
 
@@ -247,7 +248,8 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   async componentDidMount() {
-    const fx = await import('./motion-fx.js?v=4');
+    const fx = await import('./motion-fx.js?v=5');
+    fx.a11y(document);
     fx.reveal(document);
     fx.countUp(document);
     fx.cardHover(document);
