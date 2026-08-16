@@ -233,3 +233,43 @@ export async function scrollProgress(root) {
   setInterval(() => { if (!document.hidden) update(); }, 400);
   update();
 }
+
+// Focus handling driven by JS rather than :focus / :focus-visible alone.
+// CSS pseudo-classes only match while the DOCUMENT itself holds focus, which
+// makes them unreliable inside embedded/preview contexts and impossible to
+// verify programmatically. Toggling attributes on focusin/focusout is
+// deterministic and testable, and the CSS rules remain as a no-JS fallback.
+export function a11y(root) {
+  const doc = root.ownerDocument || document;
+  const html = doc.documentElement;
+
+  // Keyboard modality: only show focus rings for keyboard users, matching
+  // :focus-visible behaviour without relying on the browser's heuristic.
+  const kbOn = e => {
+    if (e.key === 'Tab' || e.key.startsWith('Arrow') || e.key === 'Enter' || e.key === ' ') html.setAttribute('data-kb', '');
+  };
+  doc.addEventListener('keydown', kbOn, true);
+  doc.addEventListener('mousedown', () => html.removeAttribute('data-kb'), true);
+  doc.addEventListener('touchstart', () => html.removeAttribute('data-kb'), { capture: true, passive: true });
+
+  doc.addEventListener('focusin', e => {
+    const el = e.target;
+    if (el && el.closest && el.closest('[data-skip]')) {
+      const s = el.closest('[data-skip]');
+      s.style.setProperty('left', '16px', 'important');
+      s.style.setProperty('top', '16px', 'important');
+      s.setAttribute('data-skip-open', '');
+    }
+    if (el && el.setAttribute && html.hasAttribute('data-kb')) el.setAttribute('data-focus-kb', '');
+  }, true);
+
+  doc.addEventListener('focusout', e => {
+    const el = e.target;
+    if (el && el.closest && el.closest('[data-skip]')) {
+      const s = el.closest('[data-skip]');
+      s.style.setProperty('left', '-9999px', 'important');
+      s.removeAttribute('data-skip-open');
+    }
+    if (el && el.removeAttribute) el.removeAttribute('data-focus-kb');
+  }, true);
+}
