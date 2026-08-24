@@ -61,6 +61,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.jorgedelima.design/ai-stack.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://www.jorgedelima.design/personal-projects.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

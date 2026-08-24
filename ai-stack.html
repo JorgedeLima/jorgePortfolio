@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>How I use AI — Jorge de Lima</title>
+<meta name="description" content="The AI-assisted stack behind this portfolio, organised by workflow phase, and how outcomes stay verified rather than assumed.">
+<meta property="og:title" content="How I use AI — Jorge de Lima">
+<meta property="og:description" content="The AI-assisted stack behind this portfolio, and how outcomes stay verified rather than assumed.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://www.jorgedelima.design/ai-stack.html">
+<meta property="og:url" content="https://www.jorgedelima.design/ai-stack.html">
+<meta property="og:site_name" content="Jorge de Lima">
+<meta property="og:image" content="https://www.jorgedelima.design/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Jorge de Lima at work, notebook open beside a laptop">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How I use AI — Jorge de Lima">
+<meta name="twitter:description" content="The AI-assisted stack behind this portfolio, and how outcomes stay verified rather than assumed.">
+<meta name="twitter:image" content="https://www.jorgedelima.design/og-image.png">
+<link rel="icon" href="JorgeBrand.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEFFQSHYRZ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-FEFFQSHYRZ');
+</script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/motion@11.18.2/dist/motion.js"></script>
+<style>
+  *{box-sizing:border-box;}
+  body{margin:0;background:#F7F5F2;color:#16181C;font-family:'Instrument Sans','Helvetica Neue',sans-serif;-webkit-font-smoothing:antialiased;}
+  a{color:#16181C;text-decoration:none;}
+  a:hover{color:#B8430F;}
+  ::selection{background:#B8430F;color:#FFF;}
+  :focus-visible{outline:2px solid #F15A22;outline-offset:3px;}
+  a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:2px solid #F15A22;outline-offset:3px;border-radius:2px;}
+  [data-skip]{position:absolute;left:-9999px;top:8px;}
+  [data-skip]:focus,[data-skip]:focus-visible,[data-skip][data-skip-open]{left:16px !important;top:16px !important;z-index:100;outline:2px solid #F15A22;outline-offset:3px;}
+  [data-focus-kb]{outline:2px solid #F15A22 !important;outline-offset:3px !important;border-radius:2px;}
+  html{scroll-behavior:smooth;scroll-padding-top:88px;}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto;}*{animation:none !important;transition:none !important;}}
+
+  @media (max-width:860px){
+    [data-r]{grid-template-columns:1fr !important;}
+    [data-r="flow"]{grid-template-columns:1fr !important;}
+    main{padding-left:20px !important;padding-right:20px !important;}
+    header>div,footer{padding-left:20px !important;padding-right:20px !important;}
+    [data-logo]{white-space:nowrap;}
+    nav{gap:18px !important;}
+    section,figure,blockquote,ol,ul,article,aside{max-width:100% !important;}
+  }
+  @media (max-width:560px){
+    nav{gap:13px !important;font-size:11px !important;}
+    [data-logo] span:last-child{font-size:14px !important;}
+    main{padding-left:16px !important;padding-right:16px !important;}
+    header>div,footer{padding-left:16px !important;padding-right:16px !important;}
+  }
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#F7F5F2">
+
+  <a data-skip href="#main" style="z-index:60;padding:12px 18px;background:#16181C;color:#FFF;border-radius:8px;font-size:14px;font-weight:600">Skip to main content</a>
+
+  <header style="position:sticky;top:0;z-index:20;background:rgba(247,245,242,0.86);backdrop-filter:blur(12px);border-bottom:1px solid #E4E0D8">
+    <div style="max-width:1180px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:24px">
+      <a href="index.html" data-logo style="display:flex;align-items:center;gap:10px">
+        <img decoding="async" src="JorgeBrand.png" alt="Jorge de Lima" style="width:24px;height:24px;border-radius:5px;flex-shrink:0;display:block">
+        <span style="font-size:15px;font-weight:600;letter-spacing:-0.015em">Jorge de Lima</span>
+      </a>
+      <nav aria-label="Primary" style="display:flex;align-items:stretch;gap:26px;height:100%;font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.08em;text-transform:uppercase">
+        <a data-navlink href="index.html#work" style="display:flex;align-items:center;min-height:44px">Work</a>
+        <a data-navlink href="about.html" style="display:flex;align-items:center;min-height:44px">About</a>
+        <a data-navlink href="https://drive.google.com/file/d/1Ngj1LA45lq3D074LdzEIiqrNIhVst-Ym/view?usp=sharing" target="_blank" rel="noopener" style="display:flex;align-items:center;min-height:44px;gap:6px">Resume <span style="color:#6E6A64">↗</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1" style="max-width:1180px;margin:0 auto;padding:0 32px">
+
+    <section aria-labelledby="stack-h" style="padding:80px 0 0">
+      <p data-hero style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:0.14em;text-transform:uppercase;color:#6E6A64;margin:0 0 26px">How I work</p>
+      <h1 id="stack-h" data-hero style="font-size:clamp(34px,4.8vw,56px);font-weight:500;letter-spacing:-0.035em;line-height:1.02;margin:0;max-width:24ch;text-wrap:balance">AI speeds up the work. It doesn't make the call.</h1>
+      <p data-hero style="font-size:18.5px;line-height:1.65;color:#37342E;margin:30px 0 0;max-width:62ch;text-wrap:pretty">The stack behind this portfolio, and behind most of my day-to-day, organised by where each tool actually earns its place rather than as a logo list. Below is what I use by phase, then the habits that keep a faster process from becoming a less trustworthy one.</p>
+    </section>
+
+    <section aria-labelledby="flow-h" style="padding:72px 0 0">
+      <h2 id="flow-h" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;margin:0;padding-bottom:18px;border-bottom:1px solid #16181C">The shape of it</h2>
+      <div data-reveal data-r="flow" style="display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;align-items:stretch;gap:14px;padding:32px 0 0">
+        <div style="background:#FFFEFC;border:1px solid #E4E0D8;border-radius:10px;padding:18px 20px;text-align:center">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#6E6A64;margin:0 0 8px">01</p>
+          <p style="font-size:17px;font-weight:600;letter-spacing:-0.02em;margin:0">Research</p>
+        </div>
+        <div data-arrow style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">
+          <span aria-hidden="true" style="width:26px;height:26px;border-radius:50%;background:rgba(31,111,84,0.10);color:#1F6F54;display:flex;align-items:center;justify-content:center;font-size:13px">✓</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#1F6F54">Verified</span>
+        </div>
+        <div style="background:#FFFEFC;border:1px solid #E4E0D8;border-radius:10px;padding:18px 20px;text-align:center">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#6E6A64;margin:0 0 8px">02</p>
+          <p style="font-size:17px;font-weight:600;letter-spacing:-0.02em;margin:0">Ideation</p>
+        </div>
+        <div data-arrow style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">
+          <span aria-hidden="true" style="width:26px;height:26px;border-radius:50%;background:rgba(31,111,84,0.10);color:#1F6F54;display:flex;align-items:center;justify-content:center;font-size:13px">✓</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#1F6F54">Verified</span>
+        </div>
+        <div style="background:#FFFEFC;border:1px solid #E4E0D8;border-radius:10px;padding:18px 20px;text-align:center">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#6E6A64;margin:0 0 8px">03</p>
+          <p style="font-size:17px;font-weight:600;letter-spacing:-0.02em;margin:0">Prototype</p>
+        </div>
+        <div data-arrow style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px">
+          <span aria-hidden="true" style="width:26px;height:26px;border-radius:50%;background:rgba(31,111,84,0.10);color:#1F6F54;display:flex;align-items:center;justify-content:center;font-size:13px">✓</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#1F6F54">Verified</span>
+        </div>
+        <div style="background:#FFFEFC;border:1px solid #E4E0D8;border-radius:10px;padding:18px 20px;text-align:center">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#6E6A64;margin:0 0 8px">04</p>
+          <p style="font-size:17px;font-weight:600;letter-spacing:-0.02em;margin:0">Deliver &amp; audit</p>
+        </div>
+      </div>
+      <p data-reveal style="font-size:15px;line-height:1.6;color:#6E6A64;margin:20px 0 0;max-width:62ch;text-wrap:pretty">The checkpoints between phases are the point. Nothing moves forward on the strength of a plausible-sounding output.</p>
+    </section>
+
+    <section aria-labelledby="phase-h" style="padding:88px 0 0">
+      <h2 id="phase-h" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;margin:0;padding-bottom:18px;border-bottom:1px solid #16181C">By phase</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:#E4E0D8;border:1px solid #E4E0D8;border-top:none;border-radius:0 0 12px 12px;overflow:hidden">
+        <div data-reveal style="background:#FFFEFC;padding:26px 28px 30px">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#B8430F;margin:0 0 14px">01 — Research</p>
+          <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.02em;margin:0 0 16px">Understanding the problem</h3>
+          <dl style="margin:0;display:grid;gap:12px">
+            <div style="padding-bottom:12px;border-bottom:1px solid #EFEBE3">
+              <dt style="font-size:14.5px;font-weight:600;margin:0 0 3px">NotebookLM</dt>
+              <dd style="font-size:13.5px;line-height:1.5;color:#6E6A64;margin:0">Research compilation, summarisation, mind maps, podcast-style synthesis, flowcharts</dd>
+            </div>
+            <div style="padding-bottom:12px;border-bottom:1px solid #EFEBE3">
+              <dt style="font-size:14.5px;font-weight:600;margin:0 0 3px">Kraftful</dt>
+              <dd style="font-size:13.5px;line-height:1.5;color:#6E6A64;margin:0">Insight and survey analysis</dd>
+            </div>
+            <div style="padding-bottom:12px;border-bottom:1px solid #EFEBE3">
+              <dt style="font-size:14.5px;font-weight:600;margin:0 0 3px">Pendo</dt>
+              <dd style="font-size:13.5px;line-height:1.5;color:#6E6A64;margin:0">Surveys</dd>
+            </div>
+            <div>
+              <dt style="font-size:14.5px;font-weight:600;margin:0 0 3px">Strella</dt>
+              <dd style="font-size:13.5px;line-height:1.5;color:#6E6A64;margin:0">AI-moderated customer interviews</dd>
+            </div>
+          </dl>
+        </div>
+        <div data-reveal data-reveal-delay="0.06" style="background:#FFFEFC;padding:26px 28px 30px">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#B8430F;margin:0 0 14px">02 — Ideation</p>
+          <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.02em;margin:0 0 16px">Mapping the workflow</h3>
+          <dl style="margin:0">
+            <div>
+              <dt style="font-size:14.5px;font-weight:600;margin:0 0 3px">FigJam</dt>
+              <dd style="font-size:13.5px;line-height:1.5;color:#6E6A64;margin:0">Workflows, flowcharts, empathy maps, user journey maps</dd>
+            </div>
+          </dl>
+        </div>
+        <div data-reveal data-reveal-delay="0.12" style="background:#FFFEFC;padding:26px 28px 30px">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#B8430F;margin:0 0 14px">03 — Prototype</p>
+          <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.02em;margin:0 0 16px">Building and checking craft</h3>
+          <dl style="margin:0;display:grid;gap:12px">
+            <div style="padding-bottom:12px;border-bottom:1px solid #EFEBE3">
+              <dt style="font-size:14.5px;font-weight:600;margin:0 0 3px">Figma Make</dt>
+              <dd style="font-size:13.5px;line-height:1.5;color:#6E6A64;margin:0">Prototyping</dd>
+            </div>
+            <div style="padding-bottom:12px;border-bottom:1px solid #EFEBE3">
+              <dt style="font-size:14.5px;font-weight:600;margin:0 0 3px">Figma AI</dt>
+              <dd style="font-size:13.5px;line-height:1.5;color:#6E6A64;margin:0">Image generation, design pattern and system checks, accessibility checks, copy rewriting</dd>
+            </div>
+            <div>
+              <dt style="font-size:14.5px;font-weight:600;margin:0 0 3px">Figma MCP</dt>
+              <dd style="font-size:13.5px;line-height:1.5;color:#6E6A64;margin:0">Dashboard integration</dd>
+            </div>
+          </dl>
+        </div>
+        <div data-reveal data-reveal-delay="0.18" style="background:#FFFEFC;padding:26px 28px 30px">
+          <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;color:#B8430F;margin:0 0 14px">04 — Deliver &amp; audit</p>
+          <h3 style="font-size:19px;font-weight:600;letter-spacing:-0.02em;margin:0 0 16px">Shipping and checking the work</h3>
+          <dl style="margin:0;display:grid;gap:12px">
+            <div style="padding-bottom:12px;border-bottom:1px solid #EFEBE3">
+              <dt style="font-size:14.5px;font-weight:600;margin:0 0 3px">Claude Design / Code / Cowork</dt>
+              <dd style="font-size:13.5px;line-height:1.5;color:#6E6A64;margin:0">Audits, accessibility, workflow, tracking, product management, debugging, code, micro-animation, KPIs</dd>
+            </div>
+            <div>
+              <dt style="font-size:14.5px;font-weight:600;margin:0 0 3px">GitHub</dt>
+              <dd style="font-size:13.5px;line-height:1.5;color:#6E6A64;margin:0">Version control and deployment</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="control-h" style="padding:88px 0 0">
+      <h2 id="control-h" style="font-family:'IBM Plex Mono',monospace;font-size:11.5px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;margin:0;padding-bottom:18px;border-bottom:1px solid #16181C">How I keep control of the outcome</h2>
+      <ol data-reveal style="margin:0;padding:0;list-style:none;display:grid;gap:1px;background:#E4E0D8;border:1px solid #E4E0D8;border-top:none;border-radius:0 0 12px 12px;overflow:hidden">
+        <li style="background:#FFFEFC;padding:24px 28px;display:grid;grid-template-columns:32px minmax(0,1fr);gap:16px;align-items:start">
+          <span aria-hidden="true" style="width:26px;height:26px;border-radius:50%;background:rgba(31,111,84,0.10);color:#1F6F54;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;margin-top:2px">1</span>
+          <div>
+            <p style="font-size:17px;font-weight:600;letter-spacing:-0.02em;margin:0 0 6px">Every claim needs a traceable source.</p>
+            <p style="font-size:15.5px;line-height:1.6;color:#6E6A64;margin:0;max-width:62ch;text-wrap:pretty">If AI-drafted copy states a number or a fact, it has to point back to something real — a document, a screenshot, a transcript — before it ships. If it can't, it gets flagged and either verified or cut.</p>
+          </div>
+        </li>
+        <li style="background:#FFFEFC;padding:24px 28px;display:grid;grid-template-columns:32px minmax(0,1fr);gap:16px;align-items:start">
+          <span aria-hidden="true" style="width:26px;height:26px;border-radius:50%;background:rgba(31,111,84,0.10);color:#1F6F54;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;margin-top:2px">2</span>
+          <div>
+            <p style="font-size:17px;font-weight:600;letter-spacing:-0.02em;margin:0 0 6px">Unverifiable output gets rejected and rebuilt, not polished.</p>
+            <p style="font-size:15.5px;line-height:1.6;color:#6E6A64;margin:0;max-width:62ch;text-wrap:pretty">AI tools occasionally fill a gap with something plausible-sounding rather than something true. When that happens, the fix is tracing back to what's actually real and starting again from there, not softening the language and keeping it.</p>
+          </div>
+        </li>
+        <li style="background:#FFFEFC;padding:24px 28px;display:grid;grid-template-columns:32px minmax(0,1fr);gap:16px;align-items:start">
+          <span aria-hidden="true" style="width:26px;height:26px;border-radius:50%;background:rgba(31,111,84,0.10);color:#1F6F54;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;margin-top:2px">3</span>
+          <div>
+            <p style="font-size:17px;font-weight:600;letter-spacing:-0.02em;margin:0 0 6px">One source of truth, not four drifting versions.</p>
+            <p style="font-size:15.5px;line-height:1.6;color:#6E6A64;margin:0;max-width:62ch;text-wrap:pretty">Resume, LinkedIn and portfolio copy are tracked against a single working document, so a phrase or a number doesn't quietly diverge across channels over months of edits.</p>
+          </div>
+        </li>
+        <li style="background:#FFFEFC;padding:24px 28px;display:grid;grid-template-columns:32px minmax(0,1fr);gap:16px;align-items:start">
+          <span aria-hidden="true" style="width:26px;height:26px;border-radius:50%;background:rgba(31,111,84,0.10);color:#1F6F54;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:12px;margin-top:2px">4</span>
+          <div>
+            <p style="font-size:17px;font-weight:600;letter-spacing:-0.02em;margin:0 0 6px">Technical claims get tested, not taken on faith.</p>
+            <p style="font-size:15.5px;line-height:1.6;color:#6E6A64;margin:0;max-width:62ch;text-wrap:pretty">A tool reporting something as "fixed" isn't the same as it being fixed. Claims like that get verified directly, in the browser, with real interaction, before they're marked done.</p>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <a data-card data-reveal href="about.html" style="position:relative;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:30px 36px;background:#FFFEFC;border:1px solid #E4E0D8;border-radius:14px;margin:56px 0 0;isolation:isolate;flex-wrap:wrap">
+      <span data-glow aria-hidden="true" style="position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(420px circle at var(--mx,50%) var(--my,50%),rgba(184,67,15,0.07),transparent 65%)"></span>
+      <div style="position:relative;z-index:2">
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:#6E6A64;margin:0 0 10px">Back to</p>
+        <p style="font-size:25px;font-weight:500;letter-spacing:-0.03em;margin:0">I write the bet down before I design it.</p>
+      </div>
+      <span style="position:relative;z-index:2;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:#B8430F">About &rarr;</span>
+    </a>
+  </main>
+
+  <footer role="contentinfo" style="max-width:1180px;margin:72px auto 0;padding:26px 32px 56px;border-top:1px solid #E4E0D8;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;color:#6E6A64">
+    <a href="index.html">← All work</a>
+    <span>Designed by Jorge, coded by Claude</span>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  async componentDidMount() {
+    const fx = await import('./motion-fx.js?v=5');
+    fx.a11y(document);
+    fx.heroStagger(document);
+    fx.reveal(document);
+    fx.cardHover(document);
+  }
+  renderVals() { return {}; }
+}
+
+</script>
+</body>
+</html>
