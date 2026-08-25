@@ -11,11 +11,6 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://www.jorgedelima.design/ai-stack.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
     <loc>https://www.jorgedelima.design/b4b-team-budgets.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -64,6 +59,11 @@
     <loc>https://www.jorgedelima.design/tic-company.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.jorgedelima.design/ai-stack.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://www.jorgedelima.design/personal-projects.html</loc>
