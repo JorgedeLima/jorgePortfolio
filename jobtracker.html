@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<title>Job Tracker — Jorge de Lima</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme: light;
+    --bg:#F7F5F2; --ink:#16181C; --ink2:#37342E; --muted:#6E6A64;
+    --line:#E4E0D8; --card:#FFFEFC; --panel:#F0EDE7;
+    --green:#1F6F54; --green2:#3E7C63; --rust:#B8430F; --grey:#8A857D; --grey2:#8F8A81;
+    --sans:"Instrument Sans","Helvetica Neue",sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--sans); font-size:15px; line-height:1.45; -webkit-font-smoothing:antialiased; }
+  a{ color:var(--ink); text-decoration:none; }
+  a:hover{ color:var(--rust); }
+  ::selection{ background:var(--rust); color:#FFF; }
+  :focus-visible{ outline:2px solid #F15A22; outline-offset:3px; }
+  a:focus-visible,button:focus-visible,select:focus-visible,[tabindex]:focus-visible,[contenteditable]:focus-visible{ outline:2px solid #F15A22; outline-offset:3px; border-radius:2px; }
+  [data-skip]{ position:absolute; left:-9999px; top:8px; }
+  [data-skip]:focus,[data-skip]:focus-visible{ left:16px !important; top:16px !important; z-index:200; }
+  @media (prefers-reduced-motion:reduce){ *{ animation:none !important; transition:none !important; } }
+
+  /* ---- passphrase gate ---- */
+  #gate{ position:fixed; inset:0; z-index:100; background:var(--bg); display:flex; align-items:center; justify-content:center; padding:28px; }
+  #gate .box{ width:100%; max-width:360px; }
+  #gate .eyebrow{ display:flex; align-items:center; gap:10px; margin-bottom:22px; }
+  #gate .gh{ font-size:30px; font-weight:500; letter-spacing:-0.9px; margin:0 0 10px; }
+  #gate p{ color:var(--muted); font-size:14px; margin:0 0 22px; }
+  #gate form{ display:flex; flex-direction:column; gap:10px; }
+  #gate input{ font-family:var(--sans); font-size:15px; padding:13px 15px; background:var(--card); border:1px solid var(--line); border-radius:10px; color:var(--ink); }
+  #gate input:focus{ border-color:var(--rust); }
+  #gate button{ font-family:var(--sans); font-size:14.5px; font-weight:600; padding:13px 15px; background:var(--rust); color:#FFF; border:none; border-radius:10px; cursor:pointer; }
+  #gate button:hover{ background:var(--ink); }
+  #gate .err{ font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:1.1px; color:var(--rust); min-height:15px; margin:0; }
+  #app[hidden]{ display:none; }
+
+  .eyebrow{ font-family:var(--mono); text-transform:uppercase; letter-spacing:1.6px; font-size:10.5px; color:var(--muted); }
+  .wrap{ max-width:1500px; margin:0 auto; }
+
+  .sitebar{ position:sticky; top:0; z-index:20; background:rgba(247,245,242,0.88); backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+  .sitebar .in{ max-width:1500px; margin:0 auto; padding:0 26px; height:64px; display:flex; align-items:center; justify-content:space-between; gap:20px; }
+  .brand{ display:flex; align-items:center; gap:10px; font-size:15px; font-weight:600; letter-spacing:-0.015em; }
+  .brand img{ width:24px; height:24px; border-radius:5px; display:block; }
+  .sitebar nav{ display:flex; align-items:center; gap:18px; font-family:var(--mono); font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase; }
+  .sitebar nav a{ display:inline-flex; align-items:center; min-height:44px; padding:0 2px; }
+  .private{ display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:10px; letter-spacing:1px; text-transform:uppercase; color:var(--rust); background:rgba(184,67,15,0.09); padding:5px 10px; border-radius:100px; }
+  .private i{ width:7px; height:7px; border-radius:50%; background:var(--rust); flex-shrink:0; }
+
+  header.page{ padding:34px 26px 8px; max-width:1500px; margin:0 auto; }
+  h1{ font-size:clamp(28px,4vw,40px); font-weight:500; letter-spacing:-1.1px; margin:14px 0 0; }
+  .sub{ color:var(--ink2); font-size:16px; line-height:1.55; max-width:64ch; margin:14px 0 0; text-wrap:pretty; }
+  .cvline{ margin-top:18px; }
+  .cvline a{ display:inline-flex; align-items:center; gap:7px; font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:1.2px; color:var(--green); border:1px solid var(--line); border-radius:100px; padding:8px 14px; background:var(--card); }
+  .cvline a:hover{ border-color:var(--green); color:var(--green); }
+
+  .stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(118px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin:26px 26px 0; max-width:1448px; }
+  @media (min-width:1553px){ .stats{ margin:26px auto 0; } }
+  .stat{ background:var(--card); padding:15px 18px 16px; }
+  .stat .n{ font-size:26px; font-weight:500; letter-spacing:-0.9px; line-height:1.1; }
+  .stat.alert .n{ color:var(--rust); }
+  .stat .l{ margin-top:5px; }
+
+  .toolbar{ display:flex; align-items:center; gap:16px; padding:22px 26px 0; max-width:1500px; margin:0 auto; flex-wrap:wrap; }
+  .legend{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); }
+  .dot{ width:9px; height:9px; border-radius:50%; display:inline-block; }
+  .f5{ background:var(--green) } .f4{ background:var(--green2) } .f3{ background:var(--rust) } .f2{ background:var(--grey) } .f1{ background:var(--grey2) }
+  button.reset{ margin-left:auto; background:var(--card); border:1px solid var(--line); border-radius:100px; padding:8px 14px; font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:1px; cursor:pointer; color:var(--ink2); }
+  button.reset:hover{ border-color:var(--muted); }
+  .hint{ font-family:var(--mono); font-size:10px; text-transform:uppercase; letter-spacing:1.1px; color:var(--grey2); padding:10px 26px 0; max-width:1500px; margin:0 auto; }
+
+  .board{ display:flex; gap:16px; padding:18px 26px 10px; overflow-x:auto; align-items:flex-start; max-width:1500px; margin:0 auto; }
+  .col{ background:var(--panel); border:1px solid var(--line); border-radius:14px; min-width:268px; width:268px; flex:0 0 auto; max-height:72vh; display:flex; flex-direction:column; }
+  .col.drag{ outline:2px dashed var(--green2); outline-offset:-4px; }
+  .col-h{ padding:14px 15px 8px; display:flex; align-items:center; gap:8px; }
+  .col-h .name{ font-family:var(--mono); text-transform:uppercase; letter-spacing:1.3px; font-size:10.5px; color:var(--ink2); }
+  .col-h .cnt{ margin-left:auto; background:#E3DED4; color:var(--ink2); border-radius:100px; font-size:11px; padding:2px 9px; font-weight:600; }
+  .col-body{ padding:4px 11px 13px; overflow-y:auto; flex:1; }
+
+  .card{ position:relative; isolation:isolate; background:var(--card); border:1px solid var(--line); border-left:3px solid var(--grey); border-radius:11px; padding:12px 13px; margin-bottom:10px; cursor:grab; transition:transform .18s cubic-bezier(.16,1,.3,1), box-shadow .18s ease; }
+  .card:hover{ transform:translateY(-2px); box-shadow:0 4px 14px rgba(22,24,28,.06); }
+  .card:active{ cursor:grabbing; }
+  .card.dragging{ opacity:.4; }
+  .card .glow{ position:absolute; inset:0; border-radius:inherit; opacity:0; pointer-events:none; transition:opacity .3s ease; background:radial-gradient(240px circle at var(--mx,50%) var(--my,50%),rgba(184,67,15,.09),transparent 65%); z-index:0; }
+  .card:hover .glow{ opacity:1; }
+  .card > *:not(.glow){ position:relative; z-index:1; }
+  .card.b5{ border-left-color:var(--green) } .card.b4{ border-left-color:var(--green2) } .card.b3{ border-left-color:var(--rust) } .card.b2{ border-left-color:var(--grey) } .card.b1{ border-left-color:var(--grey2) }
+  .card .top{ display:flex; align-items:center; justify-content:space-between; gap:6px; }
+  .card .co{ font-weight:600; font-size:15px; letter-spacing:-0.3px; }
+  .fit{ font-family:var(--mono); font-size:9.5px; letter-spacing:.5px; font-weight:500; color:#fff; border-radius:5px; padding:2px 6px; flex-shrink:0; }
+  .fit.b5{ background:var(--green) } .fit.b4{ background:var(--green2) } .fit.b3{ background:var(--rust) } .fit.b2{ background:var(--grey) } .fit.b1{ background:var(--grey2) }
+  .card .role{ font-size:12.5px; color:var(--ink2); margin:3px 0 8px; }
+  .metarow{ display:flex; gap:7px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
+  .tag{ display:inline-block; font-family:var(--mono); font-size:9.5px; text-transform:uppercase; letter-spacing:.9px; color:var(--muted); background:#F4F1EA; border:1px solid var(--line); border-radius:5px; padding:2px 7px; }
+  .days{ font-family:var(--mono); font-size:9.5px; letter-spacing:.5px; color:var(--muted); }
+  .pill{ font-family:var(--mono); font-size:9px; text-transform:uppercase; letter-spacing:.8px; border-radius:100px; padding:2px 8px; }
+  .pill.fup{ background:#FBE9DF; color:var(--rust); border:1px solid #F0CDB9; }
+  .pill.proc{ background:#E2EFE9; color:var(--green); border:1px solid #C4DDD2; }
+  .action{ border-top:1px solid var(--line); padding-top:8px; }
+  .action .lbl{ font-family:var(--mono); font-size:9px; text-transform:uppercase; letter-spacing:1px; color:var(--grey2); display:block; margin-bottom:3px; }
+  .atext{ display:block; font-size:12.5px; line-height:1.5; color:var(--ink2); outline:none; border-radius:5px; }
+  .atext:focus{ background:#FBF7EE; box-shadow:0 0 0 4px #FBF7EE; }
+  .links{ display:flex; gap:10px; align-items:center; margin-top:10px; flex-wrap:wrap; }
+  .links a{ font-family:var(--mono); font-size:9.5px; text-transform:uppercase; letter-spacing:.8px; color:var(--green); }
+  .links a:hover{ color:var(--green); text-decoration:underline; }
+  .mv{ margin-left:auto; font-family:var(--mono); font-size:9.5px; color:var(--muted); border:1px solid var(--line); border-radius:6px; background:var(--card); padding:4px 6px; cursor:pointer; }
+
+  .bridge{ padding:16px 26px 34px; max-width:1500px; margin:0 auto; }
+  .bridge h2{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:1.5px; color:var(--ink); margin:20px 0 0; padding-bottom:16px; border-bottom:1px solid var(--ink); }
+  .bstrip{ display:grid; grid-template-columns:repeat(auto-fit,minmax(272px,1fr)); gap:14px; margin-top:18px; }
+  .bcard{ background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px 18px; border-top:3px solid var(--green); }
+  .bcard.up{ border-top-color:var(--rust); }
+  .bcard .kind{ font-family:var(--mono); font-size:9.5px; text-transform:uppercase; letter-spacing:1px; color:var(--green); margin-bottom:9px; }
+  .bcard.up .kind{ color:var(--rust); }
+  .bcard .co{ font-weight:600; font-size:15.5px; letter-spacing:-0.3px; }
+  .bcard .role{ font-size:12.5px; color:var(--muted); margin:3px 0 9px; }
+  .bcard .btext{ font-size:13px; line-height:1.55; color:var(--ink2); }
+
+  footer{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:1.2px; color:var(--grey2); padding:22px 26px 44px; max-width:1500px; margin:0 auto; border-top:1px solid var(--line); display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+
+  @media (max-width:760px){
+    .sitebar .in{ padding:0 20px; }
+    .sitebar nav{ gap:14px; }
+    header.page{ padding:26px 20px 8px; }
+    .stats{ margin:22px 20px 0; }
+    .toolbar,.hint,.board,.bridge,footer{ padding-left:20px; padding-right:20px; }
+    .board{ flex-direction:column; overflow-x:visible; }
+    .col{ width:100%; min-width:0; max-height:none; }
+    .col-body{ max-height:none; }
+    .card{ cursor:default; }
+    .card:hover{ transform:none; box-shadow:none; }
+    /* Drag is dead on touch, so the stage menu is the only way to move a card
+       here — it has to meet the 44px target. */
+    .mv{ min-height:44px; font-size:12px; padding:8px 10px; }
+    .links{ gap:14px; margin-top:6px; }
+    .links a{ min-height:44px; display:inline-flex; align-items:center; font-size:10.5px; }
+    .atext{ min-height:44px; padding:4px 0; }
+  }
+</style>
+</head>
+<body>
+
+<div id="gate">
+  <div class="box">
+    <p class="eyebrow"><span class="private"><i></i>Private</span></p>
+    <p class="gh">Job Tracker</p>
+    <p>This page isn't public. Enter the passphrase to continue.</p>
+    <form id="gateForm" autocomplete="off">
+      <label for="pass" class="eyebrow">Passphrase</label>
+      <input type="password" id="pass" name="pass" autocomplete="current-password" autofocus>
+      <p class="err" id="gateErr" role="status" aria-live="polite"></p>
+      <button type="submit">Unlock</button>
+    </form>
+  </div>
+</div>
+
+<div id="app" hidden>
+
+<a data-skip href="#main" style="padding:12px 18px;background:#16181C;color:#F7F5F2;border-radius:8px;font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase">Skip to content</a>
+
+<div class="sitebar">
+  <div class="in">
+    <a class="brand" href="index.html"><img src="JorgeBrand.png" alt=""><span>Jorge de Lima</span></a>
+    <nav aria-label="Primary">
+      <span class="private"><i></i>Private</span>
+      <a href="index.html">Portfolio</a>
+    </nav>
+  </div>
+</div>
+
+<main id="main">
+  <header class="page">
+    <p class="eyebrow">Job search · Live board</p>
+    <h1>Job Tracker</h1>
+    <p class="sub">Every live application, its stage, days since applied, and the next move. On desktop, drag cards between columns; on any device, use the stage menu on each card. Click the next-action text to edit it. A rust “Follow up” flag appears when an application has been waiting 7+ days.</p>
+    <div class="cvline"><a href="https://drive.google.com/file/d/1Ngj1LA45lq3D074LdzEIiqrNIhVst-Ym/view" target="_blank" rel="noopener">My CV / Resume <span aria-hidden="true">↗</span></a></div>
+  </header>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="toolbar">
+    <div class="legend" aria-label="Fit rating key">
+      <span><i class="dot f5"></i>Fit 5</span><span><i class="dot f4"></i>4</span><span><i class="dot f3"></i>3</span><span><i class="dot f2"></i>2</span><span><i class="dot f1"></i>1</span>
+    </div>
+    <button class="reset" id="reset" type="button">Reset to snapshot</button>
+  </div>
+  <p class="hint">Counters update live · your drags &amp; edits are saved on this device</p>
+
+  <div class="board" id="board"></div>
+
+  <div class="bridge">
+    <h2>Bridge &amp; Plan B</h2>
+    <div class="bstrip" id="bridge"></div>
+  </div>
+</main>
+
+<footer role="contentinfo">
+  <span>Jorge de Lima · Private job board</span>
+  <span>Snapshot 15 Sep 2026</span>
+</footer>
+
+</div>
+
+<script>
+/* ---- passphrase gate ----------------------------------------------------
+   Client-side only. GitHub Pages serves static files with no server-side
+   auth, so this deters casual visitors and keeps the page out of search
+   results — it is NOT real security. Anyone who views source can read the
+   markup. Keep genuinely sensitive detail in the linked Google Docs, which
+   have real access control. To change the passphrase, replace PASS_HASH
+   with the SHA-256 hex of the new phrase.
+------------------------------------------------------------------------- */
+(function(){
+  var PASS_HASH='7beb7f4a57251263ca5d7274880aa4ba470a8b32e18885340ca2fd40a588fe23'; // "hypothesis"
+  var SESSION='jorgeJobGate';
+  var gate=document.getElementById('gate'), app=document.getElementById('app');
+  var form=document.getElementById('gateForm'), input=document.getElementById('pass'), err=document.getElementById('gateErr');
+
+  var booted=false;
+  function open(){
+    var g=document.getElementById('gate');
+    if(g) g.remove();
+    app.hidden=false;
+    // Deferred: on the returning-visitor path this runs before the board
+    // script block has been parsed, so window.__boot isn't defined yet.
+    setTimeout(function(){
+      if(booted) return;
+      booted=true;
+      if(typeof window.__boot==='function') window.__boot();
+    },0);
+  }
+  async function sha(s){
+    var buf=await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,'0');}).join('');
+  }
+  try{ if(sessionStorage.getItem(SESSION)==='1'){ open(); return; } }catch(e){}
+  gate.hidden=false;
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    err.textContent='';
+    var ok=false;
+    try{ ok = (await sha(input.value.trim().toLowerCase())) === PASS_HASH; }
+    catch(e){ err.textContent='Crypto unavailable — needs HTTPS'; return; }
+    if(ok){ try{ sessionStorage.setItem(SESSION,'1'); }catch(e){} open(); }
+    else { err.textContent='Not that one'; input.select(); }
+  });
+})();
+
+/* ---- board -------------------------------------------------------------
+   All data lives in SEED (and BRIDGE). Each item:
+   {id, co, role, fit(1-5), track, col, applied:'YYYY-MM-DD', cl:'<doc-id>', action}
+   Edit `col` to change a stage permanently for everyone; `applied` drives the
+   days counter and the follow-up clock. FUP_DAYS sets the threshold.
+------------------------------------------------------------------------- */
+window.__boot=(function(){
+  var KEY='jorgeJobBoardV3';
+  var DOC='https://docs.google.com/document/d/';
+  var FUP_DAYS=7;
+  var COLUMNS=[
+    {id:'consider',name:'Consider / To Apply'},
+    {id:'applied',name:'Applied / Waiting'},
+    {id:'interview',name:'Interview / Decision'},
+    {id:'offer',name:'Offer'},
+    {id:'closed',name:'Closed'}
+  ];
+  var SEED=[
+    {id:'amp',co:'AMP',role:'Solutions Designer',fit:5,track:'Financial services CX',col:'interview',applied:'2026-08-10',cl:'11m9ci0JgT33XoBbW-h8SoASU3L1CD6AwRZXmLhEmDqU',action:'Decision expected this week. Your top fit — still live.'},
+    {id:'lightspeed',co:'Lightspeed',role:'Senior Product Designer (Onboarding)',fit:5,track:'B2B SaaS commerce/POS',col:'applied',applied:'2026-09-14',cl:'185apSmppxJLmGcrklec3EraKacKV7sqWbh1hqaEsuTg',action:'Onboarding funnel = your hero project. Find a warm intro.'},
+    {id:'nzte',co:'NZTE',role:'Product Designer — Design Systems',fit:5,track:'Design systems (public sector)',col:'applied',applied:'2026-09-14',cl:'1R_JANDIDIkXjjtMK6QbHArD570ayJQ75dHPA_GYp9PU',action:'Auckland hybrid, 135k match, "very strong applicant". Closes 23 Sept.'},
+    {id:'kernel',co:'Kernel',role:'Lead Product Designer',fit:5,track:'Fintech (KiwiSaver/funds)',col:'applied',applied:'2026-09-14',cl:'1E1HTO_tzYbDfUKsrYqHBBdLzb0_OhD8lV8h8REIFm28',action:'InMail to Armin Svoboda (CPO) sent + notes to designers. Await reply.'},
+    {id:'timescapes',co:'Timescapes',role:'Senior Product Designer',fit:5,track:'B2B SaaS (construction + AI)',col:'applied',applied:'2026-08-20',cl:'16tbC2dxkpLZwLmqZFeS4dmkf1H1lfJ6snC1aCAahHs0',action:'Connect request to Shehan Bala (CPO) sent. Follow up.'},
+    {id:'mercury',co:'Mercury',role:'Senior UX/UI Designer',fit:4,track:'UX/UI craft (in-house)',col:'applied',applied:'2026-07-20',cl:'1PhfJytu2dOTfBDP49ba7W7nxgkvw1Jt8H54OwNT3pqk',action:'Applied. Find a warm intro.'},
+    {id:'stuff',co:'Stuff',role:'Product Designer',fit:3,track:'Consumer media (in-house)',col:'applied',applied:'2026-07-30',cl:'18OK7_Hdqn-q-GEQmz4IOhle3b74dLfL9ss3JgovDIYg',action:'Applied twice. Find a warm intro + send.'},
+    {id:'pushpay',co:'Pushpay',role:'UX Designer 2',fit:3,track:'B2B SaaS (AI-forward)',col:'consider',cl:'',action:'Level-down (Designer 2 / 3+ yrs). Only if open to a step down.'},
+    {id:'ird',co:'IRD',role:'Domain Principal — Design Coherence',fit:2,track:'Design governance (reach)',col:'closed',cl:'1VplqZHfN5dLgTaVhV4Mm9t0GSs8QhVWwykR7VCNASvI',action:'Strong #2. James Barker called: closer-fit candidate chosen.'},
+    {id:'halter',co:'Halter',role:'Senior/Staff Product Designer',fit:4,track:'B2B agritech',col:'closed',cl:'1T37ncGvoNipTKediApaboD9mRTDWZSnGhaE50krz0EI',action:'Rejected at application (visual-craft bar).'},
+    {id:'mccann',co:'McCann',role:'Lead UX/UI Designer',fit:2,track:'Agency',col:'closed',cl:'19iG0GhUCfA4kOHhLq27_JjoMw5WP1-OCv3iYc9iInbo',action:'Withdrawn — no-agency rule.'},
+    {id:'generate',co:'Generate',role:'Product Designer (Onviser)',fit:4,track:'Financial services',col:'closed',cl:'1Tf-wqfwH9jvjRMLE75KgUNINeBsd_srIwDrBSpqbbWA',action:'Rejected after AI interview.'},
+    {id:'lotto',co:'Lotto NZ',role:'Product/Digital Designer',fit:4,track:'Consumer product',col:'closed',cl:'11PNeIAdfDs7Nvy5QwBi6NFSLf6_UHPIN6AdIyHcMNHI',action:'Role filled.'},
+    {id:'partly',co:'Partly',role:'Product Designer',fit:4,track:'B2B SaaS',col:'closed',cl:'1Bxlb_jz7DOT8Bex71pGYjJpEJGAxZzC86yc_G9wbkBk',action:'Rejected.'},
+    {id:'plexure',co:'Plexure',role:'Product Designer',fit:5,track:'B2B SaaS',col:'closed',cl:'1mLPVPaHmnpFcVTT6qnzIrmIT_sCitCqGfQfVfx6UCYQ',action:'Rejected at screen.'},
+    {id:'boardpro',co:'BoardPro',role:'Lead Product Designer',fit:5,track:'B2B SaaS (lead)',col:'closed',cl:'1TJ9ITZ5CzAKQmxmASXkkRDSRrwpPqIAu1uXzorfi7oI',action:'Rejected at screen. Penny invited a reply.'},
+    {id:'tower',co:'Tower',role:'Customer Experience Designer',fit:4,track:'Insurance CX',col:'closed',cl:'1n_iCg-w3hoWIcJvNa4Cp83de_sTBusBSOQEdUlpEWHM',action:'Rejected.'},
+    {id:'osome',co:'Osome',role:'Senior Product Designer',fit:4,track:'Fintech B2B SaaS',col:'closed',cl:'1sJXnjOUKPvVTV7TnBdog-lMjqFbellT_LnKRVilGS8U',action:'Rejected.'},
+    {id:'lic',co:'LIC',role:'Customer Experience Designer',fit:4,track:'Agritech CX',col:'closed',cl:'16pSNtVQg1i1V5uWnA122F9aGMszvZZgI1BaJvPcbTeo',action:'Rejected.'},
+    {id:'corrections',co:'Corrections',role:'Senior Service Designer',fit:3,track:'Public-sector service design',col:'closed',cl:'1rtD91Hjupodtf0LgsmO-7rBIP_5wSurXn4mPOkfoQ2k',action:'Rejected.'},
+    {id:'datacom',co:'Datacom',role:'Senior Service Designer',fit:3,track:'Service design',col:'closed',cl:'1keGv6yyWYT0JE_L6nU6lvLFWuclzTBcgEeqMBZuxgBE',action:'Rejected.'},
+    {id:'trademe',co:'TradeMe',role:'Contract Product Designer',fit:4,track:'B2B SaaS',col:'closed',cl:'1RCnMpaKIGt-8_IbzQtpduhIihmPmYipcerXohfkBxjM',action:'Rejected.'},
+    {id:'dairynz',co:'DairyNZ',role:'Design role',fit:3,track:'Agritech',col:'closed',cl:'1Aa_ZkGJQhe3zkoROXwUVnKyFDSzGahcjCiN7BRBJnBA',action:'Rejected.'},
+    {id:'farmers',co:'Farmers',role:'Senior Digital Designer',fit:1,track:'Campaign creative',col:'closed',cl:'1pPCnlp4Sh-SKg3i3Q2vSGLew65ENo-8HGlZ-SmeZCAA',action:'Rejected (weak fit anyway).'},
+    {id:'older',co:'Older batch (Feb–Jun)',role:'~30 roles',fit:2,track:'Mixed',col:'closed',cl:'',action:'All closed / expired. Archived.'}
+  ];
+  var BRIDGE=[
+    {co:'Evolve — Senior UX (contract)',role:'Financial services / trading systems',kind:'bridge',action:'THE BRIDGE: remote contract, no relocation. Louise Hickey contacted — await rate/client/timeline.'},
+    {co:'Lumora Cleaning',role:'Side business (AU)',kind:'up',action:'Upside, not a 3-month bridge.'},
+    {co:'Steam game',role:'Personal project',kind:'up',action:'Upside + portfolio evidence.'}
+  ];
+
+  function load(){ try{ return JSON.parse(localStorage.getItem(KEY))||{placements:{},actions:{}}; }catch(e){ return {placements:{},actions:{}}; } }
+  function save(s){ try{ localStorage.setItem(KEY,JSON.stringify(s)); }catch(e){} }
+  var state=load();
+
+  function colOf(item){ return (state.placements&&state.placements[item.id])||item.col; }
+  function daysSince(d){ if(!d) return null; var ms=Date.now()-new Date(d+'T00:00:00').getTime(); return Math.max(0,Math.floor(ms/86400000)); }
+
+  function cardEl(item){
+    var stage=colOf(item);
+    var action=(state.actions&&state.actions[item.id])||item.action;
+    var days=daysSince(item.applied);
+    var el=document.createElement('div');
+    el.className='card b'+item.fit; el.draggable=true; el.dataset.id=item.id;
+    var opts=COLUMNS.map(function(c){ return '<option value="'+c.id+'"'+(c.id===stage?' selected':'')+'>'+c.name+'</option>'; }).join('');
+    var clLink=item.cl?'<a href="'+DOC+item.cl+'/edit" target="_blank" rel="noopener">↗ Cover letter</a>':'';
+    var meta='<span class="tag"></span>';
+    if(days!==null && stage!=='closed'){ meta+='<span class="days">'+days+'d since applied</span>'; }
+    if(stage==='interview'){ meta+='<span class="pill proc">In process</span>'; }
+    else if(stage==='applied' && days!==null && days>=FUP_DAYS){ meta+='<span class="pill fup">⏰ Follow up</span>'; }
+    el.innerHTML=
+      '<span class="glow" aria-hidden="true"></span>'+
+      '<div class="top"><span class="co"></span><span class="fit b'+item.fit+'">FIT '+item.fit+'</span></div>'+
+      '<div class="role"></div>'+
+      '<div class="metarow">'+meta+'</div>'+
+      '<div class="action"><span class="lbl">Next action</span><span class="atext" contenteditable="true" role="textbox" aria-label="Next action" tabindex="0"></span></div>'+
+      '<div class="links">'+clLink+'<select class="mv" aria-label="Move stage">'+opts+'</select></div>';
+    el.querySelector('.co').textContent=item.co;
+    el.querySelector('.role').textContent=item.role;
+    el.querySelector('.tag').textContent=item.track;
+    var at=el.querySelector('.atext');
+    at.textContent=action;
+    // Only the text itself is editable, so the label can't be deleted.
+    at.addEventListener('mousedown',function(e){ e.stopPropagation(); el.draggable=false; });
+    at.addEventListener('focus',function(){ el.draggable=false; });
+    at.addEventListener('blur',function(){
+      el.draggable=true;
+      state.actions=state.actions||{};
+      state.actions[item.id]=at.textContent.trim();
+      save(state);
+    });
+    at.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); at.blur(); } });
+    var sel=el.querySelector('.mv');
+    sel.addEventListener('mousedown',function(e){ e.stopPropagation(); });
+    sel.addEventListener('change',function(){ state.placements=state.placements||{}; state.placements[item.id]=sel.value; save(state); render(); });
+    el.addEventListener('dragstart',function(e){ el.classList.add('dragging'); e.dataTransfer.setData('text/plain',item.id); e.dataTransfer.effectAllowed='move'; });
+    el.addEventListener('dragend',function(){ el.classList.remove('dragging'); });
+    return el;
+  }
+
+  function render(){
+    var board=document.getElementById('board');
+    board.innerHTML=''; var bodies={};
+    COLUMNS.forEach(function(c){
+      var col=document.createElement('div'); col.className='col'; col.dataset.col=c.id;
+      col.innerHTML='<div class="col-h"><span class="name">'+c.name+'</span><span class="cnt" data-cnt="'+c.id+'">0</span></div><div class="col-body"></div>';
+      bodies[c.id]=col.querySelector('.col-body');
+      col.addEventListener('dragover',function(e){ e.preventDefault(); col.classList.add('drag'); });
+      col.addEventListener('dragleave',function(){ col.classList.remove('drag'); });
+      col.addEventListener('drop',function(e){ e.preventDefault(); col.classList.remove('drag'); var id=e.dataTransfer.getData('text/plain'); if(!id) return; state.placements=state.placements||{}; state.placements[id]=c.id; save(state); render(); });
+      board.appendChild(col);
+    });
+    SEED.forEach(function(item){ (bodies[colOf(item)]||bodies.applied).appendChild(cardEl(item)); });
+
+    var counts={}, fup=0; COLUMNS.forEach(function(c){counts[c.id]=0;});
+    SEED.forEach(function(item){
+      var c=colOf(item); if(counts[c]===undefined)c='applied'; counts[c]++;
+      var d=daysSince(item.applied);
+      if(c==='applied' && d!==null && d>=FUP_DAYS) fup++;
+    });
+    COLUMNS.forEach(function(c){ var p=document.querySelector('[data-cnt="'+c.id+'"]'); if(p)p.textContent=counts[c.id]; });
+    var live=counts.consider+counts.applied+counts.interview+counts.offer;
+    document.getElementById('stats').innerHTML=
+      st(live,'Live','')+st(counts.applied,'Applied','')+st(counts.interview,'Interviewing','')+
+      st(counts.offer,'Offers','')+st(fup,'Follow-ups due',fup>0?'alert':'')+st(counts.closed,'Closed','');
+  }
+  function st(n,l,cls){ return '<div class="stat '+cls+'"><div class="n">'+n+'</div><div class="l eyebrow">'+l+'</div></div>'; }
+
+  function boot(){
+    render();
+
+    var bwrap=document.getElementById('bridge');
+    bwrap.innerHTML='';
+    BRIDGE.forEach(function(b){
+      var el=document.createElement('div'); el.className='bcard '+(b.kind==='up'?'up':'');
+      el.innerHTML='<div class="kind"></div><div class="co"></div><div class="role"></div><div class="btext"></div>';
+      el.querySelector('.kind').textContent=(b.kind==='up'?'Upside':'Bridge');
+      el.querySelector('.co').textContent=b.co;
+      el.querySelector('.role').textContent=b.role;
+      el.querySelector('.btext').textContent=b.action;
+      bwrap.appendChild(el);
+    });
+
+    document.getElementById('reset').addEventListener('click',function(){
+      if(confirm('Reset to the 15 Sep snapshot? Your drags and edits on this device will be cleared.')){
+        state={placements:{},actions:{}}; save(state); render();
+      }
+    });
+
+    // Cursor-follow glow, matching the portfolio's card hover.
+    document.getElementById('board').addEventListener('pointermove',function(e){
+      var card=e.target.closest ? e.target.closest('.card') : null;
+      if(!card) return;
+      var r=card.getBoundingClientRect();
+      card.style.setProperty('--mx',(e.clientX-r.left)+'px');
+      card.style.setProperty('--my',(e.clientY-r.top)+'px');
+    });
+  }
+  return boot;
+})();
+</script>
+</body>
+</html>

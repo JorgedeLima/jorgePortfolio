@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /jobtracker.html
 
 Sitemap: https://www.jorgedelima.design/sitemap.xml
