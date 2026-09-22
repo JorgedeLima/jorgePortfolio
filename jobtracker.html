@@ -273,6 +273,7 @@ window.__boot=(function(){
     {id:'closed',name:'Closed'}
   ];
   var SEED=[
+    {id:'anz',co:'ANZ',role:'Experience Designer (Tumu design system)',fit:4,track:'Design systems (bank)',col:'applied',applied:'2026-09-22',cl:'1I8w17fJn0dLdeZbBPrSz4KTWv0JXc_dttZaYzqXmA6o',action:'Applied via ANZ Careers (ref 122558). Design-systems core = your strength. Native-mobile is the soft edge. 135k match, "very strong applicant".'},
   {id:'amp',co:'AMP',role:'Solutions Designer',fit:5,track:'Financial services CX',col:'interview',applied:'2026-08-10',cl:'11m9ci0JgT33XoBbW-h8SoASU3L1CD6AwRZXmLhEmDqU',action:'2nd interview done. Delayed — new manager onboarding; update due week of 29 Sept. Top fit.'},
   {id:'everwell',co:'EverWell',role:'Lead Product Designer (Remote NZ)',fit:5,track:'B2B SaaS (Timely/SalonBiz) · Lead',col:'applied',cl:'',action:'Recruiter chat (Claire) went well. Likely interview with Head of Design next (no date yet). CV + portfolio sent. Best-fit + warmest lead.'},
   {id:'lightspeed',co:'Lightspeed',role:'Senior Product Designer (Onboarding)',fit:5,track:'B2B SaaS commerce/POS',col:'applied',applied:'2026-09-14',cl:'185apSmppxJLmGcrklec3EraKacKV7sqWbh1hqaEsuTg',action:'Onboarding funnel = your hero project. Find a warm intro.'},
@@ -280,7 +281,7 @@ window.__boot=(function(){
   {id:'kernel',co:'Kernel',role:'Lead Product Designer',fit:5,track:'Fintech (KiwiSaver/funds)',col:'applied',applied:'2026-09-14',cl:'1E1HTO_tzYbDfUKsrYqHBBdLzb0_OhD8lV8h8REIFm28',action:'InMail to Armin Svoboda (CPO) sent + notes to designers. Follow up if silent.'},
   {id:'timescapes',co:'Timescapes',role:'Senior Product Designer',fit:5,track:'B2B SaaS (construction + AI)',col:'applied',applied:'2026-08-20',cl:'16tbC2dxkpLZwLmqZFeS4dmkf1H1lfJ6snC1aCAahHs0',action:'Connect request to Shehan Bala (CPO) sent. Follow up.'},
   {id:'vista',co:'Vista Group',role:'Senior Product Designer',fit:4,track:'B2B SaaS (cinema software)',col:'applied',applied:'2026-09-19',cl:'1i8q9r76eEgeZKASNDFs72tR2tBEBTR_apPYezv8Rx_Q',action:'Applied. Warm in: Michael Huang (Finance, ex-Unleashed) — referral requested.'},
-  {id:'fisherpaykel',co:'Fisher &amp; Paykel',role:'Senior UX Designer (12-mo contract)',fit:4,track:'Ecommerce / premium · CONTRACT bridge',col:'applied',applied:'2026-09-16',cl:'1UVwBWHY43ptBYjqWA338GTTWdGu8QC-Dh_KJrqIUsKg',action:'Applied. Contract = bridge. Warm note to Clinton U. (TA) sent.'},
+  {id:'fisherpaykel',co:'Fisher & Paykel',role:'Senior UX Designer (12-mo contract)',fit:4,track:'Ecommerce / premium · CONTRACT bridge',col:'applied',applied:'2026-09-16',cl:'1UVwBWHY43ptBYjqWA338GTTWdGu8QC-Dh_KJrqIUsKg',action:'Applied. Contract = bridge. Warm note to Clinton U. (TA) sent.'},
   {id:'pushpay',co:'Pushpay',role:'UX Designer 2',fit:3,track:'B2B SaaS (AI-forward)',col:'applied',applied:'2026-09-18',cl:'1QKvbR-BJtEIJTkBsNqdD7zCzvSVofOIOXr9Awd25gBg',action:'Applied. Strong AI-fluency fit; level-down (Designer 2).'},
   {id:'stuff',co:'Stuff',role:'Product Designer',fit:3,track:'Consumer media (in-house)',col:'applied',applied:'2026-07-30',cl:'18OK7_Hdqn-q-GEQmz4IOhle3b74dLfL9ss3JgovDIYg',action:'Silent ~8 weeks — warm intro or move to Closed.'},
   {id:'mercury',co:'Mercury',role:'Senior UX/UI Designer',fit:4,track:'UX/UI craft (in-house)',col:'closed',cl:'1PhfJytu2dOTfBDP49ba7W7nxgkvw1Jt8H54OwNT3pqk',action:'Rejected 21 Sept (no interview).'},
@@ -369,7 +370,10 @@ window.__boot=(function(){
       col.addEventListener('drop',function(e){ e.preventDefault(); col.classList.remove('drag'); var id=e.dataTransfer.getData('text/plain'); if(!id) return; state.placements=state.placements||{}; state.placements[id]=c.id; save(state); render(); });
       board.appendChild(col);
     });
-    SEED.forEach(function(item){ (bodies[colOf(item)]||bodies.applied).appendChild(cardEl(item)); });
+    // Highest fit first within each column; ties keep their seed order.
+    SEED.map(function(item,i){return {item:item,i:i};})
+      .sort(function(a,b){ return (b.item.fit||0)-(a.item.fit||0) || a.i-b.i; })
+      .forEach(function(e){ (bodies[colOf(e.item)]||bodies.applied).appendChild(cardEl(e.item)); });
 
     var counts={}, fup=0; COLUMNS.forEach(function(c){counts[c.id]=0;});
     SEED.forEach(function(item){
