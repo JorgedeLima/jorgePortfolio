@@ -387,43 +387,5 @@ class Component extends DCLogic {
 }
 
 </script>
-<script>
-/* Analytics notice — snackbar shown until dismissed (remembered in localStorage) */
-(function(){
-  var KEY='jdl-analytics-notice';
-  try{ if(localStorage.getItem(KEY)) return; }catch(e){}
-  function show(){
-    if(document.getElementById('analytics-notice')) return;
-    var css=document.createElement('style');
-    css.textContent=
-      '#analytics-notice{position:fixed;left:24px;bottom:24px;z-index:50;max-width:440px;display:flex;align-items:center;gap:16px;padding:14px 14px 14px 18px;background:#16181C;color:#F7F5F2;border-radius:10px;box-shadow:0 12px 32px rgba(22,24,28,0.22);font-family:\'Instrument Sans\',\'Helvetica Neue\',sans-serif;font-size:14px;line-height:1.45;opacity:0;transform:translateY(12px);transition:opacity .28s ease,transform .28s ease;}'+
-      '#analytics-notice[data-in]{opacity:1;transform:none;}'+
-      '#analytics-notice p{margin:0;}'+
-      '#analytics-notice button{flex-shrink:0;min-height:44px;padding:0 16px;background:#F7F5F2;color:#16181C;border:0;border-radius:6px;font:inherit;font-weight:600;cursor:pointer;}'+
-      '#analytics-notice button:hover{background:#FFF;}'+
-      '@media (max-width:560px){#analytics-notice{left:16px;right:16px;bottom:16px;max-width:none;}}';
-    document.head.appendChild(css);
-    var el=document.createElement('div');
-    el.id='analytics-notice';
-    el.setAttribute('role','region');
-    el.setAttribute('aria-label','Analytics notice');
-    var p=document.createElement('p');
-    p.textContent='This site uses cookies with Google Analytics and Microsoft Clarity to see how it\u2019s used, including recordings of clicks and scrolling.';
-    var b=document.createElement('button');
-    b.type='button';
-    b.textContent='Got it';
-    b.addEventListener('click',function(){
-      try{ localStorage.setItem(KEY,'1'); }catch(e){}
-      el.removeAttribute('data-in');
-      setTimeout(function(){ el.remove(); },300);
-    });
-    el.appendChild(p); el.appendChild(b);
-    document.body.appendChild(el);
-    requestAnimationFrame(function(){ requestAnimationFrame(function(){ el.setAttribute('data-in',''); }); });
-  }
-  if(document.readyState==='complete') setTimeout(show,600);
-  else window.addEventListener('load',function(){ setTimeout(show,600); });
-})();
-</script>
 </body>
 </html>
