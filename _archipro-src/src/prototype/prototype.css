@@ -1,4 +1,4 @@
-/* Placeholder shell layout. The screens are styled from the Claude Design direction in later steps. */
+/* The prototype: shell (header, role bar, guide), then each screen. Colours and sizes come from tokens.css. */
 
 .proto-header {
   background: var(--surface);
@@ -114,7 +114,7 @@
   color: var(--ink-inverse-muted);
 }
 
-/* ---------- Screens (plain layout until the Claude Design direction is applied) ---------- */
+/* ---------- Screens ---------- */
 .stack {
   display: grid;
   gap: var(--space-4);

@@ -2,13 +2,13 @@
 
 Target: WCAG 2.2 level AAA. Minimum, always: level AA.
 
-Last checked: 2 October 2026, on the built pages (`/archipro/` and `/archipro/prototype/`), before the Claude Design pass. Anything that changes colour, type size, spacing or layout after this date needs the checks below run again.
+Last checked: 2 October 2026, on the built pages (`/archipro/` and `/archipro/prototype/`). Anything that changes colour, type size, spacing or layout after this date needs the checks below run again.
 
 ## AAA criteria that are not met
 
 | Criterion | What is missing | Why |
 |---|---|---|
-| 1.4.8 Visual presentation | Space between paragraphs is 16px. AAA asks for 1.5 times the line spacing, which is 36px at this type size. | It makes cards and panels very loose. Left for the design pass to decide. |
+| 1.4.8 Visual presentation | Space between paragraphs is 16px. AAA asks for 1.5 times the line spacing, which is 36px at this type size. | It makes cards and panels very loose, so it was left at 16px. |
 | 1.4.8 Visual presentation | The pages have no control for choosing text and background colours. | They rely on the browser's own settings. Not tested with custom colours or Windows high contrast. |
 | 3.1.3 Unusual words | No glossary for trade words: cladding, joinery, allowance, contingency, lead time, superseded. | Each is used the way ArchiPro's audience uses it. A glossary is not built. |
 | 3.1.4 Abbreviations | The case study uses WCAG, AAA, AI, API and PDF without spelling them out. | That copy is Jorge's (`content.md`). NZD and GST are spelled out on every prototype screen that uses them. |
@@ -31,7 +31,7 @@ Measured in the browser with a script that reads the computed styles, at 1280px,
 - **Forms (3.3.1, 3.3.2, 3.3.3).** Every field has a visible label. Buttons are never disabled; an inline message says what to do and focus moves to the field.
 - **Status is never colour alone (1.4.1).** Every status is written out. Screen readers hear "Status:" before it. The part of the budget over the allowance is hatched and the text says "over".
 - **Live region (4.1.3).** A polite live region announces "Sent to Tom for review", "Changes requested by Tom", "Exterior cladding approved by Tom", "Tom signed version 1 of the Exterior package" and "Exterior package signed off".
-- **Motion and time (2.2.3, 2.3.3).** No time limits and nothing moves by itself. Transitions are removed when reduced motion is on.
+- **Motion and time (2.2.3, 2.3.3).** No time limits and nothing loops. The page-open settle, scroll fade-ups, budget meter fill, press effect and option spring (`scripts/motion.js`) each run once and last under a second. With reduced motion on, none of them run and nothing is hidden: checked in Chrome with the reduced-motion setting emulated, on both pages.
 - **Link and button text (2.4.9).** Each one makes sense by itself, for example "Compare exterior cladding options".
 - **Reading level (3.1.5).** The case study copy scores about grade 7 on a Flesch-Kincaid estimate, which is lower secondary. This is an estimate from a formula, not a review by a reader.
 

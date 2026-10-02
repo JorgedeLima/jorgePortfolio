@@ -107,7 +107,6 @@ Timeline: [dates], about [hours] hours.
 - Research: company and market research with ChatGPT, checked against ArchiPro's public site.
 - Audit: my own walkthrough of ArchiPro's project setup.
 - Planning and decisions: Claude, with a written decision log.
-- Screens: Claude Design. [Confirm.]
 - Build: Claude Code, React and TypeScript, published to GitHub Pages.
 - People: one architect conversation on [date]. [Add what changed because of it.]
 

@@ -5,6 +5,7 @@ import "../styles/base.css";
 import "./prototype.css";
 import { THEME } from "../config";
 import { startClarity } from "../analytics/clarity";
+import { initMotion } from "../../scripts/motion.js";
 import { App } from "./App";
 
 // prototype/index.html loads Inter. The neutral theme uses Instrument Sans instead.
@@ -23,3 +24,5 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </StrictMode>,
 );
+
+initMotion({ live: true });
