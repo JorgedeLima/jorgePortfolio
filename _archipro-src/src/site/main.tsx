@@ -4,6 +4,7 @@ import "../styles/tokens.css";
 import "../styles/base.css";
 import "./site.css";
 import { startClarity } from "../analytics/clarity";
+import { initMotion } from "../../scripts/motion.js";
 import { App } from "./App";
 
 // Before the first render, so the first events are queued.
@@ -14,3 +15,5 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </StrictMode>,
 );
+
+initMotion({ live: true });
