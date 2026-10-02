@@ -1,5 +1,5 @@
 import { track } from "../analytics/track";
-import { PROTOTYPE_URL, UNOFFICIAL_LABEL } from "../config";
+import { PROTOTYPE_URL } from "../config";
 import { field, withoutNote } from "./content";
 import type { Section } from "./content";
 
@@ -18,7 +18,6 @@ export function Hero({ section, nextId }: { section: Section; nextId: string }) 
         </a>
       </div>
       <p className="site-small">{field(section, "Small print")}</p>
-      <p className="site-small">{UNOFFICIAL_LABEL}</p>
     </header>
   );
 }

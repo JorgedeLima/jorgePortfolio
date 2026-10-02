@@ -40,27 +40,93 @@
   border-radius: 5px;
 }
 
+/* Footer, from Jorge's Figma design ("Footer - Case Study"): the usage notice on the left and
+   the two contact buttons on the right under an ink line, then the name line under a light line.
+   Sizes and colours follow the design. The name line (11px, #6E6A64) is below the 7:1 and 14px
+   used elsewhere on this page: see ACCESSIBILITY.md. */
 .site-footer {
-  display: grid;
-  gap: var(--space-3);
   margin-top: var(--space-8);
-  padding-block: var(--space-5) var(--space-7);
-  border-top: 1px solid var(--site-line);
-  color: var(--site-muted);
 }
 
-.site-footer__links {
+.site-footer__contact {
+  display: grid;
+  align-items: center;
+  gap: var(--space-6);
+  padding-block: 40px;
+  border-top: 1px solid var(--site-ink);
+}
+
+.site-footer__notice {
+  display: grid;
+  gap: var(--space-2);
+  max-width: 351px;
+  font-size: 1.03125rem; /* 16.5px */
+  line-height: 1.65; /* 27.23px */
+}
+
+.site-footer__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-2) var(--space-5);
+  gap: var(--space-3);
 }
 
-.site-footer a {
-  display: inline-flex;
-  align-items: center;
-  min-height: var(--target-min);
-  font-weight: 500;
+/* 14px of padding and the 1px border every button has make the design's 44.5px height. */
+.site-footer .button {
+  padding: 14px 24px;
+  font-size: 0.90625rem; /* 14.5px */
+  line-height: 1;
+}
+
+.site-footer__meta {
+  max-width: none;
+  padding-block: 26px 56px;
+  border-top: 1px solid var(--site-line);
+  font-family: var(--site-font-mono);
+  font-size: 0.6875rem; /* 11px */
+  letter-spacing: 0.06em;
+  color: var(--site-flint);
+}
+
+@media (min-width: 768px) {
+  .site-footer__contact {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .site-footer__actions {
+    justify-content: flex-end;
+  }
+}
+
+/* Buttons: the same pair as jorgedelima.design. Rust fill that turns ink on hover, and an
+   outline that darkens on hover. White on #B8430F is 5.0:1: it meets AA, not AAA (see ACCESSIBILITY.md). */
+body.site {
+  --site-rust-brand: #b8430f;
+  --site-outline: #c9c3b9;
+  --site-flint: #6e6a64;
+}
+
+.site .button {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.site .button--primary {
+  background: var(--site-rust-brand);
+  color: #ffffff;
+}
+
+.site .button--primary:hover {
+  background: var(--site-ink);
+}
+
+.site .button--secondary {
+  background: transparent;
+  border-color: var(--site-outline);
   color: var(--site-ink);
+}
+
+.site .button--secondary:hover {
+  border-color: var(--site-ink);
 }
 
 .site-main {

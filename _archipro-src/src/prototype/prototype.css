@@ -44,11 +44,25 @@
   color: var(--ink-muted);
 }
 
-.proto-footer a {
+/* The way back to the case study is Jorge's own outlined button, as on jorgedelima.design. */
+.proto-footer__back {
   display: inline-flex;
   align-items: center;
-  min-height: var(--target-min);
-  color: var(--ink);
+  justify-content: center;
+  padding: 14px 24px;
+  border: 1px solid #c9c3b9;
+  border-radius: 100px;
+  font-family: "Instrument Sans", system-ui, sans-serif;
+  font-size: 0.90625rem; /* 14.5px */
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: #16181c;
+  text-decoration: none;
+}
+
+.proto-footer__back:hover {
+  border-color: #16181c;
 }
 
 .proto-eyebrow {
@@ -226,9 +240,10 @@
 }
 
 /* Overview */
+/* Project facts sit in a row of equal columns from the left, as in the Figma design. */
 .facts {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   gap: var(--space-4);
   margin: 0;
 }
@@ -599,4 +614,24 @@
 
 .proto-main :is(dd, blockquote, label, td, th) {
   max-width: var(--measure);
+}
+
+/* Overview, from the Figma design */
+@media (min-width: 768px) {
+  /* One line each, so a long value such as "Westmere, Auckland" does not wrap inside its column. */
+  .facts dd {
+    white-space: nowrap;
+  }
+}
+
+/* The icon file has its own space on the left, so the word space before it is taken back. */
+.amounts-note img {
+  display: inline-block;
+  margin-left: -0.25em;
+  vertical-align: middle;
+}
+
+.product-image--wide {
+  aspect-ratio: 1136 / 511;
+  border-radius: 0;
 }

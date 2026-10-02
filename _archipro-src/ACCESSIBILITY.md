@@ -8,6 +8,8 @@ Last checked: 2 October 2026, on the built pages (`/archipro/` and `/archipro/pr
 
 | Criterion | What is missing | Why |
 |---|---|---|
+| 1.4.6 Contrast (enhanced) | The two rust buttons on the case study ("Start the 90-second demo") are white on #B8430F, which is 5.0:1. AAA asks for 7:1. | Jorge's brand colour, matched to the buttons on jorgedelima.design. It meets AA (4.5:1). On hover and on focus the button is far above 7:1. |
+| 1.4.6 Contrast (enhanced) | The name line in the case study footer is 11px in #6E6A64, which is 4.9:1. AAA asks for 7:1. It is also smaller than the 14px used for labels elsewhere. | Built to Jorge's Figma design for the footer, which matches jorgedelima.design. It meets AA (4.5:1). |
 | 1.4.8 Visual presentation | Space between paragraphs is 16px. AAA asks for 1.5 times the line spacing, which is 36px at this type size. | It makes cards and panels very loose, so it was left at 16px. |
 | 1.4.8 Visual presentation | The pages have no control for choosing text and background colours. | They rely on the browser's own settings. Not tested with custom colours or Windows high contrast. |
 | 3.1.3 Unusual words | No glossary for trade words: cladding, joinery, allowance, contingency, lead time, superseded. | Each is used the way ArchiPro's audience uses it. A glossary is not built. |
@@ -18,7 +20,7 @@ Last checked: 2 October 2026, on the built pages (`/archipro/` and `/archipro/pr
 
 Measured in the browser with a script that reads the computed styles, at 1280px, 360px and 320 by 256px (the same as 400% zoom on a 1280 by 1024 screen), across 14 states of the prototype and the whole case study.
 
-- **Contrast (1.4.6).** Every piece of text is at least 7:1 against its background (4.5:1 for large text). No failures.
+- **Contrast (1.4.6).** Every piece of text is at least 7:1 against its background (4.5:1 for large text), except the rust buttons and the footer name line on the case study, both listed above.
 - **Target size (2.5.5).** Every button, link, radio, checkbox, text box and disclosure is at least 44 by 44 pixels. Links inside a sentence are the exception the criterion allows.
 - **Text size and line length (1.4.8).** Body text is 16px with 1.5 line height, left aligned. Lines measure 70 to 78 characters at most. The supplied token of 70ch gave about 100 characters a line, so `base.css` sets the measure to 36em.
 - **Reflow and zoom (1.4.10, 1.4.4).** No horizontal scroll at 360px or at 320px. At 320 by 256px the sticky bars switch off so they do not fill the screen.
