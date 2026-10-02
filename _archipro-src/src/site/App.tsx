@@ -1,5 +1,5 @@
 import { OPTED_OUT_NOTE, optedOut } from "../analytics/clarity";
-import { BASE, PROTOTYPE_URL } from "../config";
+import { BASE } from "../config";
 import { Blocks } from "./Blocks";
 import { getSection, getUsageNotice } from "./content";
 import { Credits } from "./Credits";
@@ -60,13 +60,30 @@ export function App() {
         })}
       </main>
       <footer className="wrap site-footer">
-        {usageNotice && <p>{usageNotice}</p>}
-        {optedOut && <p>{OPTED_OUT_NOTE}</p>}
-        <nav className="site-footer__links" aria-label="Footer">
-          <a href={PROTOTYPE_URL}>Open the prototype</a>
-          <a href="/">Back to jorgedelima.design</a>
-        </nav>
-        <p className="site-label">Jorge de Lima · Senior Product Designer · 2026</p>
+        <div className="site-footer__contact">
+          <div className="site-footer__notice">
+            {usageNotice && <p>{usageNotice}</p>}
+            {optedOut && <p>{OPTED_OUT_NOTE}</p>}
+          </div>
+          <div className="site-footer__actions">
+            <a className="button button--primary" href="mailto:hi@jorgedelima.design?subject=Portfolio%20enquiry">
+              hi@jorgedelima.design
+            </a>
+            <a
+              className="button button--secondary"
+              href="https://www.linkedin.com/in/jorge-de-lima-03618a17/"
+              target="_blank"
+              rel="noopener"
+            >
+              {/* One wrapper, so the space before the arrow survives inside the flex button. */}
+              <span>
+                LinkedIn <span aria-hidden="true">↗</span>
+                <span className="sr-only"> (opens in a new tab)</span>
+              </span>
+            </a>
+          </div>
+        </div>
+        <p className="site-footer__meta">Jorge de Lima · Senior Product Designer · 2026</p>
       </footer>
     </>
   );

@@ -8,7 +8,9 @@ export const THEME = "archipro" as Theme;
 export const USAGE_NOTICE =
   "This prototype records anonymous usage to help me improve it. Text you type is not recorded.";
 
-export const UNOFFICIAL_LABEL = "Unofficial concept by Jorge de Lima. Not affiliated with ArchiPro.";
+// Shown in the prototype header on every screen. The page title and description still carry the
+// full line: "Unofficial concept by Jorge de Lima. Not affiliated with ArchiPro."
+export const UNOFFICIAL_LABEL = "Design exercise :: Unofficial concept";
 
 // Vite's base path ("/archipro/"), for links between the two pages and files in public/.
 export const BASE = import.meta.env.BASE_URL;

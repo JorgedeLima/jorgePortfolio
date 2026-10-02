@@ -6,7 +6,8 @@ import type { Section } from "./content";
 // Notes from content.md, with one credit per photo taken from src/data/images.json
 // (the credits typed into the photo tool).
 export function Credits({ section }: { section: Section }) {
-  const photos = Object.values(images);
+  // Only photos with a credit typed in are listed.
+  const photos = Object.values(images).filter((photo) => photo.credit);
   // The usage notice is shown in the footer instead.
   const notes = section.blocks
     .flatMap((block) => (block.kind === "ul" ? block.items : []))
@@ -22,7 +23,7 @@ export function Credits({ section }: { section: Section }) {
             </li>
           );
         }
-        // The images line only makes sense once there are photos.
+        // The images line only makes sense once there are credited photos.
         if (photos.length === 0) return null;
         return (
           <li key={note.text}>
@@ -30,7 +31,7 @@ export function Credits({ section }: { section: Section }) {
             <ul>
               {photos.map((photo) => (
                 <li key={photo.file}>
-                  {photo.source ? <a href={photo.source}>{photo.credit ?? photo.source}</a> : (photo.credit ?? "Credit to add")}
+                  {photo.source ? <a href={photo.source}>{photo.credit}</a> : photo.credit}
                   {photo.alt ? ` (${photo.alt})` : ""}
                 </li>
               ))}

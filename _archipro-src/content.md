@@ -63,7 +63,7 @@ Six decisions, each with what I gave up. Format: decision, why, trade-off.
 - Changes requested is a real path. Architects rarely approve on the first pass. Trade-off: one more state to design and explain.
 - Sign-off by package, with versions. A signed version never changes; a change creates a new version and everyone signs again. Trade-off: one more step in the flow.
 - The assistant drafts, people decide. It summarises from project data and never approves or recommends. Trade-off: a quieter AI moment.
-- AAA as the target. Contrast, targets and reading level set to WCAG AAA. Trade-off: some of ArchiPro's current greys are darker here. Four criteria are not met yet: paragraph spacing and reader-chosen colours (1.4.8), a glossary for trade words (3.1.3), some abbreviations on this page (3.1.4), and undo or confirm for every action (3.3.6).
+- AAA as the target. Contrast, targets and reading level set to WCAG AAA. Trade-off: some of ArchiPro's current greys are darker here. Five criteria are not met yet: the contrast of the rust buttons and the footer line on this page (1.4.6), paragraph spacing and reader-chosen colours (1.4.8), a glossary for trade words (3.1.3), some abbreviations on this page (3.1.4), and undo or confirm for every action (3.3.6).
 
 ## 6. Where the AI sits
 

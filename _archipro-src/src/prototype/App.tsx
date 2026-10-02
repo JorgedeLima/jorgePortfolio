@@ -128,7 +128,9 @@ function Shell() {
         <p>{USAGE_NOTICE}</p>
         {optedOut && <p>{OPTED_OUT_NOTE}</p>}
         <p>
-          <a href={CASE_STUDY_URL}>Back to the case study</a>
+          <a className="proto-footer__back" href={CASE_STUDY_URL}>
+            Back to the case study
+          </a>
         </p>
       </footer>
 

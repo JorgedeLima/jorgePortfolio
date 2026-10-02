@@ -1,5 +1,7 @@
 import { StatusChip } from "../../components/StatusChip";
 import { BudgetMeter } from "../../components/BudgetMeter";
+import { ProductImage } from "../../components/ProductImage";
+import { BASE } from "../../config";
 import { nzd } from "../../format";
 import { useProject } from "../../state/ProjectContext";
 import { packageItems, packageSummary, personForRole, selectedProduct } from "../../state/selectors";
@@ -38,10 +40,14 @@ export function Overview() {
             <dd>{nzd(project.contingency)}</dd>
           </div>
         </dl>
-        <p className="fine-print">
-          All amounts are in <abbr title="New Zealand dollars">NZD</abbr> (New Zealand dollars).
+        <p className="fine-print amounts-note">
+          All amounts are in{" "}
+          <img src={`${BASE}icons/language.svg`} alt="" width={29} height={24} />
+          <abbr title="New Zealand dollars">NZD</abbr> (New Zealand dollars).
         </p>
       </header>
+
+      <ProductImage slot="project-hero" alt="The house in this project" shape="wide" />
 
       <DecisionsNeeded />
 
