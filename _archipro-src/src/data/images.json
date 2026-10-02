@@ -4,6 +4,71 @@
     "width": 2271,
     "height": 1514,
     "version": 1790936190342,
-    "alt": "A dark timber house at dusk with a lit entrance, long grasses in front and a black classic car on the drive"
+    "alt": "A dark timber house at dusk with a lit entrance, long grasses in front and a black classic car on the drive",
+    "credit": "Photo by D5 Render on Unsplash",
+    "source": "https://unsplash.com/photos/a-car-is-parked-in-front-of-a-house-4-1fBqYVlbw"
+  },
+  "cladding-cedar": {
+    "file": "images/cladding-cedar.jpg",
+    "width": 1600,
+    "height": 1065,
+    "version": 1790936656953,
+    "alt": "Close-up of vertical timber boards in warm brown tones",
+    "credit": "Photo by Jan Kopřiva on Unsplash",
+    "source": "https://unsplash.com/photos/a-close-up-of-a-wall-made-of-wooden-slats-J4Ticm2cX34"
+  },
+  "cladding-fibre-cement": {
+    "file": "images/cladding-fibre-cement.jpg",
+    "width": 1600,
+    "height": 1019,
+    "version": 1790936656953,
+    "alt": "Dark grey building facade seen from below against a pale sky",
+    "credit": "Photo by Will Dunkley on Unsplash",
+    "source": "https://unsplash.com/photos/gray-building-at-daytime-qenHCIZMZWk"
+  },
+  "roofing-steel": {
+    "file": "images/roofing-steel.jpg",
+    "width": 1600,
+    "height": 1067,
+    "version": 1790936656953,
+    "alt": "Close-up of grey corrugated metal sheeting",
+    "credit": "Photo by Trina Power on Unsplash",
+    "source": "https://unsplash.com/photos/SAyQahIegt8"
+  },
+  "joinery-aluminium": {
+    "file": "images/joinery-aluminium.jpg",
+    "width": 1200,
+    "height": 1599,
+    "version": 1790936656953,
+    "alt": "Black-framed window with a view of trees and an old building",
+    "credit": "Photo by Meral Avdanlı on Unsplash",
+    "source": "https://unsplash.com/photos/black-wooden-framed-glass-window-uWpcJhrDwog"
+  },
+  "tile-terrazzo": {
+    "file": "images/tile-terrazzo.jpg",
+    "width": 1200,
+    "height": 1600,
+    "version": 1790936656953,
+    "alt": "Geometric floor of red, white, grey and black marble and stone tiles",
+    "credit": "Photo by George Pagan III on Unsplash",
+    "source": "https://unsplash.com/photos/3XsDvPlo-5E"
+  },
+  "tile-porcelain-terrazzo": {
+    "file": "images/tile-porcelain.jpg",
+    "width": 1200,
+    "height": 1800,
+    "version": 1790936656953,
+    "alt": "Sunlight across a speckled terrazzo-look surface and a pale tiled floor",
+    "credit": "Photo by Rex Li on Unsplash",
+    "source": "https://unsplash.com/photos/dpLjHgxyhII"
+  },
+  "tile-wall-white": {
+    "file": "images/bathroom.jpg",
+    "width": 1600,
+    "height": 1067,
+    "version": 1790936656953,
+    "alt": "White bathroom with a freestanding bath, a glass shower and pale wall tiles",
+    "credit": "Photo by Salvo Media LLC on Unsplash",
+    "source": "https://unsplash.com/photos/ftjqFgBR7oI"
   }
 }
