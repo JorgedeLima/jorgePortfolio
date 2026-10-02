@@ -1,0 +1,50 @@
+/* Dev-only photo tools. Dashed border so they never look like part of the design. */
+.image-editor {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+  padding: var(--space-3);
+  border: 2px dashed var(--line-strong);
+  border-radius: var(--radius-sm);
+}
+
+.image-editor__label {
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.image-editor__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.image-editor summary {
+  display: flex;
+  align-items: center;
+  min-height: var(--target-min);
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.image-editor__fields {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.image-editor__fields label {
+  display: grid;
+  gap: var(--space-1);
+  width: 100%;
+}
+
+.image-editor__fields input,
+.image-editor__fields textarea {
+  width: 100%;
+  min-height: var(--target-min);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+}

@@ -1,0 +1,200 @@
+/*
+  Base styles shared by both pages: reset, readable defaults, focus, targets.
+  Colours and sizes come from tokens.css. Look and feel for each screen is layered on top of this.
+*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Line length. tokens.css sets 70ch, but "ch" is the width of a zero, which is wider than an
+   average letter: measured in the browser, 70ch gave about 100 characters a line in Instrument
+   Sans and about 85 in Inter. 36em gives about 77 and 70, under the 80 that WCAG 1.4.8 asks for. */
+:root {
+  --measure: 36em;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: var(--leading-body);
+  text-align: start;
+  overflow-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+figure {
+  margin: 0;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  height: auto;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+
+p,
+li {
+  max-width: var(--measure);
+}
+
+/* When focus moves, the browser keeps this much room clear at the top and bottom,
+   so sticky bars never cover the focused element. */
+html {
+  scroll-padding-block: 144px;
+}
+
+/* Visible focus on every interactive element. */
+:focus-visible {
+  outline: var(--focus-width) solid var(--focus-ring, var(--site-ink));
+  outline-offset: var(--focus-offset);
+}
+
+/* Headings that receive focus after a role switch are not interactive, so they get no ring. */
+[tabindex="-1"]:focus {
+  outline: none;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-4);
+  top: var(--space-4);
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  padding: 0 var(--space-4);
+  border-radius: var(--radius-pill);
+  background: var(--surface-inverse, var(--site-ink));
+  color: #ffffff;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+/* ---------- Case study page (Jorge's brand) ---------- */
+body.site {
+  background: var(--site-bg);
+  color: var(--site-ink);
+  font-family: var(--site-font);
+}
+
+.site-label {
+  font-family: var(--site-font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--site-muted);
+}
+
+/* ---------- Prototype (theme set by data-theme on the root) ---------- */
+.prototype {
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font);
+}
+
+.prototype h1,
+.prototype h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-heading);
+}
+
+/* ---------- Shared pieces ---------- */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--target-min);
+  min-width: var(--target-min);
+  padding: 0 var(--space-5);
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color var(--motion-fast) var(--ease);
+}
+
+.button--primary {
+  background: var(--surface-inverse, var(--site-ink));
+  color: #ffffff;
+}
+
+.button--secondary {
+  background: var(--surface, var(--site-surface));
+  border-color: var(--line-strong, var(--site-muted));
+  color: var(--ink, var(--site-ink));
+}
+
+.wrap {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .wrap {
+    padding-inline: var(--space-6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

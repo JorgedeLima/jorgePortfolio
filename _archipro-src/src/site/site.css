@@ -1,0 +1,176 @@
+/* Case study page. Plain reading layout in Jorge's brand tokens, until the Claude Design pass. */
+
+/* Header: the same brand mark and name as jorgedelima.design */
+.site-header {
+  z-index: 20;
+  border-bottom: 1px solid var(--site-line);
+  background: rgba(247, 245, 242, 0.86);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+@media (min-height: 600px) {
+  .site-header {
+    position: sticky;
+    top: 0;
+  }
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+}
+
+.site-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--target-min);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.site-brand img {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 5px;
+}
+
+.site-footer {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-8);
+  padding-block: var(--space-5) var(--space-7);
+  border-top: 1px solid var(--site-line);
+  color: var(--site-muted);
+}
+
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+}
+
+.site-footer a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  font-weight: 500;
+  color: var(--site-ink);
+}
+
+.site-main {
+  display: grid;
+  gap: var(--space-8);
+}
+
+.site-main > * {
+  min-width: 0;
+}
+
+.site-hero,
+.site-section {
+  display: grid;
+  gap: var(--space-4);
+  align-content: start;
+}
+
+.site-hero {
+  gap: var(--space-5);
+  padding-block: var(--space-7) var(--space-5);
+}
+
+.site-hero h1 {
+  font-size: var(--text-3xl);
+  font-weight: 500;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.02em;
+}
+
+.site-lead {
+  font-size: var(--text-lg);
+  line-height: 1.35;
+}
+
+.site-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.site-small {
+  color: var(--site-muted);
+}
+
+.site-section {
+  /* Keeps the heading clear of the top of the screen when a link jumps here. */
+  scroll-margin-top: var(--space-5);
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--site-line);
+}
+
+.site-section h2 {
+  font-size: var(--text-xl);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.site-section h3 {
+  margin-top: var(--space-3);
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+
+.site-section :is(ul, ol) {
+  display: grid;
+  gap: var(--space-2);
+  padding-left: var(--space-5);
+}
+
+.site-section li > ul {
+  margin-top: var(--space-2);
+}
+
+.site-section p a:not(.button),
+.site-section li a:not(.button) {
+  color: var(--site-green);
+}
+
+.site-note {
+  padding-left: var(--space-4);
+  border-left: 3px solid var(--site-line);
+  color: var(--site-muted);
+}
+
+.site-section code {
+  font-family: var(--site-font-mono);
+  font-size: 0.9375em;
+}
+
+/* Decisions: numbered, one block each */
+.site-section .site-decisions {
+  gap: var(--space-5);
+}
+
+.site-decisions li {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.site-decisions h3 {
+  margin-top: 0;
+}
+
+/* Copy that is still missing in content.md, shown so it cannot be published by accident. */
+.todo {
+  padding: 0 var(--space-1);
+  border: 2px dashed var(--site-rust);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--site-rust);
+}

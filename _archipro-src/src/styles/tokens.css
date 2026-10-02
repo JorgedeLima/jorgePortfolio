@@ -1,0 +1,126 @@
+/*
+  Design tokens for the ArchiPro application prototype.
+
+  Two layers:
+  1. Site wrapper (case study page): Jorge's brand, with text colours darkened to meet WCAG AAA (7:1).
+  2. Prototype: ArchiPro's design language, read from archipro.co.nz on 2 October 2026,
+     with greys darkened to meet AAA. Set data-theme="archipro" or data-theme="neutral" on the prototype root.
+
+  Contrast is checked against the surface each colour sits on. Ratios are noted next to each text colour.
+  Do not add new text colours without checking 7:1 (4.5:1 for large text, 18.66px bold or 24px regular and up).
+*/
+
+:root {
+  /* ---------- Site wrapper (Jorge's brand) ---------- */
+  --site-bg: #F7F5F2;
+  --site-surface: #FFFEFC;
+  --site-ink: #16181C;          /* 16.3:1 on --site-bg */
+  --site-muted: #4F4B46;        /* 7.95:1 on --site-bg. Brand muted #6E6A64 is 4.9:1, so it is used only for non-text details */
+  --site-line: #E4E0D8;         /* decorative only */
+  --site-green: #174F3C;        /* 8.7:1, text use. Brand green #1F6F54 kept for large display text only (5.6:1) */
+  --site-rust: #8C320B;         /* 7.5:1, text use. Brand rust #B8430F kept for large display text only (5.0:1) */
+  --site-font: "Instrument Sans", system-ui, sans-serif;
+  --site-font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* ---------- Shared scale ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+
+  --text-xs: 0.875rem;   /* 14px, labels only, never body copy */
+  --text-sm: 1rem;       /* 16px, minimum for body copy */
+  --text-md: 1.125rem;   /* 18px */
+  --text-lg: 1.5rem;     /* 24px */
+  --text-xl: 2rem;       /* 32px */
+  --text-2xl: 3rem;      /* 48px, ArchiPro uses about 48px for section headings */
+  --text-3xl: clamp(2.5rem, 6vw, 4.875rem); /* up to 78px, ArchiPro's largest heading */
+
+  --leading-body: 1.5;   /* AAA 1.4.8 minimum */
+  --leading-tight: 1.05; /* headings only */
+  --tracking-heading: -0.04em; /* ArchiPro tightens large headings to about -4% */
+  --measure: 70ch;       /* AAA 1.4.8: under 80 characters */
+
+  --radius-sm: 8px;      /* ArchiPro cards and option rows */
+  --radius-md: 16px;     /* ArchiPro panels and some buttons */
+  --radius-pill: 9999px; /* ArchiPro buttons and chips */
+
+  --target-min: 44px;    /* AAA 2.5.5 */
+  --focus-width: 3px;
+  --focus-offset: 2px;
+
+  --motion-fast: 120ms;
+  --motion-base: 200ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* ---------- Prototype: ArchiPro theme ---------- */
+[data-theme="archipro"] {
+  /* Measured on archipro.co.nz: ink rgb(31,31,33), text grey rgb(76,76,76),
+     canvas rgb(232,232,239), dark panels rgb(26,26,26) and black, pill radius 9999px, card radius 8px.
+     Their body font is Neue Haas Grotesk (licensed through Adobe Fonts), so Inter stands in. */
+  --font: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-display: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  --canvas: #E8E8EF;        /* page background behind cards */
+  --surface: #FFFFFF;       /* cards, panels */
+  --surface-subtle: #F2F2F2;/* option rows, secondary buttons */
+  --surface-inverse: #1F1F21;
+  --surface-dark: #1A1A1A;  /* hero and side panels, as in the setup flow */
+
+  --ink: #1F1F21;           /* 16.5:1 on surface, 13.5:1 on canvas */
+  --ink-muted: #474747;     /* 9.3:1 on surface, 7.6:1 on canvas. ArchiPro's #707070 is 4.95:1 and is not used for text */
+  --ink-inverse: #FFFFFF;   /* 16.5:1 on surface-inverse */
+  --ink-inverse-muted: #B3B3B3; /* 10.0:1 on black, 8.3:1 on surface-dark */
+
+  --line: #C7C7C7;          /* decorative dividers */
+  --line-strong: #767676;   /* input and control borders, 4.5:1, meets 1.4.11 */
+
+  --accent-timber: #6B4A2E; /* 7.9:1 on surface. Taken from ArchiPro's warm timber tone rgb(182,138,100), darkened */
+
+  /* Status. Text colour always pairs with a text label, never colour alone. */
+  --status-review-ink: #1F3F7A;   --status-review-bg: #E7EDF7;    /* 8.7:1 */
+  --status-changes-ink: #7A3300;  --status-changes-bg: #FBEDE3;   /* 8.0:1 */
+  --status-approved-ink: #0B5236; --status-approved-bg: #E6F0EA;  /* 7.9:1 */
+  --status-signed-ink: #1F1F21;   --status-signed-bg: #F2F2F2;    /* 14.7:1 */
+  --status-neutral-ink: #474747;  --status-neutral-bg: #F2F2F2;   /* 7.7:1 */
+
+  --focus-ring: #1F1F21;          /* on light surfaces */
+  --focus-ring-inverse: #FFFFFF;  /* on dark surfaces */
+
+  /* Logo: the supplied SVG is white. Use as is on --surface-dark, fill with --ink on light surfaces. */
+}
+
+/* ---------- Prototype: neutral theme (no ArchiPro brand, for the portfolio later) ---------- */
+[data-theme="neutral"] {
+  --font: "Instrument Sans", system-ui, sans-serif;
+  --font-display: "Instrument Sans", system-ui, sans-serif;
+  --canvas: #F7F5F2;
+  --surface: #FFFEFC;
+  --surface-subtle: #EFEBE3;
+  --surface-inverse: #16181C;
+  --surface-dark: #16181C;
+  --ink: #16181C;
+  --ink-muted: #4F4B46;
+  --ink-inverse: #FFFFFF;
+  --ink-inverse-muted: #C9C3B9;
+  --line: #E4E0D8;
+  --line-strong: #767676;
+  --accent-timber: #8C320B;
+  --status-review-ink: #1F3F7A;   --status-review-bg: #E7EDF7;
+  --status-changes-ink: #7A3300;  --status-changes-bg: #FBEDE3;
+  --status-approved-ink: #0B5236; --status-approved-bg: #E6F0EA;
+  --status-signed-ink: #16181C;   --status-signed-bg: #EFEBE3;
+  --status-neutral-ink: #4F4B46;  --status-neutral-bg: #EFEBE3;
+  --focus-ring: #16181C;
+  --focus-ring-inverse: #FFFFFF;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --motion-fast: 0ms; --motion-base: 0ms; }
+}
