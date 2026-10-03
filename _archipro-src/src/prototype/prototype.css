@@ -624,14 +624,45 @@
   }
 }
 
-/* The icon file has its own space on the left, so the word space before it is taken back. */
-.amounts-note img {
-  display: inline-block;
-  margin-left: -0.25em;
-  vertical-align: middle;
-}
-
 .product-image--wide {
   aspect-ratio: 1136 / 511;
   border-radius: 0;
+}
+
+/* "Inspiration" label on the project photo */
+.product-image-frame {
+  position: relative;
+  margin: 0;
+}
+
+.product-image__caption {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--surface);
+  color: var(--ink);
+  font-size: var(--text-xs);
+  font-weight: 500;
+}
+
+/* Back links with the arrow icon */
+.proto-main .back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--target-min);
+}
+
+.icon {
+  flex: none;
+  overflow: visible;
+}
+
+/* Assist title with the bot icon */
+.assist__title {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }

@@ -18,6 +18,7 @@ import { reviewSummary } from "../../ai/reviewSummary";
 import { summaryText } from "../../ai/summary";
 import { AssistPanel } from "../AssistPanel";
 import { OptionFacts } from "../OptionFacts";
+import { BackLink } from "../BackLink";
 import { viewHref } from "../useView";
 
 // Tom reviews one item Hana sent: he approves it, or requests changes with a note.
@@ -87,7 +88,7 @@ export function ReviewItem({ itemId }: { itemId: string }) {
     <>
       <header className="stack">
         <p>
-          <a href={viewHref({ name: "home" })}>Back to the review queue</a>
+          <BackLink href={viewHref({ name: "home" })}>Back to the review queue</BackLink>
         </p>
         <p className="proto-eyebrow">{pkg.name} package</p>
         <h1 tabIndex={-1} className="page-title">
@@ -178,7 +179,7 @@ export function ReviewItem({ itemId }: { itemId: string }) {
       )}
 
       {inReview && summary && (
-        <AssistPanel key={summaryText(summary)} summary={summary} whoDecides={`${architect.firstName} decides.`} />
+        <AssistPanel key={summaryText(summary)} summary={summary} whoDecides={`${architect.firstName} decides.`} icon />
       )}
 
       {inReview && (
