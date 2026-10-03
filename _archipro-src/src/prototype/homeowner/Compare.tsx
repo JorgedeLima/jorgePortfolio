@@ -19,6 +19,7 @@ import { homeownerExplanation } from "../../ai/homeownerExplanation";
 import { summaryText } from "../../ai/summary";
 import { AssistPanel } from "../AssistPanel";
 import { briefLabels, budgetEffect, OptionFacts } from "../OptionFacts";
+import { BackLink } from "../BackLink";
 import { viewHref } from "../useView";
 
 // Hana compares the options for one item, chooses one and sends it to Tom.
@@ -98,7 +99,7 @@ export function Compare({ itemId }: { itemId: string }) {
     <>
       <header className="stack">
         <p>
-          <a href={viewHref({ name: "home" })}>Back to the overview</a>
+          <BackLink href={viewHref({ name: "home" })}>Back to the overview</BackLink>
         </p>
         <p className="proto-eyebrow">{pkg.name} package</p>
         <h1 tabIndex={-1} className="page-title">

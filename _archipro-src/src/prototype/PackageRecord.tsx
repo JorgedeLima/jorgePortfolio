@@ -17,6 +17,7 @@ import {
   personForRole,
   versionLines,
 } from "../state/selectors";
+import { BackLink } from "./BackLink";
 import { viewHref } from "./useView";
 
 // The sign-off record for one package. Both roles see the same record; each signs as themselves.
@@ -83,7 +84,7 @@ export function PackageRecord({ packageId }: { packageId: string }) {
     <>
       <header className="stack">
         <p>
-          <a href={viewHref({ name: "home" })}>{homeLabel}</a>
+          <BackLink href={viewHref({ name: "home" })}>{homeLabel}</BackLink>
         </p>
         <p className="proto-eyebrow">Sign-off record</p>
         <h1 tabIndex={-1} className="page-title">

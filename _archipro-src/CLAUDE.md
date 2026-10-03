@@ -11,6 +11,8 @@ A small site built by Jorge de Lima (Senior Product Designer) to apply for Archi
 
 Jorge makes the design decisions. Your job is to implement them well, explain what you did in plain language, and flag trade-offs instead of silently choosing.
 
+Research notes live in `research/`. Read them before changing the case study copy or the assist: `research/2026-10-03-architect-product-ecosystem.md` covers how architects, builders and suppliers choose products in New Zealand.
+
 Application date: Tuesday 6 October 2026. The site must be live and smoke-tested by Monday 5 October.
 
 ## Repo and deployment

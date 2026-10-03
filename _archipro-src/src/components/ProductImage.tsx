@@ -6,14 +6,17 @@ interface ProductImageProps {
   slot: string; // key in src/data/images.json. Product photos use the product id
   alt: string; // used until a description is saved with the photo
   shape?: "wide"; // the project photo on the overview. The default is 4:3, for products
+  caption?: string; // a short label shown on the photo, for example "Inspiration"
 }
 
-export function ProductImage({ slot, alt, shape }: ProductImageProps) {
+export function ProductImage({ slot, alt, shape, caption }: ProductImageProps) {
   const entry = images[slot];
   const shapeClass = shape ? ` product-image--${shape}` : "";
 
+  const Frame = caption ? "figure" : "div";
+
   return (
-    <div className="product-image-frame">
+    <Frame className="product-image-frame">
       {entry ? (
         <img
           className={`product-image${shapeClass}`}
@@ -29,8 +32,9 @@ export function ProductImage({ slot, alt, shape }: ProductImageProps) {
           Photo to come
         </div>
       )}
+      {caption && <figcaption className="product-image__caption">{caption}</figcaption>}
       {/* Editing tools exist only on the dev server. The published build leaves them out. */}
       {import.meta.env.DEV && <ImageEditor slot={slot} entry={entry} defaultAlt={alt} />}
-    </div>
+    </Frame>
   );
 }

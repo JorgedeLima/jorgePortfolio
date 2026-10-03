@@ -2,15 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { summaryText } from "../ai/summary";
 import type { Summary } from "../ai/summary";
 import { track } from "../analytics/track";
+import { BotMessageSquareIcon } from "../components/icons/BotMessageSquareIcon";
 
 interface AssistPanelProps {
   summary: Summary;
   whoDecides: string; // "Tom decides." or "You and Tom decide."
+  icon?: boolean; // the bot icon before the title (the architect's panel)
 }
 
 // Shows one assist output. The reader can edit it or dismiss it; both are tracked.
 // Edits and dismissals stay on this screen. They never change the project.
-export function AssistPanel({ summary, whoDecides }: AssistPanelProps) {
+export function AssistPanel({ summary, whoDecides, icon = false }: AssistPanelProps) {
   const [mode, setMode] = useState<"view" | "edit" | "dismissed">("view");
   const [edited, setEdited] = useState<string | null>(null);
   const [draft, setDraft] = useState("");
@@ -50,8 +52,9 @@ export function AssistPanel({ summary, whoDecides }: AssistPanelProps) {
 
   return (
     <section className="card stack assist" aria-labelledby="assist-heading">
-      <h2 id="assist-heading" tabIndex={-1} ref={heading}>
-        Assist (prototype simulation)
+      <h2 id="assist-heading" className={icon ? "assist__title" : undefined} tabIndex={-1} ref={heading}>
+        {icon && <BotMessageSquareIcon />}
+        <span>Assist (prototype simulation)</span>
       </h2>
       <p className="fine-print">Drafted from this project's data. {whoDecides}</p>
 
