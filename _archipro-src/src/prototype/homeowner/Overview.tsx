@@ -7,11 +7,15 @@ import { packageItems, packageSummary, personForRole, selectedProduct } from "..
 import { viewHref } from "../useView";
 import { DecisionsNeeded } from "./DecisionsNeeded";
 
+// Short city names, so the location fits its column. The full name is in the abbreviation's title.
+const CITY_CODES: Record<string, string> = { Auckland: "AKL" };
+
 // Hana's home screen: the project, what needs her, and where each package stands.
 export function Overview() {
   const { state } = useProject();
   const { project } = state;
   const homeowner = personForRole(project, "homeowner");
+  const [suburb, city] = project.location.split(", ");
 
   return (
     <>
@@ -28,7 +32,9 @@ export function Overview() {
           </div>
           <div>
             <dt>Location</dt>
-            <dd>{project.location}</dd>
+            <dd>
+              {suburb}, <abbr title={city}>{CITY_CODES[city] ?? city}</abbr>
+            </dd>
           </div>
           <div>
             <dt>Budget</dt>
