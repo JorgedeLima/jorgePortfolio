@@ -40,6 +40,15 @@ export interface Person {
   practice?: string;
 }
 
+// What the supplier has provided for the architect's compliance work. Invented, like the products.
+// It records what is on file. It does not say the product complies.
+export interface ComplianceInfo {
+  statement: boolean;         // the supplier's product technical statement is on file
+  clauses: string[];          // Building Code clauses the supplier says the statement covers
+  installationGuide: boolean;
+  maintenanceGuide: boolean;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -55,6 +64,7 @@ export interface Product {
   conflicts: BriefPriorityId[];
   image: string;         // path under public/images, set once the image set is approved
   alt: string;
+  compliance: ComplianceInfo;
 }
 
 export interface Note {
@@ -159,6 +169,7 @@ export const project: Project = {
       conflicts: ["low-maintenance"],
       image: "images/cladding-cedar.jpg",
       alt: "Close-up of vertical timber boards in warm brown tones",
+      compliance: { statement: true, clauses: ["B2 Durability", "E2 External moisture"], installationGuide: true, maintenanceGuide: true },
     },
     {
       id: "cladding-fibre-cement",
@@ -175,6 +186,7 @@ export const project: Project = {
       conflicts: ["natural-materials"],
       image: "images/cladding-fibre-cement.jpg",
       alt: "Grey building facade seen from below",
+      compliance: { statement: true, clauses: ["B2 Durability", "E2 External moisture"], installationGuide: true, maintenanceGuide: true },
     },
     // Exterior: already approved
     {
@@ -192,6 +204,7 @@ export const project: Project = {
       conflicts: [],
       image: "images/roofing-steel.jpg",
       alt: "Close-up of grey ribbed metal sheeting",
+      compliance: { statement: true, clauses: ["B2 Durability", "E2 External moisture"], installationGuide: true, maintenanceGuide: true },
     },
     {
       id: "joinery-aluminium",
@@ -208,6 +221,7 @@ export const project: Project = {
       conflicts: [],
       image: "images/joinery-aluminium.jpg",
       alt: "Black-framed window with a view of trees",
+      compliance: { statement: true, clauses: ["B2 Durability", "E2 External moisture", "H1 Energy efficiency"], installationGuide: true, maintenanceGuide: true },
     },
     // Bathroom: version history example
     {
@@ -225,6 +239,7 @@ export const project: Project = {
       conflicts: [],
       image: "images/tile-terrazzo.jpg",
       alt: "Geometric floor of marble and stone tiles",
+      compliance: { statement: true, clauses: ["B2 Durability", "E3 Internal moisture"], installationGuide: true, maintenanceGuide: true },
     },
     {
       id: "tile-porcelain-terrazzo",
@@ -241,6 +256,7 @@ export const project: Project = {
       conflicts: [],
       image: "images/tile-porcelain.jpg",
       alt: "Sunlight across a pale textured floor",
+      compliance: { statement: true, clauses: ["B2 Durability", "E3 Internal moisture"], installationGuide: true, maintenanceGuide: true },
     },
     {
       id: "tile-wall-white",
@@ -257,6 +273,7 @@ export const project: Project = {
       conflicts: [],
       image: "images/bathroom.jpg",
       alt: "White bathroom with a freestanding bath and glass shower",
+      compliance: { statement: true, clauses: ["B2 Durability", "E3 Internal moisture"], installationGuide: true, maintenanceGuide: true },
     },
   ],
 
