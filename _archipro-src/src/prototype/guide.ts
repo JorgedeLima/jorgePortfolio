@@ -14,9 +14,12 @@ import type { View } from "./useView";
 
 // The demo guide follows one decision through the loop: the open item in the seed data.
 const DEMO_ITEM_ID = "exterior-cladding";
-export const GUIDE_STEPS = 5;
+export const GUIDE_STEPS = 4;
 
-export type GuideAction = { kind: "link"; href: string; label: string } | { kind: "role"; role: Role; label: string };
+export type GuideAction =
+  | { kind: "link"; href: string; label: string }
+  | { kind: "role"; role: Role; label: string }
+  | { kind: "jump"; targetId: string; label: string }; // moves to a part of the current screen
 
 export interface GuideStep {
   number: number;
@@ -60,69 +63,59 @@ export function guideStep(state: DemoState, view: View): GuideStep | null {
     };
   }
 
+  const home = link({ name: "home" }, role === "homeowner" ? "Go to the overview" : "Go to the review queue");
+
   if (isOpenForChoice(item)) {
     const changes = item.status === "Changes requested";
     if (role === "architect") {
       return changes
-        ? step(2, `${tom.firstName} asked for changes. ${hana.firstName} chooses again.`, switchTo("homeowner"))
+        ? step(1, `${tom.firstName} asked for changes. The assist has prepared a new recommendation for ${hana.firstName}.`, switchTo("homeowner"))
         : step(1, `The demo starts with ${hana.firstName}, the homeowner.`, switchTo("homeowner"));
     }
-    if (onItem("compare")) {
-      return changes
-        ? step(2, `Read ${tom.firstName}'s note. Keep this option or choose another, then send it to ${tom.firstName} again.`)
-        : step(2, `Compare the ${item.optionIds.length} options. Choose one and send it to ${tom.firstName}, your architect.`);
-    }
-    return changes
-      ? step(
-          2,
-          `${tom.firstName} asked for changes to the ${name}.`,
-          link({ name: "compare", id: item.id }, `Read the note and choose ${name} again`),
-        )
-      : step(
-          1,
-          `You are ${hana.firstName}, the homeowner. One decision is left in the ${pkg.name} package: ${name}.`,
-          link({ name: "compare", id: item.id }, `Compare ${name} options`),
-        );
+    const text = changes
+      ? `${tom.firstName} asked for changes. The assist has prepared a new recommendation. Review it and approve, or choose one yourself.`
+      : `You are ${hana.firstName}, the homeowner. The assist has compared the ${item.optionIds.length} ${name} options and prepared a recommendation. Review it and approve, or choose one yourself.`;
+    if (onItem("compare")) return step(1, text);
+    // On the overview the recommendation sits below the project photo, so the guide takes you to it.
+    return step(1, text, view.name === "home" ? { kind: "jump", targetId: "decisions-heading", label: "Go to the recommendation" } : home);
   }
 
   if (item.status === "Sent for review") {
     if (role === "homeowner") {
-      return step(3, `Your choice is with ${tom.firstName}, the architect. See it from that side.`, switchTo("architect"));
+      return step(2, `Your choice is with ${tom.firstName}, the architect. See it from that side.`, switchTo("architect"));
     }
-    return onItem("review")
-      ? step(3, `The assist summarises the request from the project's data. Approve it or request changes.`)
-      : step(
-          3,
-          `You are ${tom.firstName}, the architect. ${hana.firstName}'s choice is waiting for your review.`,
-          link({ name: "review", id: item.id }, `Review ${name}`),
-        );
+    return step(
+      2,
+      `You are ${tom.firstName}, the architect. The assist has checked ${hana.firstName}'s choice and prepared a decision. Review it, then approve it or send the note.`,
+      view.name === "home" || onItem("review") ? undefined : home,
+    );
   }
 
-  // The item is approved. What is left is the two signatures.
+  // The item is approved. What is left is the two signatures, which are never prepared for anyone.
   if (!isSignable(project, pkg)) {
-    return step(4, `Other items in the ${pkg.name} package still need approval before sign-off.`);
+    return step(3, `Other items in the ${pkg.name} package still need approval before sign-off.`);
   }
 
   if (!hasSigned(version, tom.id)) {
     if (role === "homeowner") {
-      return step(4, `${tom.firstName} approved the ${name}. ${tom.firstName} signs the package first.`, switchTo("architect"));
+      return step(3, `${tom.firstName} approved the ${name}. ${tom.firstName} signs the package first.`, switchTo("architect"));
     }
     return onRecord
-      ? step(4, `Tick the statement and sign version ${version.number} as ${tom.firstName}.`)
+      ? step(3, `The assist prepared this record. Signing is yours: tick the statement and sign version ${version.number} as ${tom.firstName}.`)
       : step(
-          4,
-          `Every item is approved. The ${pkg.name} package is ready for sign-off.`,
+          3,
+          `Every item is approved and the assist has prepared the sign-off record. Signing is yours.`,
           link({ name: "package", id: pkg.id }, `Open the ${pkg.name} sign-off record`),
         );
   }
 
   if (role === "architect") {
-    return step(5, `${tom.firstName} has signed. ${hana.firstName} signs next.`, switchTo("homeowner"));
+    return step(4, `${tom.firstName} has signed. ${hana.firstName} signs next.`, switchTo("homeowner"));
   }
   return onRecord
-    ? step(5, `Back as ${hana.firstName}. Tick the statement and sign. The package is then locked.`)
+    ? step(4, `Back as ${hana.firstName}. Tick the statement and sign. The package is then locked.`)
     : step(
-        5,
+        4,
         `${tom.firstName} has signed. The ${pkg.name} package is ready for your signature.`,
         link({ name: "package", id: pkg.id }, `Review and sign the ${pkg.name} package`),
       );

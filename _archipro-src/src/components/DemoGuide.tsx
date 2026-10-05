@@ -28,6 +28,19 @@ export function DemoGuide() {
               {action.label}
             </a>
           )}
+          {action?.kind === "jump" && (
+            <button
+              type="button"
+              className="button button--primary"
+              onClick={() => {
+                const target = document.getElementById(action.targetId);
+                target?.scrollIntoView({ block: "start" });
+                target?.focus({ preventScroll: true });
+              }}
+            >
+              {action.label}
+            </button>
+          )}
           {action?.kind === "role" && (
             <button
               type="button"

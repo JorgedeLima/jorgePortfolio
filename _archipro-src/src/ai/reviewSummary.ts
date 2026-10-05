@@ -12,7 +12,7 @@ import { againstAllowance, briefLabel, contingencySentence, lowerFirst } from ".
 import type { Summary } from "./summary";
 
 // The date the product has to be ordered: needed on site, minus the supplier's lead time.
-function orderBy(needOnSiteBy: string, leadTimeWeeks: number): string {
+export function orderBy(needOnSiteBy: string, leadTimeWeeks: number): string {
   const date = new Date(`${needOnSiteBy}T00:00:00Z`);
   date.setUTCDate(date.getUTCDate() - leadTimeWeeks * 7);
   return date.toISOString().slice(0, 10);

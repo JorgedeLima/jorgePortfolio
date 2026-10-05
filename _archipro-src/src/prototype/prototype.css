@@ -666,3 +666,46 @@
   align-items: center;
   gap: var(--space-3);
 }
+
+/* Assist proposals: what the assist prepared for a person to approve */
+.proposal {
+  padding: var(--space-4);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  background: var(--surface-subtle);
+}
+
+.proposal__label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.proposal ul {
+  display: grid;
+  gap: var(--space-2);
+  padding-left: var(--space-5);
+}
+
+.proposal .proposal__checks {
+  padding: 0;
+  list-style: none;
+}
+
+.proposal__checks li {
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-3);
+  max-width: none;
+}
+
+.proposal__checks .chip {
+  justify-content: center;
+}
+
+.proposal .button--secondary {
+  background: var(--surface);
+}
