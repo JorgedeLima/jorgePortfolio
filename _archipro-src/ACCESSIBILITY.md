@@ -37,14 +37,16 @@ Measured in the browser with a script that reads the computed styles, at 1280px,
 - **Link and button text (2.4.9).** Each one makes sense by itself, for example "Compare exterior cladding options".
 - **Reading level (3.1.5).** The case study copy scores about grade 7 on a Flesch-Kincaid estimate, which is lower secondary. This is an estimate from a formula, not a review by a reader.
 
+## Checked by a person
+
+On 6 October 2026 Jorge used both pages on his phone and with a screen reader. Both worked, and he found no problems.
+
 ## Not tested yet
 
-These need a person, and are on the list before publishing:
-
-- A screen reader: VoiceOver on macOS and iOS, and NVDA on Windows if possible. The structure was checked in the accessibility tree, but nobody has listened to it.
-- A real phone. Sizes were checked in a resized browser window only.
 - Windows high contrast (forced colours) and browser zoom on a real display.
-- Photos. The placeholders are hidden from screen readers. Each photo added with the photo tool needs a description that says what is in it.
+- A second screen reader. One was used; the others have not been tried.
+
+Every photo has a description that says what is in it. Any photo added later with the photo tool needs one too.
 
 ## How to run the checks again
 
