@@ -1,3 +1,6 @@
+import { useRef } from "react";
+import { proposeReview } from "../../ai/proposals";
+import { track } from "../../analytics/track";
 import { StatusChip } from "../../components/StatusChip";
 import { formatDate, nzd } from "../../format";
 import { useProject } from "../../state/ProjectContext";
@@ -12,6 +15,7 @@ import {
   personForRole,
   selectedProduct,
 } from "../../state/selectors";
+import { ReviewProposalBlock } from "../Proposals";
 import { viewHref } from "../useView";
 import { SpecRegister } from "./SpecRegister";
 
@@ -32,6 +36,14 @@ export function ReviewQueue() {
     ({ version }) => hasSigned(version, architect.id) && !hasSigned(version, homeowner.id),
   );
   const changesRequested = project.items.filter((item) => item.status === "Changes requested");
+  const heading = useRef<HTMLHeadingElement>(null);
+
+  // One click approves what the assist checked. The card leaves the queue, so focus goes to the heading.
+  function approve(itemId: string) {
+    track("ai_proposal_approved");
+    dispatch({ type: "APPROVE_ITEM", itemId });
+    heading.current?.focus();
+  }
 
   return (
     <>
@@ -49,7 +61,9 @@ export function ReviewQueue() {
       </header>
 
       <section className="stack" aria-labelledby="queue-heading">
-        <h2 id="queue-heading">Waiting for your review</h2>
+        <h2 id="queue-heading" tabIndex={-1} ref={heading}>
+          Waiting for your review
+        </h2>
         {queue.length === 0 ? (
           <p>Nothing is waiting for your review.</p>
         ) : (
@@ -57,6 +71,7 @@ export function ReviewQueue() {
             {queue.map((item) => {
               const product = selectedProduct(project, item);
               const pkg = packageForItem(project, item.id);
+              const proposal = proposeReview(state, item.id);
               return (
                 <li key={item.id} className="card stack">
                   <div className="card__head">
@@ -71,11 +86,31 @@ export function ReviewQueue() {
                   <p>
                     {pkg?.name} package. Needed on site by {formatDate(item.needOnSiteBy)}.
                   </p>
-                  <p>
-                    <a className="button button--primary" href={viewHref({ name: "review", id: item.id })}>
-                      Review {item.name.toLowerCase()}
-                    </a>
-                  </p>
+                  {proposal ? (
+                    <ReviewProposalBlock proposal={proposal}>
+                      {proposal.decision === "approve" ? (
+                        <>
+                          <button type="button" className="button button--primary" onClick={() => approve(item.id)}>
+                            Approve as proposed
+                            <span className="sr-only">: {item.name}</span>
+                          </button>
+                          <a className="button button--secondary" href={viewHref({ name: "review", id: item.id })}>
+                            Review {item.name.toLowerCase()} in detail
+                          </a>
+                        </>
+                      ) : (
+                        <a className="button button--primary" href={viewHref({ name: "review", id: item.id })}>
+                          Review the drafted note for {item.name.toLowerCase()}
+                        </a>
+                      )}
+                    </ReviewProposalBlock>
+                  ) : (
+                    <p>
+                      <a className="button button--primary" href={viewHref({ name: "review", id: item.id })}>
+                        Review {item.name.toLowerCase()}
+                      </a>
+                    </p>
+                  )}
                 </li>
               );
             })}
@@ -92,7 +127,7 @@ export function ReviewQueue() {
                 <h3>
                   {pkg.name} package, version {version.number}
                 </h3>
-                <p>Every item is approved. It is ready for your signature.</p>
+                <p>Every item is approved, and the assist has prepared the sign-off record. Signing is yours.</p>
                 <p>
                   <a className="button button--primary" href={viewHref({ name: "package", id: pkg.id })}>
                     Review and sign the {pkg.name} package

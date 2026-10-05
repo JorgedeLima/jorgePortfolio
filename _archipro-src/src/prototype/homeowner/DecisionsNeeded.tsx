@@ -1,3 +1,6 @@
+import { useRef } from "react";
+import { proposeOption } from "../../ai/proposals";
+import { track } from "../../analytics/track";
 import { StatusChip } from "../../components/StatusChip";
 import { formatDate } from "../../format";
 import { useProject } from "../../state/ProjectContext";
@@ -11,12 +14,14 @@ import {
   packageItems,
   personForRole,
 } from "../../state/selectors";
+import { OptionProposalBlock } from "../Proposals";
 import { viewHref } from "../useView";
 
 // What Hana has to act on, then what is waiting on Tom.
 export function DecisionsNeeded() {
-  const { state } = useProject();
+  const { state, dispatch } = useProject();
   const { project } = state;
+  const heading = useRef<HTMLHeadingElement>(null);
   const homeowner = personForRole(project, "homeowner");
   const architect = personForRole(project, "architect");
   const decisions = homeownerDecisions(project);
@@ -27,9 +32,20 @@ export function DecisionsNeeded() {
   });
   const waiting = inReview.length + awaitingSignature.length > 0;
 
+  // One click approves what the assist prepared: the option is chosen and sent for review.
+  // The card then moves to "Waiting on Tom", so focus goes back to the section heading.
+  function approve(itemId: string, optionId: string) {
+    track("ai_proposal_approved");
+    dispatch({ type: "SELECT_OPTION", itemId, optionId });
+    dispatch({ type: "SEND_FOR_REVIEW", itemId });
+    heading.current?.focus();
+  }
+
   return (
     <section className="stack" aria-labelledby="decisions-heading">
-      <h2 id="decisions-heading">Decisions needed</h2>
+      <h2 id="decisions-heading" tabIndex={-1} ref={heading}>
+        Decisions needed
+      </h2>
 
       {decisions.length === 0 && (
         <p>
@@ -65,6 +81,7 @@ export function DecisionsNeeded() {
             const openItems = packageItems(project, pkg).filter(isOpenForChoice).length;
             const note = item.notes[item.notes.length - 1];
             const name = item.name.toLowerCase();
+            const proposal = proposeOption(state, item.id);
             return (
               <li key={item.id} className="card stack">
                 <div className="card__head">
@@ -79,17 +96,33 @@ export function DecisionsNeeded() {
                     <blockquote className="note">{note.text}</blockquote>
                   </>
                 ) : (
+                  !proposal && (
+                    <p>
+                      Choose between {item.optionIds.length} options and send your choice to {architect.firstName}.
+                    </p>
+                  )
+                )}
+                <p>
+                  Needed on site by {formatDate(item.needOnSiteBy)}.
+                  {openItems === 1 ? ` This is the last open item in the ${pkg.name} package.` : ""}
+                </p>
+                {proposal ? (
+                  <OptionProposalBlock proposal={proposal} architectName={architect.firstName}>
+                    <button type="button" className="button button--primary" onClick={() => approve(item.id, proposal.product.id)}>
+                      Approve and send to {architect.firstName}
+                      <span className="sr-only">: {proposal.product.name}</span>
+                    </button>
+                    <a className="button button--secondary" href={viewHref({ name: "compare", id: item.id })}>
+                      Compare the {name} options yourself
+                    </a>
+                  </OptionProposalBlock>
+                ) : (
                   <p>
-                    Choose between {item.optionIds.length} options and send your choice to {architect.firstName}.
-                    {openItems === 1 ? ` This is the last open item in the ${pkg.name} package.` : ""}
+                    <a className="button button--primary" href={viewHref({ name: "compare", id: item.id })}>
+                      {kind === "changes" ? `Read the note and choose ${name} again` : `Compare ${name} options`}
+                    </a>
                   </p>
                 )}
-                <p>Needed on site by {formatDate(item.needOnSiteBy)}.</p>
-                <p>
-                  <a className="button button--primary" href={viewHref({ name: "compare", id: item.id })}>
-                    {kind === "changes" ? `Read the note and choose ${name} again` : `Compare ${name} options`}
-                  </a>
-                </p>
               </li>
             );
           })}

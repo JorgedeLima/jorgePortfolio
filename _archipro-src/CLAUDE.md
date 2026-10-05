@@ -113,13 +113,12 @@ Rules:
 
 ## The demo loop (target 90 seconds, keep working at all times)
 
-A `DemoGuide` bar shows "Step X of 5" with one sentence and the next action. It can be hidden and does not block anything.
+A `DemoGuide` bar shows "Step X of 4" with one sentence and the next action. It can be hidden and does not block anything.
 
-1. Homeowner (Hana) opens Overview. "Decisions needed" shows Exterior cladding at the top: the last open item in the Exterior package.
-2. Hana opens Compare: two cladding options side by side (stacked on mobile), with price, lead time, maintenance and budget effect. She chooses one and selects "Send to Tom for review". A confirmation offers "Switch to Tom's view".
-3. Architect (Tom) sees the item in Review queue. The AI panel summarises it from state: fit with the brief, effect on the Exterior allowance and contingency, order-by date, open questions.
-4. Tom selects "Approve" (or "Request changes" with a note). After approval, the Exterior package shows "Ready for sign-off". Tom ticks the statement and selects "Sign version 1". The guide offers "Switch to Hana's view".
-5. Hana sees the package ready for her signature, ticks the statement and signs. The package becomes Signed, items become Signed off, the budget meter and decision card update, and the live region announces "Exterior package signed off". This is the end moment.
+1. Homeowner (Hana) opens Overview. Under "Decisions needed", the assist has compared the two cladding options and recommends one, with reasons. Hana selects "Approve and send to Tom", or compares and chooses herself.
+2. Architect (Tom) sees the item in Review queue with the assist's four checks and its proposed decision. He selects "Approve as proposed", or opens the item to edit and send the drafted note.
+3. The Exterior package shows "Ready for sign-off". Tom ticks the statement and selects "Sign version 1".
+4. Hana ticks the statement and signs. The package becomes Signed, items become Signed off, and the live region announces "Exterior package signed off". This is the end moment.
 
 The Bathroom package already shows version 2 Signed and version 1 Superseded, so reviewers can see how changes after sign-off work without performing them.
 
@@ -127,16 +126,16 @@ Changes requested path must also work: Hana sees Tom's note and a plain-language
 
 ## Simulated AI assist
 
-- Lives in `src/ai/`. Pure functions: `(state, itemId) => Summary`. No fixed paragraphs. Every sentence is built from data in state.
-- Panel heading: "Assist (prototype simulation)". Under it: "Drafted from this project's data. Tom decides."
-- Architect review summary:
-  - Fit with brief: match product tags to brief priorities. Name matches and conflicts. Example output for cedar: "Matches 2 of 3 brief priorities: keep the villa character, warm natural materials. Conflicts with: low maintenance where possible (supplier guidance: re-oil every 3 to 5 years)."
-  - Budget: compute the package total with this option against the allowance and the project contingency. Example: "With this option the Exterior package is NZD 72,200, which is NZD 4,200 over its NZD 68,000 allowance. The project contingency of NZD 20,000 would cover it."
-  - Timing: order-by date = item need-by date minus lead time. Example: "Order by 4 January 2027 to have it on site by 15 February 2027."
-  - Open questions: generated from rules (conflict with a brief priority, over allowance, quantity is an estimate).
-- Homeowner explanation after a decision: two or three short sentences in plain language, written for a lower-secondary reading level.
-- Each output has "Edit" (turns into an editable text area) and "Dismiss". Both are tracked.
-- The AI never approves, never recommends one option over another, never gives cost advice beyond the project's own numbers, and never states council or regulatory timelines.
+Changed on 6 October 2026, after feedback that the prototype was "click-to-click": the assist now does the legwork and prepares the next action, and the person reviews and approves.
+
+- Lives in `src/ai/`. Pure functions from state to text. No fixed paragraphs. Every sentence is built from data in state.
+- `proposals.ts`: what the assist prepares for approval.
+  - For the homeowner: a recommended option, ranked by staying within the allowance, then fit with the brief, then lead time, then price. It shows reasons, what she gives up, and what the assist did. "Approve and send to Tom" chooses the option and sends it in one click. She can always choose herself.
+  - For the architect: four checks (budget, compliance information, fit with the brief, timing), each marked OK, Note or Problem in words. No problems: it proposes approval ("Approve as proposed"). Any problem: it drafts the note to the homeowner, which the architect edits and sends.
+  - After changes are requested, it recommends a different option to the homeowner.
+- `reviewSummary.ts` and `homeownerExplanation.ts`: the detail behind a proposal, and the plain-language explanation after a decision. Panel heading: "Assist (prototype simulation)".
+- Each summary has "Edit" and "Dismiss". Both are tracked, and `ai_proposal_approved` is tracked when a proposal is approved as it is.
+- Rules: the assist never changes state. Only a person's click does. It never signs and never prepares a signature. It never gives cost advice beyond the project's own numbers, never states council or regulatory timelines, and never says a product complies: it lists what the supplier has provided.
 
 ## Sign-off
 

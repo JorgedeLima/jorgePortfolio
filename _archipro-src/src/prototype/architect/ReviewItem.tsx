@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
+import { track } from "../../analytics/track";
 import { BudgetMeter } from "../../components/BudgetMeter";
 import { ProductImage } from "../../components/ProductImage";
 import { StatusChip } from "../../components/StatusChip";
@@ -14,10 +15,12 @@ import {
   personForRole,
   selectedProduct,
 } from "../../state/selectors";
+import { proposeReview } from "../../ai/proposals";
 import { reviewSummary } from "../../ai/reviewSummary";
 import { summaryText } from "../../ai/summary";
 import { AssistPanel } from "../AssistPanel";
 import { OptionFacts } from "../OptionFacts";
+import { ReviewProposalBlock } from "../Proposals";
 import { BackLink } from "../BackLink";
 import { viewHref } from "../useView";
 
@@ -31,9 +34,12 @@ export function ReviewItem({ itemId }: { itemId: string }) {
   const homeowner = personForRole(project, "homeowner");
   const architect = personForRole(project, "architect");
   const summary = reviewSummary(state, itemId);
+  const proposal = proposeReview(state, itemId);
 
-  const [requesting, setRequesting] = useState(false);
-  const [note, setNote] = useState("");
+  // When the assist suggests asking for changes, the form opens with its drafted note.
+  const [requesting, setRequesting] = useState(proposal?.decision === "request-changes");
+  const [note, setNote] = useState(proposal?.draftNote ?? "");
+  const openedByHand = useRef(false);
   const [showError, setShowError] = useState(false);
   const decided = useRef(false);
   const outcome = useRef<HTMLHeadingElement>(null);
@@ -47,8 +53,9 @@ export function ReviewItem({ itemId }: { itemId: string }) {
     }
   }, [item?.status]);
 
+  // Focus goes to the note only when Tom opens the form himself, not when the page opens with it.
   useEffect(() => {
-    if (requesting) noteField.current?.focus();
+    if (requesting && openedByHand.current) noteField.current?.focus();
   }, [requesting]);
 
   if (!item || !pkg || !product) {
@@ -69,6 +76,7 @@ export function ReviewItem({ itemId }: { itemId: string }) {
   const otherOptions = item.optionIds.filter((id) => id !== product.id).flatMap((id) => getProduct(project, id) ?? []);
 
   function approve() {
+    if (proposal?.decision === "approve") track("ai_proposal_approved");
     decided.current = true;
     dispatch({ type: "APPROVE_ITEM", itemId });
   }
@@ -80,6 +88,7 @@ export function ReviewItem({ itemId }: { itemId: string }) {
       noteField.current?.focus();
       return;
     }
+    if (proposal?.draftNote && note === proposal.draftNote) track("ai_proposal_approved");
     decided.current = true;
     dispatch({ type: "REQUEST_CHANGES", itemId, note });
   }
@@ -185,19 +194,29 @@ export function ReviewItem({ itemId }: { itemId: string }) {
       {inReview && (
         <section className="stack" aria-labelledby="decision-heading">
           <h2 id="decision-heading">Your decision</h2>
+          {proposal && <ReviewProposalBlock proposal={proposal} />}
           {!requesting ? (
             <div className="actions">
               <button type="button" className="button button--primary" onClick={approve}>
-                Approve {name}
+                {proposal?.decision === "approve" ? "Approve as proposed" : `Approve ${name}`}
               </button>
-              <button type="button" className="button button--secondary" onClick={() => setRequesting(true)}>
-                Request changes
+              <button
+                type="button"
+                className="button button--secondary"
+                onClick={() => {
+                  openedByHand.current = true;
+                  setRequesting(true);
+                }}
+              >
+                {proposal?.decision === "approve" ? "Request changes instead" : "Request changes"}
               </button>
             </div>
           ) : (
             <form className="card stack" onSubmit={requestChanges} noValidate>
               <label className="field" htmlFor="change-note">
-                What should change? {homeowner.firstName} will read this note.
+                {proposal?.draftNote && note === proposal.draftNote
+                  ? `Note to ${homeowner.firstName}, drafted by the assist. Edit it before you send it.`
+                  : `What should change? ${homeowner.firstName} will read this note.`}
               </label>
               {showError && (
                 <p id="change-note-error" className="error">

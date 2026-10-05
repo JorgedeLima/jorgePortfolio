@@ -16,9 +16,11 @@ import {
   personForRole,
 } from "../../state/selectors";
 import { homeownerExplanation } from "../../ai/homeownerExplanation";
+import { proposeOption } from "../../ai/proposals";
 import { summaryText } from "../../ai/summary";
 import { AssistPanel } from "../AssistPanel";
 import { briefLabels, budgetEffect, OptionFacts } from "../OptionFacts";
+import { OptionProposalBlock } from "../Proposals";
 import { BackLink } from "../BackLink";
 import { viewHref } from "../useView";
 
@@ -30,6 +32,7 @@ export function Compare({ itemId }: { itemId: string }) {
   const pkg = item && packageForItem(project, item.id);
   const architect = personForRole(project, "architect");
   const explanation = homeownerExplanation(state, itemId);
+  const proposal = proposeOption(state, itemId);
 
   const [unlocked, setUnlocked] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -81,6 +84,15 @@ export function Compare({ itemId }: { itemId: string }) {
   function choose(optionId: string) {
     setShowError(false);
     dispatch({ type: "SELECT_OPTION", itemId, optionId });
+  }
+
+  // One click approves what the assist prepared: the option is chosen and sent for review.
+  function approveProposal(optionId: string) {
+    track("ai_proposal_approved");
+    setShowError(false);
+    justSent.current = true;
+    dispatch({ type: "SELECT_OPTION", itemId, optionId });
+    dispatch({ type: "SEND_FOR_REVIEW", itemId });
   }
 
   function send(event: FormEvent) {
@@ -179,7 +191,21 @@ export function Compare({ itemId }: { itemId: string }) {
         </div>
       )}
 
-      {explanation && (
+      {proposal && (
+        <section className="card stack assist" aria-labelledby="proposal-heading">
+          <h2 id="proposal-heading">The assist's recommendation</h2>
+          <OptionProposalBlock proposal={proposal} architectName={architect.firstName}>
+            <button type="button" className="button button--primary" onClick={() => approveProposal(proposal.product.id)}>
+              Approve and send to {architect.firstName}
+              <span className="sr-only">: {proposal.product.name}</span>
+            </button>
+          </OptionProposalBlock>
+          <p>You can also choose an option yourself below and send that.</p>
+        </section>
+      )}
+
+      {/* The plain-language explanation covers decisions already made. An open item gets the recommendation above. */}
+      {explanation && !proposal && (
         <AssistPanel
           key={summaryText(explanation)}
           summary={explanation}
@@ -208,7 +234,7 @@ export function Compare({ itemId }: { itemId: string }) {
       <form className="stack" onSubmit={send} noValidate>
         <fieldset className="options" aria-describedby={showError ? "choose-error" : undefined}>
           <legend>
-            <h2>{canChoose ? "Choose one option" : "The options"}</h2>
+            <h2>{canChoose ? (proposal ? "Or choose one yourself" : "Choose one option") : "The options"}</h2>
           </legend>
           <div className="options__grid">
             {options.map((product) => {

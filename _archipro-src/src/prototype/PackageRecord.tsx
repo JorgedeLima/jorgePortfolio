@@ -147,6 +147,7 @@ export function PackageRecord({ packageId }: { packageId: string }) {
 
       <section className="stack" aria-labelledby="contents-heading">
         <h2 id="contents-heading">What is in version {version.number}</h2>
+        {open && signable && <p>The assist prepared this version from the approved items. Signing is always yours.</p>}
         {/* A table from 768px, cards below. CSS shows one, so each is read once. */}
         <ul className="card-list record-cards">
           {lines.map(({ item, product, total: lineTotal }) => (
