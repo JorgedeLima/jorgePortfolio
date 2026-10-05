@@ -18,7 +18,8 @@ function orderBy(needOnSiteBy: string, leadTimeWeeks: number): string {
   return date.toISOString().slice(0, 10);
 }
 
-// What the architect sees when reviewing an item: fit with the brief, budget, timing, open questions.
+// What the architect sees when reviewing an item: fit with the brief, budget, timing,
+// the compliance information on file, and open questions.
 export function reviewSummary(state: DemoState, itemId: string): Summary | null {
   const { project } = state;
   const item = getItem(project, itemId);
@@ -71,6 +72,22 @@ export function reviewSummary(state: DemoState, itemId: string): Summary | null 
     `The supplier lead time is ${weeks(product.leadTimeWeeks)}.`,
   ];
 
+  // Compliance information: what the supplier has provided, nothing more
+  const { compliance } = product;
+  const guides = [
+    compliance.installationGuide ? null : "installation guide",
+    compliance.maintenanceGuide ? null : "maintenance guide",
+  ].filter((guide): guide is string => guide !== null);
+  const complianceInfo = [
+    compliance.statement
+      ? `${product.supplier} has provided a product technical statement. It covers Building Code clauses ${compliance.clauses.join(", ")}.`
+      : `${product.supplier} has not provided a product technical statement.`,
+    guides.length === 0
+      ? "The installation and maintenance guides are on file."
+      : `Missing: ${guides.join(" and ")}.`,
+    "This lists what the supplier has provided. It does not confirm that the product complies.",
+  ];
+
   // Open questions, one per rule that applies
   const questions: string[] = [];
   for (const id of product.conflicts) {
@@ -81,6 +98,10 @@ export function reviewSummary(state: DemoState, itemId: string): Summary | null 
     );
   }
   if (over > 0) questions.push(`Where does the ${nzd(over)} over the allowance come from?`);
+  if (!compliance.statement) {
+    questions.push(`Ask ${product.supplier} for a product technical statement before this goes to the council.`);
+  }
+  if (guides.length > 0) questions.push(`Ask ${product.supplier} for the ${guides.join(" and ")}.`);
   if (product.quantityIsEstimate) {
     questions.push(`The quantity of ${product.quantity} ${product.unit} is an estimate. Has it been measured?`);
   }
@@ -91,6 +112,7 @@ export function reviewSummary(state: DemoState, itemId: string): Summary | null 
       { id: "fit", heading: "Fit with the brief", sentences: fit },
       { id: "budget", heading: "Budget", sentences: budget },
       { id: "timing", heading: "Timing", sentences: timing },
+      { id: "compliance", heading: "Compliance information", sentences: complianceInfo },
       { id: "questions", heading: "Open questions", sentences: questions, asList: true },
     ],
   };

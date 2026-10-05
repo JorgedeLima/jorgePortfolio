@@ -24,7 +24,7 @@ Small print: Built by Jorge de Lima for the Senior Product Designer, AI-Native a
 
 ArchiPro already helps people find inspiration, products and professionals, start a project, save ideas to boards and invite their architect. What happens after that invite is not shown publicly: the point where homeowner and architect agree which products go into the building.
 
-Until I speak with an architect, here is a composite drawn from desk research, not a real quote: "Product sign-off usually lives in an email thread. By the time the builder prices the job, something slightly different gets substituted, and months later nobody can show what the client actually agreed to."
+I spoke with a practising architect on 6 October 2026. He told me his hardest problem today is council compliance: it takes the most time and carries the most risk. He works alongside the client throughout, and when he looks for a material, the first thing he needs is technical specification that will stand up with the council, with the supplier backing it up.
 
 What I saw in the current project setup (walked through on 1 October 2026):
 - Eight setup steps collect type, stage, budget, timeline and location.
@@ -69,7 +69,7 @@ Six decisions, each with what I gave up. Format: decision, why, trade-off.
 
 The assistant in the prototype is simulated: every sentence is built from the project's data, so it works on a static site with no API key.
 
-What it does: checks the choice against the brief, works out the effect on the package allowance and contingency, gives an order-by date from the lead time, and lists open questions.
+What it does: checks the choice against the brief, works out the effect on the package allowance and contingency, gives an order-by date from the lead time, lists the compliance information the supplier has provided, and lists open questions.
 
 What it never does: approve, pick an option, give cost advice beyond the project's own numbers, or state council timelines.
 
@@ -108,13 +108,13 @@ Timeline: [dates], about [hours] hours.
 - Audit: my own walkthrough of ArchiPro's project setup.
 - Planning and decisions: Claude, with a written decision log.
 - Build: Claude Code, React and TypeScript, published to GitHub Pages.
-- People: one architect conversation on [date]. [Add what changed because of it.]
+- People: one architect conversation on 6 October 2026. It showed me that compliance evidence matters more to the architect than I had assumed, so it is the first thing I would test next.
 
 What AI did and what I decided: AI drafted research, copy and code. I chose the problem, the scope, every trade-off and what to cut. [Link to the decision log or plan, if Jorge wants to share it.]
 
 ## 10. What I would test next
 
-- [Top question from the architect conversation.]
+- Whether showing the supplier's compliance information in the architect's review speeds up the decision.
 - Whether homeowners trust a signature in an app for decisions this expensive.
 - Adding the builder as a third signer for variations during construction.
 
