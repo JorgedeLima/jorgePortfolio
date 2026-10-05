@@ -102,7 +102,7 @@ Pilot: a small group of practices and their clients for about eight weeks, compa
 
 ## 9. How I built it
 
-Timeline: [dates], about [hours] hours.
+Timeline: 1 to 6 October 2026. The build took about seven hours with Claude Code, across three sessions. Research, planning and the architect conversation came on top of that.
 
 - Research: company and market research with ChatGPT, checked against ArchiPro's public site.
 - Audit: my own walkthrough of ArchiPro's project setup.
@@ -110,7 +110,7 @@ Timeline: [dates], about [hours] hours.
 - Build: Claude Code, React and TypeScript, published to GitHub Pages.
 - People: one architect conversation on 6 October 2026. It showed me that compliance evidence matters more to the architect than I had assumed, so it is the first thing I would test next.
 
-What AI did and what I decided: AI drafted research, copy and code. I chose the problem, the scope, every trade-off and what to cut. [Link to the decision log or plan, if Jorge wants to share it.]
+What AI did and what I decided: AI drafted research, copy and code. I chose the problem, the scope, every trade-off and what to cut.
 
 ## 10. What I would test next
 
