@@ -315,6 +315,26 @@ window.__boot=(function(){
   function save(s){ try{ localStorage.setItem(KEY,JSON.stringify(s)); }catch(e){} }
   var state=load();
 
+  /* A drag or edit on this device only holds while the SEED value it was made
+     against is unchanged. When SEED changes for a card, SEED wins. */
+  var SEED_BY_ID={}; SEED.forEach(function(it){ SEED_BY_ID[it.id]=it; });
+  function prune(){
+    state.placements=state.placements||{}; state.actions=state.actions||{};
+    state.base=state.base||{}; state.base.placements=state.base.placements||{}; state.base.actions=state.base.actions||{};
+    var changed=false;
+    ['placements','actions'].forEach(function(kind){
+      var field=kind==='placements'?'col':'action';
+      Object.keys(state[kind]).forEach(function(id){
+        var it=SEED_BY_ID[id];
+        if(!it||state.base[kind][id]!==it[field]||state[kind][id]===it[field]){ delete state[kind][id]; delete state.base[kind][id]; changed=true; }
+      });
+    });
+    if(changed) save(state);
+  }
+  prune();
+  function setPlace(id,col){ state.placements[id]=col; state.base.placements[id]=SEED_BY_ID[id].col; prune(); save(state); }
+  function setAction(id,text){ state.actions[id]=text; state.base.actions[id]=SEED_BY_ID[id].action; prune(); save(state); }
+
   function colOf(item){ return (state.placements&&state.placements[item.id])||item.col; }
   function daysSince(d){ if(!d) return null; var ms=Date.now()-new Date(d+'T00:00:00').getTime(); return Math.max(0,Math.floor(ms/86400000)); }
 
@@ -347,14 +367,12 @@ window.__boot=(function(){
     at.addEventListener('focus',function(){ el.draggable=false; });
     at.addEventListener('blur',function(){
       el.draggable=true;
-      state.actions=state.actions||{};
-      state.actions[item.id]=at.textContent.trim();
-      save(state);
+      setAction(item.id,at.textContent.trim());
     });
     at.addEventListener('keydown',function(e){ if(e.key==='Enter'){ e.preventDefault(); at.blur(); } });
     var sel=el.querySelector('.mv');
     sel.addEventListener('mousedown',function(e){ e.stopPropagation(); });
-    sel.addEventListener('change',function(){ state.placements=state.placements||{}; state.placements[item.id]=sel.value; save(state); render(); });
+    sel.addEventListener('change',function(){ setPlace(item.id,sel.value); render(); });
     el.addEventListener('dragstart',function(e){ el.classList.add('dragging'); e.dataTransfer.setData('text/plain',item.id); e.dataTransfer.effectAllowed='move'; });
     el.addEventListener('dragend',function(){ el.classList.remove('dragging'); });
     return el;
@@ -369,7 +387,7 @@ window.__boot=(function(){
       bodies[c.id]=col.querySelector('.col-body');
       col.addEventListener('dragover',function(e){ e.preventDefault(); col.classList.add('drag'); });
       col.addEventListener('dragleave',function(){ col.classList.remove('drag'); });
-      col.addEventListener('drop',function(e){ e.preventDefault(); col.classList.remove('drag'); var id=e.dataTransfer.getData('text/plain'); if(!id) return; state.placements=state.placements||{}; state.placements[id]=c.id; save(state); render(); });
+      col.addEventListener('drop',function(e){ e.preventDefault(); col.classList.remove('drag'); var id=e.dataTransfer.getData('text/plain'); if(!id||!SEED_BY_ID[id]) return; setPlace(id,c.id); render(); });
       board.appendChild(col);
     });
     // Highest fit first within each column; ties keep their seed order.
@@ -407,8 +425,8 @@ window.__boot=(function(){
     });
 
     document.getElementById('reset').addEventListener('click',function(){
-      if(confirm('Reset to the 15 Sep snapshot? Your drags and edits on this device will be cleared.')){
-        state={placements:{},actions:{}}; save(state); render();
+      if(confirm('Reset to the latest saved list? Your drags and edits on this device will be cleared.')){
+        state={placements:{},actions:{}}; prune(); save(state); render();
       }
     });
 
