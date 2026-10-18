@@ -103,6 +103,8 @@
   textarea{ font-family:var(--mono); font-size:12px; min-height:90px; }
   .btn{ font-family:var(--sans); font-size:14px; font-weight:600; padding:10px 16px; min-height:44px; background:var(--ink); color:#FFF; border:none; border-radius:9px; cursor:pointer; white-space:nowrap; }
   .btn:hover{ background:var(--rust); }
+  .btn[disabled],.btn[disabled]:hover{ opacity:.45; cursor:not-allowed; background:var(--ink); }
+  .btn.ghost[disabled],.btn.ghost[disabled]:hover{ background:var(--card); }
   .btn.ghost{ background:var(--card); color:var(--ink2); border:1px solid var(--line); font-weight:500; }
   .btn.ghost:hover{ border-color:var(--muted); color:var(--ink); background:var(--card); }
   .btn.small{ font-size:12.5px; padding:6px 11px; min-height:36px; }
@@ -261,6 +263,8 @@
   .imptable td{ white-space:normal; vertical-align:middle; }
   .imptable td select{ min-height:38px; padding:6px 8px; font-size:13.5px; min-width:150px; }
   .imptable tr.todo td{ background:#FBF6EF; }
+  .imptable tr.flash td{ background:#FBE9DF; transition:background .2s; }
+  .imptable tr.flash select{ border-color:var(--rust); }
   .imptable th:nth-child(2){ text-align:left; }
   .imptable .pay{ font-weight:500; color:var(--ink); }
   .imptable .acct{ display:block; font-family:var(--mono); font-size:9.5px; letter-spacing:.8px; text-transform:uppercase; color:var(--muted); margin-top:2px; }
@@ -417,6 +421,7 @@
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px">
         <button class="btn" type="button" id="impSave">Save</button>
         <button class="btn ghost" type="button" id="impCancel">Cancel</button>
+        <span class="meta" id="impSaveMsg" role="status" aria-live="polite" style="margin:0;align-self:center"></span>
       </div>
     </div>
   </section>
@@ -956,7 +961,8 @@ var ENC='eyJ2IjoxLCJuIjo2MDAwMDAsInMiOiJQL21wS1RsZ3luTUV0UXZIU09KY25RPT0iLCJpIjo
     var from=pending[pending.length-1].date, to=pending[0].date;
     $('#impMeta').textContent=pending.length+' transactions, '+dLabel(from)+' to '+dLabel(to)+'. Tag each one. Your choice is remembered for that payee next time. Payments to your own card and between your accounts are pre-set to “Own transfer”.';
     $('#impTodo').textContent=todo?todo+' to tag':'All tagged'; $('#impTodo').className='pill '+(todo?'warn':'ok');
-    $('#impSave').disabled=!!todo; $('#impSave').textContent='Save '+pending.length+' transactions';
+    $('#impSave').textContent='Save '+pending.length+' transactions';
+    $('#impSaveMsg').textContent=todo?(todo===1?'1 transaction still needs a tag.':todo+' transactions still need a tag.'):'';
     tb.appendChild(el('caption','sr','Imported transactions to tag'));
     var h=el('tr'); ['Date','Payee','Amount','Tag'].forEach(function(x){ h.appendChild(el('th',null,x)); }); var th=el('thead'); th.appendChild(h); tb.appendChild(th);
     var body=el('tbody');
@@ -975,14 +981,22 @@ var ENC='eyJ2IjoxLCJuIjo2MDAwMDAsInMiOiJQL21wS1RsZ3luTUV0UXZIU09KY25RPT0iLCJpIjo
     tb.appendChild(body);
   }
   function saveImport(){
-    if(!pending || pending.some(function(t){ return !t.cat; })) return;
+    if(!pending) return;
+    var left=pending.filter(function(t){ return !t.cat; }).length;
+    if(left){
+      var row=document.querySelector('#impTable tr.todo');
+      $('#impSaveMsg').textContent=(left===1?'1 transaction still needs a tag':left+' transactions still need a tag')+'. Showing the first one.';
+      if(row){ row.scrollIntoView({block:'center'}); row.classList.add('flash'); var sel=row.querySelector('select'); if(sel) sel.focus(); setTimeout(function(){ row.classList.remove('flash'); },1600); }
+      return;
+    }
     pending.forEach(function(t){
       if(t.kind!=='transfer') S.rules[t.key]=t.cat;
       S.txns.push({id:t.id,date:t.date,amount:t.amount,payee:t.payee,acct:t.acct,type:t.type,key:t.key,cat:t.cat});
     });
     var n=pending.length; pending=null; $('#impPanel').hidden=true;
-    $('#rImpMsg').textContent='Saved '+n+' transactions.';
+    $('#rImpMsg').textContent='Saved '+n+' transactions. Your weekly total below now includes them.';
     commit();
+    $('#rImpMsg').scrollIntoView({block:'center'});
   }
 
   /* This month's imported transactions, re-taggable. */
