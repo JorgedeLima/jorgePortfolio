@@ -295,6 +295,21 @@
   .prio .mv2 button[disabled]{ opacity:.35; cursor:default; }
   @media (max-width:760px){ .prio li{ grid-template-columns:24px 1fr auto; } .prio .ps{ grid-column:2 / 3; } .prio .mv2{ grid-row:1 / 3; grid-column:3; } }
 
+  /* upcoming payments */
+  .billsum{ display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden; margin-top:18px; }
+  .billsum div{ background:var(--card); padding:13px 16px 14px; }
+  .billsum b{ display:block; font-size:22px; font-weight:500; letter-spacing:-0.6px; font-variant-numeric:tabular-nums; }
+  .billsum span{ font-size:12.5px; color:var(--muted); }
+  .billtable td{ white-space:normal; }
+  .billtable th:nth-child(2){ text-align:left; }
+  .billtable tr.soon td{ background:#FBF6EF; }
+  .billtable tr.big td:nth-child(2){ font-weight:600; }
+  .billmgr input,.billmgr select{ min-height:36px; padding:5px 8px; font-size:13.5px; }
+  .billmgr td{ white-space:nowrap; }
+  details.mgr{ margin-top:16px; }
+  details.mgr summary{ cursor:pointer; font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:1.1px; color:var(--ink2); min-height:44px; display:flex; align-items:center; }
+  @media (max-width:760px){ .billsum{ grid-template-columns:1fr; } }
+
   /* plan periods */
   .plantable th.per{ min-width:150px; }
   .plantable th.per .x{ margin-left:8px; }
@@ -365,7 +380,7 @@
     <h1>Finances</h1>
     <p class="sub">Your plan, balances, goals and debts in one place. Check a purchase before you make it and log a check-in each week. Changes save straight away and sync across your devices.</p>
     <nav class="jump" aria-label="Sections">
-      <a href="#health">Health check</a><a href="#review">Weekly review</a><a href="#afford">Can I afford it?</a><a href="#bill">Unexpected bill</a><a href="#goals">Goals</a><a href="#debts">Payoff</a><a href="#tracker">Tracker</a><a href="#plan">Monthly plan</a><a href="#backup">Data</a>
+      <a href="#health">Health check</a><a href="#review">Weekly review</a><a href="#bills">Upcoming payments</a><a href="#afford">Can I afford it?</a><a href="#bill">Unexpected bill</a><a href="#goals">Goals</a><a href="#debts">Payoff</a><a href="#tracker">Tracker</a><a href="#plan">Monthly plan</a><a href="#backup">Data</a>
     </nav>
   </header>
 
@@ -424,6 +439,28 @@
         <span class="meta" id="impSaveMsg" role="status" aria-live="polite" style="margin:0;align-self:center"></span>
       </div>
     </div>
+  </section>
+
+  <section class="block" id="bills" aria-labelledby="h-bills">
+    <h2 id="h-bills">Upcoming payments <span class="aside" id="billsAside"></span></h2>
+    <p class="lede">Every subscription and bill you've listed, with the next due date. The bell warns you a few days before the bigger ones, and annual renewals also send an email.</p>
+    <div class="billsum" id="billSum"></div>
+    <div class="tablewrap"><table class="billtable" id="billTable"></table></div>
+    <h3 style="font-size:16px;font-weight:600;letter-spacing:-0.3px;margin:26px 0 0">Is it in your plan?</h3>
+    <p class="lede" style="margin-top:6px">Each bill belongs to a line in your Monthly plan. If the bills cost more than the line, the plan is short and the difference comes out of guilt-free money without you noticing.</p>
+    <div class="tablewrap"><table id="coverTable"></table></div>
+    <details class="mgr">
+      <summary id="billMgrSum">All bills</summary>
+      <div class="tablewrap"><table class="billmgr" id="billMgr"></table></div>
+      <form class="row" id="billAdd">
+        <div class="field grow"><label for="nbName">Bill</label><input type="text" id="nbName" required placeholder="e.g. Spotify"></div>
+        <div class="field" style="width:120px"><label for="nbAmt">Amount</label><input type="number" id="nbAmt" class="money" min="0.01" step="0.01" inputmode="decimal" required></div>
+        <div class="field" style="width:130px"><label for="nbFreq">How often</label><select id="nbFreq"><option value="monthly">Monthly</option><option value="weekly">Weekly</option><option value="annual">Yearly</option></select></div>
+        <div class="field" style="width:170px"><label for="nbDue">Next due date</label><input type="date" id="nbDue" required></div>
+        <div class="field" style="width:130px"><label for="nbCard">Paid with</label><select id="nbCard"><option value="debit">Debit card</option><option value="credit">Credit card</option></select></div>
+        <button class="btn ghost" type="submit">Add bill</button>
+      </form>
+    </details>
   </section>
 
   <section class="block" id="afford" aria-labelledby="h-afford">
@@ -584,7 +621,7 @@
    The repo is public, so ENC is ciphertext (see vault.js). Live data syncs
    through the vault; ENC is only the starting copy and the fallback.
 ------------------------------------------------------------------------- */
-var ENC='eyJ2IjoxLCJuIjo2MDAwMDAsInMiOiJQL21wS1RsZ3luTUV0UXZIU09KY25RPT0iLCJpIjoiL3BQaGE1VU9ob2NKWnBJaSIsImMiOiJNcHExVzIzaGJSWkNWVlBwQW9NajNabTBLRFlhR0xXbjFzRU53c01nTG96TjluTGtESmN1Tmp3aDdZaStaVDR1a0I4NkpIZHpDWHFUVWMzbDlRQ3A2YWJLWHIrS3JPS2toZjFpY1VrNUlnZDBPVlJHQ1ROeFltWFRpa1RXcldHZCtQamxER0xKUGlGRForTktVZDNUNGdTYmVhWDVkNCtXci8vNWtFWWtQY0IvbGRhRVdqTStyUFBPZ2pkZ0lFZkdsZnZhcmhtWDhwT3hhcC9hWE96OHJWYURRaGdLTHNLbE04WVkyNTAyZXhiUFdCZzlqcktLemJXeTd3dVFNUmxSZDFwUkFHaHZubHBwTlo3V1RheWtsSStrTlQ2eHJ3djFuanVaeWs2OG5qVkJOalUvd00ydDBTaWlKbCtZbzNDN1A5SFY0NkpsYlNjVThleTUyWEoycWNuSHVkcWlEeHNqR2tvV1BzVHRHSU1XbURlaFIrS0pZNm9DNEhiRGhDT1JMbUIwTnVJZkNRKzJMOXc2ZzkwTS82V1h0ZWdDZndyL0xTS2JwVVdGN1NvZ2d6b2Q4ajdITjdwc2k1U1ZDcHpYVmxyUE1sd0ZrZDlkSlc2YVlEcE85RWRHb0N1bERuU3h5T1dvdkh6Z1piUTE0TEFUU2xnODdOeXNOUVh0aDRiL2VPSittYlhWK3RKZnJ1NW9lN1dZNzFMbUtNL3lubFAvY1pvS2p1Ym5XWkYycFUrcnU2SGtBaHpKRi9leDRzbHUvR2ROYk1XSEUyd3YyVElTTFdYc2FTT0pQUko2dkhBTFc4SWNhRzhUVTlnYlQzWmorYTdVYjkzbndnRE9vTE55VzRCU2JUMlI2QXNZSHM4NFZzaVViOHBEaXRRYnpFclhLZmI1UEVEeE9ZOHNHbjAvQlhYdXpOcEhxaEZjOE5kMVJrOGR6dHNUdGxFZCtaSFVWQ2hkbTBaV3BtWjhkTHRhajlDWUdkRzAvN1MrN1pwUEFTQmdubUF0dkY1V3RRR2IvTldXcFMxbnlDZHVCb0kxU1FKQXNZMUxHemJodTlSTzUyUCtnWDMyVytPTjNQY1pnQVlWQzlKVWNMcWlKL0YxOXdkdDltZGg3RWQyc0ZYOXplQWhETjNjRWVwR1dRNXlxM2txTlFPUURhUjI5ZnhDbzNHWnBCQ05wNnQ2eGhpZWlPUlhOM0NlejRUcVE0VmhYem8vVXI4MTgvcGZqbzlRY3VubGxHYk5OWWNtVVNPYnhSTEhmT09RTEE2RXEzcnVmeE9EU2xJUDNmMlpPL0ZQb2RUMjQzem1KQjd4NG90bTJDd0FRVmJXSW1nZDd3ZzZnVitZdWkwN3RJWTlST1JEMnZhNktLa01rZnFkWTQ2WXo4TlhHQjJmcFNPa0lWVmlVMlhnTzRHN3AvR25mMHVLdWxtYTZUQW02MFJ6U3Fxd0dCdmtJNy9qaTRVcjlzaXFkWE8xR0RTUjRoSUR3TWtsWjY4ZEU4SVowd0JhdnUyZXUyQlRocnJtaTY4MytldDM0dHN2ZDZTV0VPYm42aWtOYkVXeFdxTEQwa3N2TG1BZWd6NzZicVExNFhNUU9OVW95TG5IaHN1K0EvQ0JaY1NWeHVRY3FaODdpbUJWdUwydEZlVm9tNEtNS1RGWFNwU1VGdzJpVlN2VmtZd2I0bnBRaGR3TXNybGoxQlk4YXNQa3gwdjdLYjhYVXJodVhSQW1XcEdPZDFZaTdia1drbE9wYldvNU9XRjFzdFByR2xxSXpBL3dIWVpRYVFtenBSUmhBT1FJTUYwa0NZOHYvOVlxQ2t3SlZCU2tqcnkxL1N4OE5VN0VsN0oyKzBVeEhTQXUza0tZTzJvTXFrdjQya0VBYm9RNEZUdHI0RUo3QjNjZVQ1ZVc4azlNSXJKN0ZoQVVISFA5dktuUlNIeTFneEVuKzhCbGtWVERLRGZEUmdXRmRqaVNZN1pUYm5QL3d6Vm5qTDIveUZPT0Yyd1gzNE5MNC9jQnVIWkRDUHY3QldFcld2VTdrVVMzYmI5QjA4MURBUVNqMzB6eDZqYlV1dHNoUy9JejhWQk9laUJBMlhBZnVtdTlzdXVkTTdpeDhnTzU1K0xmMnJHWUE1WGFHU3BhSHA1VjNwdWZZWUpkVjI4VUpKVU5ndTEwc1poamNSRm9wMzQxRlZuczNTQWFTaHExcUFPM0F4ZGw2RFFMZ0NDd0hBKzlPWUtkdDZaelRRZzlFbWNFc21XWGpXTWtJME1mRzZPdUkxK2Q4dXUvMHJLUk9sSlMrUU9NTVUxWWh2S2hlUzFudTlRc0ozc0VGQm9LazlVL2NmcFVXVWlETHFKVzNsYmxjcktjaXZxQUNSZVRodWhSd01rSkkybmtKbUpTODZLUHJFcVpURVBLdHJyTCswY3RKUE9aM3R1TGFBY1o0U1JaUE9nVEpJbzNyLzh2K05DNUd3alF0YlN3aWtGQ1Z4MnV6eGcybzdhWFA0c25EVkV0cC9Fa1J1TUhvZ1dGZlRBOFh6T295aUcrekJ6OWp4Y25WUGhLM2NwaE1RSkVyZFlua3dPLzlVRzJNZC9qOFpxOEZEbDJmcjNQYi9mdlN1bVR3WkpXR3NEYmJTYzhNM0JZQkdZcDgwS0lnQzJNZkxwd21XdkU0c09CTHhoY0t6Y0Q2Wng3TDV0NmZQQSt2VDRzaGlVaDdvOWNTZXVHZjluTGpIN2V1ZEgwTjQ1VHlPeUtGeG9HcmlVUjBSaVY0eGt0amR2cWJlQzVHU296cnpSTjJZMy8yU1FSM1VPOFE1bU5SREEvN0k0YXJlTGlLODBIQ21PTHFBRWxEeThIdTJvYTY5bnp0c0NGak1mZFJrcVh3NDVQT2hRcWhZdk0xWFBpaGlZNVNLZStaelUxWTJUa1ZqS0ZpcmJ3TlhyR3ZiSDFtV3N2TzgyQ0pIelU1S3phbFhKaDNvb1pFY0FOVGh5eC9TNkdhUUxoR3FCRTRMZlgxNTJLNW5IbUs1OHNJTVRwQUdGTFNtTkNYL0tEbVoreWNyVyswd1pJbzhRSVI0MDhqSXEzNzVLRE9VRVhxQ1hzcHk0UWliY2V0OGNMRFl1V0tpTGlGL0liUGo1bDErTzBlSHUwSkpSZDREazYvUFQ3SWNabm1SWEdodEhBRkptaFloUFNONGF5cEFaaUVGdEFRT1FOMHFtRTM4SHhpbWFRbmRkcyt1S29SM1dmQlhPSkZxbnd2YXZ1UFkyclAzOTM4c00zZXlKZU0rTnhhZ05WeE1wTDdRNDVibmZYWG5IWCtYbE1QQkJwM2VmemdsaWwzRDd4YngxeG8yZVRONk5NNzhrVWtjVll4UzNYZ1VDTlJXZWwwTVlrbkdkejMzbVFvbjdEd0V5YTUzQ0VTdDZJNXZwVVd6bW5DVWJ2Z2xvNXU3cnVBeHNMRzJkOE1oeklETzB0Y0d1NEpXVWRkTmVGV0hUdmM0WWJSV3Z3cXJSODlwMU91enhHOTEwTnRGZVFiNHR4Z01xWldFeUllYkJpNkhUTzl2VFQ5bkdkbmJvQ3dOb2pMWDlKay9ObFBCZVNGampRQkU5d2tkRy9FdHNGSDVlbnY1L3h3RktpbFpQWWxSdUIyUE1JU3VHZ1VxaSthV21WTHJUeVJuejArWkMxVHdINXJhN05IZW5tV0pTVjN5SUlDMUd3dWFHL00zSU5RRDFoWjMwU2Q5Q2pGd3oxQ0c3d2FSK2J0eERNNy80b1FSS2xPaVRXbmdmYXk5eXBYemdvS050bEFQci9GY2xsMXBxd3VXTVVaOHNnNkdiOFBQSHdTWC9uRzVCUWpEOXU0dVk4QmRVN2dyaWQyL3UyMTJ0blJ3VlpTRE15YklYOXhGeEZHa1N6N0E5TUVDQzdOa3lKNnZQcXV2UFozYkMzak5Xb1dVN0FkbWhqUTNPblFpNG5VTkU0SUphQ012RXl6L2ZmUzRsZFNINzJKT3pwSXR3aUt4a0lTZE0rTm5BZFE3WlJuWEUzOERHS2NCVFpwSzVLRzA4UXZLdHpXbSttUnYyL0hMNElDdGUxeHFidEowdXJpVlVwYVJQOEhtNUt0eTZiSWp2Y0twSVFjZVNoTEt6aWl4eFkrb3FwRVR3dUMyMVhycHpWSGNwVjY3QUh6R2hJSGRSY0ZqUHhwNHFkd2REZzFpOE9IaDZRSWtDNm5TWGVUZmNsREtRWlJNcmwwVW9OczErWnhqZnVsWmd2S2FReUF2THFpdFZDVDZJeDh6d1VyYlFacWY0d1lQK05iLytwalpBM2RLcVFJbGdWYTVsckcvVkZVWGpoc1RFTERUcUdPUjA1R2hKMFBzRGxvTkZiOUJxdnZ3UUFCRWZKNndGbHpDb1U3N1VHcjNsY1VnNXR3aG9MYWhVK2E0aFQ0Q1IxbThQemZlT28xY1VzS0FkZ2lKZEQ2dHA1czJMQU5PMDZZOTFlZkwvYTJlaHg2aHZqdStaUUpSbnczS0ZPN0ZKTjkzdGZ0LzAvY3c4Y0F1elFMY3ZBdG0wYmlseWdWZ2V4OVU3K2hHbE51YWVpcEpKdlBOV0tjNlhlZ0FPL3hnblp5K1prL3RBTmY2a2k1amQzbWc2ZVZHaEliWnFJUVlhbGw3ckdSNWMwbHVOcFBUQVlPc0oxVjFScFZEMzlSam9ZUDlDRU5nRmx2aWNBd2ZHdDZwVWJBaU1aSmtjUU1BWG1oS0ducnlRMFptdUZHN0p2SEV0UkN5RWs5aGlXRGxlNnhkMFZ2eUh6WEd6WjJHUHhJVEFGTmJobE4rd2wvbGUxbW53aDdveTBRcEhmWWJDdXB6ZEp5a0FnMFlrRUl5TWtvYTI3bGFmZW9qajhFVzdHY3BHU0paME0rOUp2c1J0SkNzVFE0b08zZ2gzcWt4bFJVVHlFdWJOSDYva0Q1RE1uTlgwNkZDczdpWHRoTnJEVzdnNFR0aElMdmN4Z015L2NZMzJxNzFnSGNDQklQQ2JDc3B5blVNMThhZGtVT3diemIvSzNFVDcyS3JnTXhCSm1XNUVzUkFTV0VZemtDNkNMemw0UDJ4ZmxyRnJjUVpGY1ZYTFBXZjhOM01FVVVDeXNpL2dGZE5EV0dSbzhEK2M1eXY4a2ZSWDhYSlZEZmVpYnNoMlRGWjBYK0tWN0NZUnV3R25sV091eHhTbDFNT0luZzhCbStxaWs0cUlhaDRpdTB4YTRwbk5pMUlreWd0WGZjQXFTODJoaWdzc0I5SHRwSFNDWi9DYUxLWEdLaHNNTEpoTXJDTVlJbERZN1NPOWVPbFk1MjN6VkVMZ2dqRDJLbnNQUXdIM2ZGTHIvSGtrOVVaZFZaL2FHUS9iQ3UwMUZCVWtmekxudHkvalVDK1FxeDl5ZVJzNXRNcVlodEdRT0lVNnJmVUFpd1BoSm9FT3hCdFR6MjdwWUptOE03Yk5mZDRUamJ0YS81c0k5VHJEbWpkeDhwb2o0dXVKUG90Mk04cWVtcFJwczZlYm90UUZ6TW5tNUZrcjY4WEFWU2E4Mkl3Qi9WZDc2ajcxM1VFdFoyUGdvcHl1OFRkTVB3K1NDaVl3TDFma25scU5yY0FHTkc1Yi8rckV1TWtkSncyUzV0SHgzaExFK1NjN2RCUGgyQWZPLzRsL1pEVy9jSlU4QlJFd0I4SWU2WUczNkhCY29meWxPelZ1blk4bCsrNk9BWmg3MEZUYkhWZWpuQ3o0K2Q4NWZSc29SRmlUdTFrdTQ0YTY0MDlJUDVFRnZnTTFEeGtuYXhMcXMvd0w2OE1jUTEwOE9jSUN3L0o2TkF2bjhwbnY3RzdLSlBVaWlkYXk2TWpNdllXN0NyRG82YjdtcmdvRVVleWdIL0RlSEZKUE5za29US2VkR09TanlRQjNqYnhXUUdsZDZKY3Zyd3FoU3c2allZMDRZSjdET2pCTUFNSndlYTV1TWZpMFN3OXFEbDAweUM3Z2JTaFYzWVNvY05TUjgyb3dvaE43SG9teWpFL0lUWTN0WFQ1TlkrVDlDWXUzRWtuMWFOSHV4T2hFdUdaVEk2dS9rVnZxazBWL3VjRFludTk0T1B5djUxQzdsYS9VSWNieFlQbWJHb3UzRlVweVZTc0xNOFRRclA3aTRRSXE4RzkvVnlhSnFCRmpUZUQrTVFZckRVSHNZNFp5REFhaWZRUVloRWUydGlhNFhNMVpaSlVERjZlMEJMK1M4T0ZhOEJlTkhtQzhOQUdpUnBrczZzSTQ2ZFhsdnQ4MGZPMjJNZmwwWXFreTVsdGJWOURSSzdlcGxiMHdRaHBQSE1CNStmNTZFR1JGaHpiT05oVk9YSGk3S3R2UUZUNlJ2TEY4MU43V01tS1hOYmxvSEw4SkFYUGcrQllNczlXWVczVjAyeHRuTVVRZEJLblVMeTRjWHlpUk5SUFFpVHhhQmNhUlRvQWw1R1M0bEp2ejZXT3dDcDdsOC95TnN5WU5MUjRnS1VFS09HMG5JZkk4SWdvb0oxZlRYa2xySmM3d0VSdENUb1ZrY052ZG9VK01MSE5kTkpUYzYwbWptT3YyaWNjcEdqakloT2w4OU16aFVBMUx0NmFRWFJPcHRDUGQvTW5zbElyb2JWb2U0b1NqMWVjVXVqV2crS0VnaStSV1pnRENVeFZ3UlZFVlV1a3BaZWVqb3JiNFRnd0dSTWJtMy9hbE8xenAzK1FKVTBrc2Z1a3k1Qnl4Tll5ZDhnVDVCcGRHd2tLQ2dUeHEvdndoQS9xVnZkNGhXZ2h3ZnNTYURMb05oWXM0UkpXbmJQNytQRHNOT3dkMG9OSU9JdkIrSlgwZnRxWTFxbm1QcmQ5TXhrc0orWE5zMzE3WCtSNitoekdibWNzUmJYTkR4allGMytYTDVWTmRZeW1lNGxJRzFOdlNGVVFxN2R5UG1uS2JUYzNrWkQ1Y2lCbVFueFA5S1YrbTVlaG5oOElDbU81TUU4cGpGZTdHMGtKZDJBME43K3Y4VEdhMkhVK3NhWXFUZ1hjZWxIVWpoSmNrZDdUWWZiQ0cxSnNPd2w5N0c4aGJMVTZDL1llbGNWaUtraDdHNXF6MVZDOHRoNnBTNkdoYlRvMTN4dit2RFBFQlk4RTNOcVJaQ0M3TTludm9CWDlXSFVnQlRKTnlYMVYwdkJ0aXVsMVZTQ1YyNExOZFJ5WTlIYnNRRW5PL3ducDROQ0ZuR21vTHMvRThNa2tVbUFYbGp1MEhsR09yOXJjQUlweDY3MitHZnRhc3NVU1dVQzNSZzMxM0d1b0tqMVBWb1o1S3dEVTc4YVNPandKZ2t4L0srNVpDeWZkMlpid1NKcUdEM29SWWYifQ==';
+var ENC='eyJ2IjoxLCJuIjo2MDAwMDAsInMiOiJQL21wS1RsZ3luTUV0UXZIU09KY25RPT0iLCJpIjoiVFJ5cldiNDh3UWdJM0ZtaSIsImMiOiJBQU9yaFQvTnBxUHAyZzNwRTFFOEF2MnptUnZ1RDYxTGpTQkcvYmNRMUhNWHNUanljS3BBWWxNNUUweGl0TVJlWXpoZEYzc0ptWmxEaHI2am13dWdMaytTUkY0bmRpeHpJay9iSk5pa1NBOElIQ0JvRXdSRjAzdkVpUUVPUjdtQm15ZVRzM2FKNDRTN1VjYU5mVk5IYUxYRjdnemo1S0tXRENwVGxTamtkMDd3VlVDMXA0T0RYQzNDbi9xRENWbU9sVkV6UDdxT0x2QWlWSVQxeFV1T2J5T3ZtekgyeFFyNjdEd21yQXZ3WCtRTGthQU9FbGVtZVpLM0kxbVhEdnBDb2lnblg0bDBGTVROYXM2cjlXS3lHVFk4bzdkVVRhZ1N0S1ZrbEtNdjZXSDNqckR0L2UwWG5jeGtxZnRBMGh2Sng1VUtDdWxONHprM2YrUE9VOUFIYnZldTlDVnNsS3VQMDRTelJvWDVaR1dJeVJxRWM2R3VHcWhBZDc2TEt0MVN1dmhxVEJtTnNTKzhmQTFZVk5BaHV3bVh3WldpUkNSbmZibUpjTUNLM1haUXJMZUQ2WnNjaHNjNFBtMXNrOHcrZWZZZWp0Q3I1eFpvSTVsK3h5MUdVZmRzNmExVDJmVDJMdXZ2aklCREVtdDRwZmR4V1N2ZzdxR2F3ZC94bVJ2S08yQTFOdHdMaVM4b3kxMWpLbDltNTR5MS9mY3JubWE1b0ZjbjFydXZJWFpycXhKVFVBMnhIVjZhOWpmWkw2cFl6R2JTZ3YrVXpaTGt5ZW8vaTFIVE9ZVHBvY2JCbEZncWFqaFIra3FLUUpEelJIcElwY01JTGVNTzQ3dkp6WXpYYnZuMGdjcnAydVkyUUR4VzBPZFM1NjZiNTdMeVBSWVZtQzVSUXhyb3BYdTBTb0NVa09sNFVHMUJPd0FqVEQ1REVTSjlQZTBUL0s1cnRQMWVCaVI4NWZERlRKbkZnNFZoZ1NrRXM3NGRFZVhESHhQN1h4ZUtKN21BcGtkVkgwWFRMTXArTDd4YmJzT1RmWmM0dDUxdENlSXIwTWwwa0xFc1dPNlUzSXdQWWpnYlpIQTVpWTRjK2pzdGFndk10WXRqZUo0R3ltSDZrdWc5QU9HR3NGclc5YjNhV3ByN2NYWjB5U0hpc1hNK09IcXZhZk5maVNPdkR1OE51cUNjVEdPWUxCSk45c2ZHL2Jud2xqUHNmOCtQZDZNdk1hTkREWk5vMzVTZC82bW55YjRCbTBJQ2tNN2Q2Zk5JVjFDSmVpUER4T0NhdFM0cXZPMk9qZ2NMZUY5T29oSEIxb0NQZmNueEZIS0ZBa1FNR05JcVUrdjNCaGZrb0dRTy8ySnhwbWFKMi9Xd1V3V1ZRRFc3YVRMN2NOUEN2bWg5eTJOWStycXZYUk9LWVE0M2pkSTlBV0RVb3M1L2NZZUVnL2RTRXN0a1E1UDh0TVFtZUg3TUhFcmlMVG5YTXFDMG04ZStQaHRyNEFJODdtNk5BUzVENU12V0pBelM1cGkyM2JhK0txazYva21RYmtRYkRCWlNqQnpsVEs4RjlWZDBtdG13S0piUU1IR0p4Q2tRTmplblFzRHM0QkxYU1FUeFI0Wnl0ekJoSU1rQ2JpOGhRV0IwT1k4VlN2YWJjSG1sUDRaTDBZUGpteVozSHRZL0xaZ2YyK25CeGhhd0Q0SDJUYTExc2V1YlVCUnVQSVdZdno0WklWUTlXYmpJUWZrTnNuRHVWanpaMzlkOFBOQWdJTlBzOVpERjg2TFYzYnR1V25MVG1FemZPM2s4bHZidUFEc1lwejZWdVhnQ3FlSG13c0J3ai9neFB1cHpsbWx1SndhMHVPWmFjcUhzYWE5TUpveEE5Vm1RZkpicWROWWJyTXR4L2JnNk45RnZ4Mkw4RjlvSzRBWjFURWpuWEkwZGVUZjZoZTFzMk55RXhiVXdOZmxkL1VhZU05Y0dnT2FoZVNLbzlPMU9ibEQ1UDNaVW9ONzZjS1BTMzFiYUlEWmVZbGlvNUdJNFowY3RKc2hHdDIwN1BmV2JxQzU4aGlwS2gyUklsUkVBOFU2ck0wQnhLNCs5THJrTXVycmVvS29STFRWdXpqTzhXaFVrQTMxQ3pORGoxbU56T25yQ0p6cnpTVGg4UWU4UHJDbGJ2WTBnOGVoaUYrbWt1c2JxbGpZVUdLdU1ncm9LRyszbEthbTIzNEFzYzN1NWtNajFmZXphdUNIWW45WGYzcU5EcFpQQVJxOTZDZlJDcXlDUCtSU25WVHlzU0Jlb21TdEwzaUxFQ1hzbWJMZ2tNNzQ2R0I1NElJZldoVkdQUmVPRS9RWm1udXRiNDNjUElOS3h0QmFSN3plbFFNc1pxVHkzaTNpNE1MZ2YxdFA3S0k5eDRqSU1pNGZtcDJzMlFkUXdrd1BSd2poaFkyejQzS2Y3MHhYMmRhZE1LQXhwaDE5OFN3Z2VzWU1kUGpNQ0RGV2t5Kzl6b25BQndQbkh0NUJNL1lQcDA4UmN0Sm9HcnFVY0g0Y3p4ZnVDRGppbU1LVTNEa0RsM2hETWxBUWxZTmlqVzRQclR6WEhqTVQ1RGxsVWVlWDhBOTZwcmEzdWkrTjIyRmpHQU1OWnViK0Q4dFNEUkNzemdtVFkvUnd2YW9NYkZ1MUI1ZDNSdUhUcnFVMFpOSVc2ZGxDZ1h2ZnNIcUJMRFdpUThxMzRlejlJYWhmeVQ3RkRBTXR3VDZ6Z1ljQjRGTWlueEI2MnZUcVFraExzd1VMSnJSL2JDbnVObVI5dDg4K3J6V2dldUlReTdvYjByd2p3LzZUem8vZ0Fvd3lPNFB2YmZRRGJUY3kxbFZvejBsNm9ibWNLOVhmdi9YWTFUeEhaRjY3bmRRcnBPZGx5a0JyTzdVTXVISDlPSUdlTEVtOFFvSFErYlFzMnpLU0RaUldVSWF4ejlnWWdzbnJpZm9DOG9mYUZvQWlvUnBUZFZrMHErajUwM3AwK1BFTGhpSlBJRGdJb2h2b3RxeVp1d0FwTkxqRkY5djk3Skd2Y0hMeDYvQ09VeWc5b28zeDd1Y2wvOG1GOFdQYk0zK1FLVWpFYS95dWd3Q2pkaUoyR2JQWTZoQ0VOa3gyT3llcHNwd2JPYlBydnFvNHlQb2pKQkxEcm9BQ0QwRGpkRDVNTWM3aHF0ZDI3bEx2TTdWVENuQiszQmVaREVHY0V1OWQ4WmtuMWdnSHZkUllhV2E1TVdEY3p1cUV1RGJtYVlTdWJLVWJ5UUpxc1Q5VVRnaEJFSVZremFNY0ljK2txcGlqM2ZLZjdxWkx6TklXTk1MSVYxWTBWQUNqVGhvZm4wZFFBTklVTGtWYTFRb210emYxdy9NU3JVTDZ3Q0FlbjNldEsyMEgrWW5JMVRBYnJLd0VpVUJnSEhvdXZFTTBXMEVqOUdoeFNLVXJmcTYrbzNhcUhHaWhiaVN2ODV2Y0dtVkJUNGNESm1BbjMybjUrZ1AvbWVQZ080RjFxNVF6b1J4dWdaY0t0cDNiS1hBVTkrYlBxTGpIU0hPOEFiUlhrWTMvQjRISVJMaEtTQjU1c3luMTg5VFVqWUlVelRwQ1c4T2xKcUpVRXlidGswUlJ1bldRa0R5U3Q1MDhBMmNOV3djYUFHSklMYmQ3TzdsVjJmK0lEd0N5VjgrWTRWcVJUYVJTNjVieWJQQnYxQTBDNkwvc2VUMUdUOEd5V280ZXp4Q3pzUTlDU2dFV3NDQTdFTmdpMkU0NEJpM0hxTldMTUpNOUtRdUpLb0NLT0tLNVkxMytYM21JYkVOTEdmUHpsR2pKRC91ZUtJcEdhWjhINmNhZXFzM2hMWldXNHZ6dVF6c2hjbGNGUnNGY1RzVmxxbXRvNXBCaU1HUjFMVzdVUHNDMzdIL3JQL0dXMENqU2RpSG9Bd3RoL2pzUjE4Wm1VcnZoRE9qVXJHZ2duYTl1MjJJMnBxaVpod21yWnVHSnJLdWJETHBxSjl4aGprMlc4QkZwTmhsa2pCQnZ0Y0ZSWXpwNHlhSnJRQ2pxcnE0YzRMS0YweVprLzBrOEZzb3pUMnJoaVBWcEJCTVQ5NDZkUUlRL1ROay9HZnVlV3l4TGJFYTR6UDlGK2RRcVBjOGZobFRFNEpnaUJNZDRVTENZNmhhTGIzVkpVRHJzeVNaMUU3M2orYnJ6U1JOeFI5M0k5WUFMZWx5RDNIa3FXY3YyWmFESHlpZnhySDFTekFUVFZPbkVBam9Tc25rZHJNU3VNOTJlcEZTMkwxUGZsZ21ESktpKzBXakVyTXBXaEVZM2pmYm45K3BhRzdVR0hUMngvaSttTFRuL1c5Q1dKVnpFRThaek0wS3A4UjhBYmRLQnFGNjdPQ0o2M1VESWEreXJ3c0RsQTBvSkdTM21uZm1ldGxLTEdvSjczZmhCaTF4ZW9IVXdsdWN4eTVJUVdMTGRMTnYvT3FmOU5xRUs0ZzhEZ0NoWHFXYW1INGVNU1VaVU1oK2JnWmdXTVJSSVhSbGtySnFKVTFXZXg1dVJjWXFsYXF4NDJFSWNSYXFMcDZkRDdKZkRkeXpoUUJzM0pZY0MwSTF2TVdaa3I1M3BCMmk5cXJoZnY2TWZSMlFzM1FDQTRIbUEvV1VhWjRqTm84RnBad0pSMytKNWZnZjUvM3VIRzdSbi9hYlBNSEFGckhNSDVEaUVIRXhSV0NETlJDZ29JTFk0Nk5KbXN0MWRVdVF0NVBsYlA4cUZMeXRnVDJhVllLVnNzSEtmMy93S0c4YXV3WWVIS01KWStGMDdoNVBDeTlTR2FvbHl0dUJFeW9OT05abnZ3UmF4U1JJZXNqYXhCeWNEd1A4OFNadmZsRjVLaEtVb2UzMmNDd2RGV3kyYXFNRkxSeFRRMkxxaGd5aDVQYXNkY0g5emg2OCszZ1A0UW5jUURNV1NsVTJObU1FV1dNb0MwTmhEMm5zTmhpMzdqaUpucFEyVWNQelQvU21WUG55Q2NoOVMwYmlGR3JTbGFLNm9WVkdDNmRxM2k5YkFocE92MWtjU3BZQWJWQWNFOG1xSVJHOXV1Rkx3NkFreGZjOVUra3BWd1h4S0QxbkdyZWVmT2pud3ZXRHZySHdOeGtObGxxZHIxU3hvTldiMnhXK08rR3lpMDFFdDZueTRLU25tSXVVc3lrNFhzM09mT0lVM2FMVEtrRitNWGwwRExHN2UrNzNQK1hkaGdwTG9QTTFhbXJLYjhIenRtN0xNc2VFZTIvMU1sMmw1cGpQT3VRSW5Xb3UweEw2b0ZPNkpteVUwdDBnQVo5bkp4RXJ3ei9IUmdQeEtBVis2NGRXNVlWdC9BUEJNT3NLZUtXampkbVplTzdrUFMvVFJGY2FTS3ZMYjZQSzBuMUJ4N0hwcUVjQ3BJc2VmdDVTeHZsQVg1Q3Q2cm5tWElWNlgyUk8yYnN6SlptNGNlMHRTdGdDckhXN3lwaHZIaUZpUW05V1VPeDA2OC8xYlI0V0JwQ05zR2Y2MDh5WVlPblRhQlZCS2wrNFArU2Z3MlFvY3pwNTFZOS8wY2lvcEpibnpjc0ZLcG13emZaaUduaG9IVFpmcXBBamZhU0RyalBNM3VxeGlvTDU1aUdRUGRpbERHNlBjMjU0ekNseG9sQ0dYTjJ5NTc4WG0vQWpVcDc0M1ZOYjFLZmtVZXV0OGhQTHpCK0VYa3paYVhkUXJHYWlpcVNqWEU4ZXJ2RitJM3lyOXBnNFNFcGxsendZMmdJS1hKUkJETFlVZmlPenpwcmw3R2FwV0tKS2xtZG8rTHBDWGpJd04rc3hFVm1VcFRmdnlaaEhjOTV6NHd0dmZzWUlWbjhUQUdkbjZYdXQ4SDc3VEUxN1BZN0xkOThOMVcyUWFoeEIzY2lLTmNLd2dOUG1odUU4SFJSMDY4NEplcXlHeFBhQVlsbDViUUs2NFkvUlA2enY0Um9vWDJVL2VYRHYzSTBGa1hBc3JyN2J4QVRjTytGakozcHBNbHdabGZMbzVVaUh3aEhNWi9OUktramNlQlBoanhxNHFZWHVrakVZY0tPT05ITXQwTmhUU1lzaEZzQ2NGQ2J0aDlNV1ZwYmRISmMrUFM5S1ZETHN0YnpnOUgxeDhwckJWRDE3OENFdk1Tb2xjdGpYZm1oRGlQRlk1dzdXSVhXYkdFajJXeTdoZmhOVnpxdVBLeUorY1h5cVdHTlVLUzJxejhTYzYxbk0rNjZoZllvNE9sM0c3VnpzMzEva3lzeERCZlcxMGx2YzRVT3FyellxZFRraFhHRjFGUHUyclFFZFJRRjdwbDdGWnlDdEo5amRSRWI4T2FYWHlxMzFhZ3VjOWlHcHZHczA4c0hacStpa0Z2VHYxaUpmN29zWTBraWpiZkdSYk80KzNlMHpHa0tON2J2cXE5TWp3d1FFV1BRUy9VSHNuck4vNzNDOFZNMk1zS3MwYkcyQjVkVERJRk5WZUljaGh2aUlhdzJCUlNMNHEvdmtVRHBzY1QwK2FJenJkQkhqSlUyUnFJNmNhdGIxYmZMV1NzSWgwMGNISGN1Uyt0Z1BPM3B6aFBxNFdYRzVnOUlBcU1XOGFrZU9Jb2NFVjFjOVZGc3pEbUEvd25NeS9wbExIdTV2d1diVlhZN25Kd1hlTnMrVXJzYjc2amhUVzFJOGF0NTVBMXBnSFhLS2F0RTk4TXVOdlM4MUZzSEVKYXRORENucytGUThzaEd0S0gzdjRVSmxnNk11QUdUcm9Edzl1MWpCMmZmUWdoTUdiekdOWmUxY3lnQmkrZHNWQmRRTm5SQndRU2ZiTml5eVBzb2pmdnpPQ0J4ZVMrRFpYSUJpQnFwVjdOc09xbWw5dnNjS05pZWkrbGpreGEzS0ZPLzkwMzV5cnE0bUZoZ3grdi9LblNMOTVJL3BrQnBUMlg2TWhaSHRpM0dtRVY5RHZJemhWRWlNS1M4QUdjNjhLd1pqdjR0cDZPMno2cmJCMUt2VXd6TFgySnlQZkJTUXpaV01jcnFPM1pxbmhEVTVvdTZiMzlGNElNM0dtUlNPZUtNR1hMalZFQ0t2NFc2clRMc01sRnlOSFBDUnBmU1dnNUE0OTRCUTI4NEt1cXUxaDh3enpQYmJEendOV0Q2dVBRaThqaitFa3lTZ1ZaUmgzTjRLUE1maW5UVEltdDRFSy85VVI3a21uTWtoS0c0K2VUNFdIZHdqOWdaaG93ZlZhUGhDVEV5Ui91OE9GU2IzTFhTVGplci9KYTVZc1dDL1hhTWVhNDlYVE03eks1eUhNVHdKbXRZdzRiZTByTXcxTkhQelRYWWlsd0pnbkVQKzRuWXBTMWNHUHU4VTJXUUZtY2g2bzB6bU5UdllUbDBnL1doOWpsZWQvVDExUmVMeW9VN1F2WjllVkwvcDFnbzZIaHFOL1dGaHBudTFLSk42SWZYLzNnVnpncXI3cCtIRFFVSnV1Z0pMSEc5Zm1xUGFuSHhhV3UzWWVjbXZFNTRpeGhtZ0loMWtVMDlidnZxRUFmWXRrbWxqc29hQU5uakNRQmErcDRpdSt2aENYM3FhUHhzbncwSUJvRHI2RzJiNnkxSDRTQ3F2UTAwTS9MeEVVVndoUTlGczk5aGwxWml0OUhORlJ1OUlRR0NtVlJyVnhmdjd5bitWU3JWTG1mcHN4enlPOVZHdVc2bjNnbVJHdmpQY1pIMVlaSzc0TktPbGpsd1JWL1ZBMmdBaklRa3N6aUFOa0xJOStXMlBpcVp4YWN4d2VJSUlBNHVoMWVnTTllUllnMWdHRkswRWpudncvSm0xSmhPcWlPOFJSR0IrZWhhZkhUcVE0VldmdjVDZXZBOG0vQ3U1U3RTdC96NWl0dE5FMTVVTjNQdWYrQWVpYy84YXZVQ0NrS2JzWktkaWMxQTVqQ3MwVitBL1JpOTlndVJFRFNFUE0yT3JNT0k0QmxZbURHbENTQXJvR2EyYnRJMEFvL2F1QStyRW5FaXh4OFdCVy9xOEZmV1NFQVRyd0lyVytSek1KKy9qTmtaRE0rUS9zSTcxU2p2bjdjcm04c2ZZODdNVjFZeUtSNllDVjBJZE8rSVBlV05IelFYTkdSZ3FYNDZSMGx3RktwN1BKTE5RLzFBS1F6OGJLa3NKbzlpM2JoNjFseEhOT0x6SnkyLzdtMjg1OXEwK011ZFVXQlhtQTdxR1U2YXc1aUJyd2E4cjJta2RIRCtzQmQwQVFQcFhQVjJGN2NDVk4zU1hyOE8wSDl0aENiUjJYdE5aUjRuei9iZWJyMk56SkViL0MxM3dXT2x5N0FJSDhHS3JPOW5kN3dLaUp1N09ya0Z5Z3hpeVpENUY2MVpiWE1Cd3JGejlZS2NEaHVIcjZtcTg4SVN0WDN1U2F0M0VBaEVBQTNnQVYreUxIL2UxZWtmNmRrQzBmbUk4bDcrbGp4V3dYUFhwYzcyL1Y0cW04M3pWZklMczE1Y1pRWkMvUG1vaW8zckxYYjRHNWFOZzFSakdkNzFrK0drRUcwSkFVcGpFTVFwQ2Y1ejV5UndnVzNJOGpXYnlReGdsOFNJOE1HaVA4ZUdHSS9jbUhYMU14alRZTHp1SWh1QUhNTmJSZmY2MG5mRTRsS1E3UmlialFVREQ5UFkyN1FJZEFKcml2Zmo5dEFwTTdLU2JzZkUyT3gzNTZQcGlHbUFoUGdWVENvdmpuWm5td2lKUUkzMzhKbTF4cmc4RVNnK3VNMjh2M0dWQ0RKdXVFM05tSGpFbHlhdGVNWm1CNWgrK3VGZTZBNGIyQjNnVkpTYUd0cnhkeHlmSmJCMkN6TFpmVkpadDFDUk5yQzdyYXlLZTgxblZEMk9ySGpqRW9jZHJ4SWF4dUhtTE9IR2NTM0xJbkMrWmk5UzdCdlNjRWdXWm5qaGNldHAreitzRUZWbDh2TzdtdExmTmpBUWpEa3VTWkdkMllKZXFMTmNhSksyenBZTjF1cS9VTVJXTGdwbnVaenh0Nm1SUnRYN2F5YWpMRHhvdUQ0ZEgvcXFsNnV2T29SdklXZWFOTmhXZ1FFY2RzcEovQy96NjFiazdvZGY4cGtDenl3U2YvWFYzbzF5c1QwakltUi92VkcyMk1TazlCTkRRb1BiUm9GKzI0dFg3ZHRZYU9Mbk84Z1N3UElPYnBOcUNGbVdpWFVUaXdiS3JQSzZzVzcySEtNQ0Q2d2MvNnh3UlUxQkdzRk9ETzZ1QzJKd0dWL2NqTFlOMEl6SnltRTI4c1FlQTJNczA0c1NYRmI5KzEzbUYyeG52Lzk1WHZUMmYvd1hIN2I4WFVwUmRMODFmMUo2T3dubDJqcWZTazVEbGQvcEVtRDBwZ2REMVBqUU0rRThWaXZpcC9rTDZLeTBGTzJYeHNFTE45OXZ3K3BoTDZFN1J6bHo3V1dOVnBYY1FDUlhiV3NzV0JKcFRIQXAra3BLMTNFbnJiaWNLOXRuNDVoOWMzamw0KytXRElnemZSOFhaMmpETUpTTGJWVVREcUoyZFdUblJ2cTdod1F3M3lOcTZ6clUrM1RSV1Rmb2ZVTjRxQjVLWmRhR3BIWTZJcXlhT2FST1o5WDh2cENjYStIVW5tb0VDTXVnellTZGN5aU0wZFVpWjFKNVlHczBrZGlJS3pra2wwK2lybCtYUUNqR2tZa1FIVCtjVXY1cmVPcTN6MmZ6OEpEMWdiNzVnZm0rNmtLUjRvUmkvd2dySTlWV2I2amN6TTVLOTlFV3paY2xEUHNJb29VdkNWSEc2WitMeTJnTFpqOHNrYzI2MitCbFpTbmM5V1Y4aVhWTGU3Sm00MG9QSmg5bk1EYkp5V2tkaFZNY010aDc5eDA1RGVkSGxoYXpSdE1qQkFvWllmOEVmMmNpbHE3QmlRWk9YaTJ6ZVg4bEgzWGlVNXZvZXZjZExhMWIrNGZpb3QxOVdtQmt2VWxaZFhVMG5nd1ZLRzVLa3lSODBlcUtJSkgrdTIzODROaVVVL1g0OUFKWUxLM0g2ZndQZVdoTFV0ZTNtc242RVdKSTZzZkovSTJqdVZSUThDaVFwQkVSdC85WWpQeWRYWUllTVFVUGFFcWVKUncwWkVRU2ZMM1B5VGwzby9MSWdRRTlVUEg1MlpaTDE0alRkOFpoRUw3SyttQ1JBdXNlTzk4YUZnc3FsSnBTdkhnYjF5dWM4OGJWRkwxcGplWHdJUE9CYTFzZVBBS1RqWE43eHNrbE9nWmV4WmhIUkVZVWY1cG54Y1BNdHRPL25yVXJYM3BKOFRJc1VNNEtSeldkbVN1QzFweDlzWUFZMjJ3R2wraWNaU1RNTm1pSG9pblZmKzVIMXg5MUtKblQxVm9nWmdTODVyUkRrcnNLeTUyTXJPVmRnQ2R5dkJvTTBVWGxHOTNLU0pKM1JHY1c4bW5PVEFTQTVjN0I1ZFZma3d0Tmt1SXM2ZzNwdnlhNkFrZVprVTBrQStJc2VCM1ZocTM0SmxZYkZVdXFsODlHOFo4RFpwNlU1Wm5QVGgxTFN1SEdPZ203emJOWTV2SWpxb2lHREV5TjBZQWFCY2U5NEdvNGV4eVlGUFFSL0NnODU2dnZLR0J5TUtndVA1VjFEVmVQS3ZkMUwvRFBvdDd3ckVCMG96Y3ZNcXFyYTN3ZGswUTAzbHZDUXRkRlZLR1FUbzhDR1IyTmkxdkl3QkxjU0o2RC9pRlpwRTM2TzNJeDNGb01tamhDQS96TlZDQWZBVktNMVVGcHJtM0JDWXVvcVZzYTZIakVGNjRLNVJlR29xZEJtSVgwdzNFWmUvQVk0aHdzcW1PSzk5VFZCS3owSGcraVNKcTVxTDB6M3MzMHNnWVZOVUxhZ24yc3JLL1JyZUYvck80UjhVSWt5MUU4MGxlWUxXdXNhc2c0MjNBN0NBLzhHTDMwMGxZaWhDMXRiUStWalN6ajdVbFBJTkRDOEJadEVaSzluTVVWbmhmVk1BOFlWVnRuRWozL0JBMWQ2bWc2Z002ZVVZYXhrTTRqMGtlVDNMQ2VyWlVpOTNrWUVNZ2h0VXkxUjg3c09XejZGeWZCSGZpUnNhUEhGenU2RG5vK3VRclFuRy9oMzZtRW8yb3BWU3RxYm4zVDBIaEVxK1RhZVhHOTB4VjdyNFpWaEpNTDVDaC8ydE5HZnU2TWZXZTNzVTZaZXNxNlFYZGQxb0k3M2lKL2tqZzY2aDR6dlkyeGZndGMyMWJBdG03UDg3S1VuUzRZSEl1dGI3YUN6SGczWGRSVWR1WjFVeE9Ta1pTMTJQOTkvM1czeFVQQkJHaGlqV0E5WFVYblFSa2FZS1dxQ1h2T2R0eWljVEpkTGR5cGJRM0NLK0d2Szh3QmlNMjNFdXpaTGNFbkdwQUtmOVYzNnM5aTRwWXhtakxMREYzTFgreVJueGxJV3RNWDAzUXVUSVh5ekZmNUNjWmoyazBmS1Vyd2pRYVQvQUl4YjE4SkhVPSJ9';
 
 (function(){
   var S=null;
@@ -637,6 +674,7 @@ var ENC='eyJ2IjoxLCJuIjo2MDAwMDAsInMiOiJQL21wS1RsZ3luTUV0UXZIU09KY25RPT0iLCJpIjo
     if(!d.txns) d.txns=[];
     if(!d.rules) d.rules={};
     if(!d.accounts) d.accounts=[];
+    if(!d.bills) d.bills=[];
     if(!d.priorities) d.priorities=['tax','moving','buffer','friends','university'];
     return d;
   }
@@ -788,6 +826,13 @@ var ENC='eyJ2IjoxLCJuIjo2MDAwMDAsInMiOiJQL21wS1RsZ3luTUV0UXZIU09KY25RPT0iLCJpIjo
       else if(pct>35) out.push({id:'plan-'+p.from+'-'+Math.round(tt.gf),s:'watch',text:'Your '+mLabel(p.from)+' plan leaves '+money(tt.gf-tt.net*0.35)+' a month with no job. Decide before it starts.',href:'#plan'});
     });
     S.goals.forEach(function(g){ var st=goalStatus(g); if(st.t==='Behind'||st.t==='Not funded') out.push({id:'goal-'+g.id+'-'+tm,s:'watch',text:g.name+': '+st.t.toLowerCase()+'.',href:'#goals'}); });
+    // Bills: bigger ones a few days ahead, yearly renewals a month ahead, and plan gaps.
+    upcoming(30).forEach(function(x){
+      var n=daysUntil(x.date), amt=num(x.b.amount), card=x.b.card==='credit'?'credit card':'debit card';
+      if(x.b.freq==='annual') out.push({id:'renew-'+x.b.id+'-'+x.date,s:n<=7?'off':'watch',text:x.b.name+' renews '+dayLabel(x.date)+': '+money(amt,1)+' on your '+card+'. Is the money set aside?',href:'#bills'});
+      else if(n<=3 && amt>=50) out.push({id:'due-'+x.b.id+'-'+x.date,s:'watch',text:x.b.name+' '+money(amt,1)+' due '+(n===0?'today':n===1?'tomorrow':dayLabel(x.date))+' ('+card+').',href:'#bills'});
+    });
+    coverage().forEach(function(c){ if(c.short>=1) out.push({id:'cover-'+c.id+'-'+Math.round(c.short),s:'watch',text:(c.inPlan?c.label+' is '+money(c.short)+' a month short of your bills.':'Annual renewals ('+money(c.bills)+' a month) aren’t in your plan.'),href:'#bills'}); });
     if(bufferMonths()<1) out.push({id:'buffer-'+tm,s:'off',text:'Cash buffer is under one month of core costs.',href:'#goals'});
     if(vault.state==='offline'||vault.state==='error') out.push({id:'sync',s:'off',text:'Not syncing. Changes are saved on this device only.',href:'#backup'});
     return out;
@@ -826,7 +871,8 @@ var ENC='eyJ2IjoxLCJuIjo2MDAwMDAsInMiOiJQL21wS1RsZ3luTUV0UXZIU09KY25RPT0iLCJpIjo
     if(!opts.length){ var o=el('option',null,'All recent weeks reviewed'); o.value=''; sel.appendChild(o); }
     if(keep && opts.indexOf(keep)>=0) sel.value=keep;
     var w=sel.value;
-    $('#rLogged').textContent=w?('Guilt-free spending logged or imported for this week: '+money(spentBetween(w,addDays(w,6)),1)+'. Weekly guilt-free budget: '+money(weeklyBudget())+'.'):'';
+    var wk=upcoming(7), wkSum=wk.reduce(function(t,x){ return t+num(x.b.amount); },0);
+    $('#rLogged').textContent=w?('Guilt-free spending logged or imported for this week: '+money(spentBetween(w,addDays(w,6)),1)+'. Weekly guilt-free budget: '+money(weeklyBudget())+'.'+(wk.length?' Bills due in the next 7 days: '+money(wkSum,1)+' ('+wk.length+').':'')):'';
     var l=latest(); $('#rInv').placeholder=invOf(l); $('#rInv').closest('.field').hidden=hasInvAccounts(); balanceInputs($('#rAccts'),'ra-');
     $('#reviewForm button').disabled=!w;
 
@@ -1041,13 +1087,122 @@ var ENC='eyJ2IjoxLCJuIjo2MDAwMDAsInMiOiJQL21wS1RsZ3luTUV0UXZIU09KY25RPT0iLCJpIjo
     tb.appendChild(body);
   }
 
+  /* ---- upcoming payments ----
+     A bill is {id, name, amount, freq: weekly|monthly|annual, anchor (a known
+     due date), card: credit|debit, line: plan line id it belongs to}.
+     Monthly bills fall on the anchor's day of month (clamped to short months). */
+  function billMonthly(b){ return b.freq==='weekly'?num(b.amount)*52/12:b.freq==='annual'?num(b.amount)/12:num(b.amount); }
+  function dueDates(b,from,to){
+    var out=[], a=b.anchor; if(!a) return out;
+    if(b.freq==='weekly'){
+      var d=a; while(d<from) d=addDays(d,7); var guard=0;
+      while(d<=to && guard++<60){ out.push(d); d=addDays(d,7); }
+    } else if(b.freq==='monthly'){
+      var day=+a.slice(8,10), m=from.slice(0,7), guard2=0;
+      while(guard2++<24){
+        var dim=new Date(+m.slice(0,4),+m.slice(5,7),0).getDate(), d2=m+'-'+pad(Math.min(day,dim));
+        if(d2>to) break; if(d2>=from) out.push(d2); m=addMonths(m,1);
+      }
+    } else {
+      var y=+from.slice(0,4)-1, guard3=0;
+      while(guard3++<5){ var d3=y+a.slice(4); if(d3>to) break; if(d3>=from) out.push(d3); y++; }
+    }
+    return out;
+  }
+  function upcoming(days){
+    var from=today(), to=addDays(from,days), out=[];
+    (S.bills||[]).forEach(function(b){ dueDates(b,from,to).forEach(function(d){ out.push({b:b,date:d}); }); });
+    return out.sort(function(x,y){ return x.date<y.date?-1:x.date>y.date?1:num(y.b.amount)-num(x.b.amount); });
+  }
+  function daysUntil(d){ return Math.round((new Date(d+'T00:00:00')-new Date(today()+'T00:00:00'))/86400000); }
+  function whenLabel(n){ return n===0?'Today':n===1?'Tomorrow':'In '+n+' days'; }
+  function dayLabel(d){ return new Date(d+'T00:00:00').toLocaleDateString('en-NZ',{weekday:'short',day:'numeric',month:'short'}); }
+  /* Plan lines the bills are checked against. A missing line means "not in plan". */
+  function coverage(){
+    var by={}; (S.bills||[]).forEach(function(b){ var k=b.line||'other'; by[k]=(by[k]||0)+billMonthly(b); });
+    var p=periodFor(thisMonth());
+    return Object.keys(by).map(function(k){
+      var line=S.lines.filter(function(l){ return l.id===k; })[0];
+      var planned=line?num(p.amt[k]):0;
+      return {id:k,label:line?line.label:(k==='renewals'?'Annual renewals':'Not linked to a plan line'),bills:by[k],planned:planned,inPlan:!!line,short:Math.max(0,by[k]-planned)};
+    }).sort(function(a,b){ return b.short-a.short; });
+  }
+  function renderBills(){
+    var all=S.bills||[], up30=upcoming(30), up7=up30.filter(function(x){ return daysUntil(x.date)<=7; });
+    var ann=upcoming(90).filter(function(x){ return x.b.freq==='annual'; });
+    function sum(a){ return a.reduce(function(t,x){ return t+num(x.b.amount); },0); }
+    $('#billsAside').textContent=money(all.reduce(function(t,b){ return t+billMonthly(b); },0))+' a month';
+    var bs=$('#billSum'); bs.innerHTML='';
+    [[money(sum(up7),1),'Next 7 days · '+up7.length+(up7.length===1?' payment':' payments')],[money(sum(up30),1),'Next 30 days · '+up30.length+' payments'],[money(sum(ann),1),'Annual renewals in 90 days · '+ann.length]].forEach(function(x){ var d=el('div'); d.appendChild(el('b',null,x[0])); d.appendChild(el('span',null,x[1])); bs.appendChild(d); });
+    var t=$('#billTable'); t.innerHTML='';
+    if(!up30.length){ t.parentNode.hidden=true; } else {
+      t.parentNode.hidden=false;
+      t.appendChild(el('caption','sr','Payments due in the next 30 days'));
+      var h=el('tr'); ['Due','Bill','Paid with','Amount','When'].forEach(function(x){ h.appendChild(el('th',null,x)); }); var th=el('thead'); th.appendChild(h); t.appendChild(th);
+      var body=el('tbody');
+      up30.forEach(function(x){
+        var n=daysUntil(x.date), tr=el('tr',(n<=3?'soon ':'')+(num(x.b.amount)>=100||x.b.freq==='annual'?'big':''));
+        tr.appendChild(el('td',null,dayLabel(x.date)));
+        var nm=el('td',null,x.b.name+(x.b.freq==='annual'?' (yearly)':'')); nm.style.textAlign='left'; tr.appendChild(nm);
+        tr.appendChild(el('td','muted',x.b.card==='credit'?'Credit card':'Debit card'));
+        tr.appendChild(el('td',null,money(x.b.amount,1)));
+        tr.appendChild(el('td','muted',whenLabel(n)));
+        body.appendChild(tr);
+      });
+      t.appendChild(body);
+    }
+    var ct=$('#coverTable'); ct.innerHTML=''; ct.appendChild(el('caption','sr','Bills compared with your plan'));
+    var h2=el('tr'); ['Plan line','Bills (monthly)','In your plan','Status'].forEach(function(x){ h2.appendChild(el('th',null,x)); }); var th2=el('thead'); th2.appendChild(h2); ct.appendChild(th2);
+    var b2=el('tbody');
+    coverage().forEach(function(c){
+      var tr=el('tr'); var lb=el('td',null,c.label); tr.appendChild(lb);
+      tr.appendChild(el('td',null,money(c.bills,1))); tr.appendChild(el('td',null,c.inPlan?money(c.planned,1):'Not in plan'));
+      var st=el('td'); 
+      if(c.short<1) st.appendChild(el('span','pill ok','Covered'));
+      else { st.appendChild(el('span','pill warn',(c.inPlan?'Short ':'Missing ')+money(c.short)+'/mo'));
+        if(!c.inPlan && c.id==='renewals'){ var ab=el('button','btn small ghost','Add to plan'); ab.type='button'; ab.style.marginLeft='8px';
+          ab.addEventListener('click',function(){ S.lines.push({id:'renewals',g:'fixed',label:'Annual renewals (set aside monthly)'}); S.periods.forEach(function(p){ p.amt.renewals=Math.ceil(c.bills); }); commit(); });
+          st.appendChild(ab); } }
+      tr.appendChild(st); b2.appendChild(tr);
+    });
+    ct.appendChild(b2);
+    renderBillMgr();
+  }
+  function renderBillMgr(){
+    var all=S.bills||[], t=$('#billMgr'); t.innerHTML='';
+    $('#billMgrSum').textContent='All bills ('+all.length+') · edit or remove';
+    t.appendChild(el('caption','sr','All bills'));
+    var h=el('tr'); ['Bill','Amount','How often','Next due','Paid with','Plan line',''].forEach(function(x){ h.appendChild(el('th',null,x)); }); var th=el('thead'); th.appendChild(h); t.appendChild(th);
+    var body=el('tbody');
+    all.slice().sort(function(a,b){ return a.name<b.name?-1:1; }).forEach(function(b){
+      var tr=el('tr');
+      function inp(type,val,k,label,set,w){ var td=el('td'); var i=el('input',type==='number'?'money':''); i.type=type; i.value=val; i.dataset.k=k; i.setAttribute('aria-label',label+', '+b.name); if(w) i.style.width=w; if(type==='number'){ i.step='0.01'; i.inputMode='decimal'; }
+        i.addEventListener('change',function(){ set(i.value); setTimeout(commit,0); }); td.appendChild(i); tr.appendChild(td); }
+      function sel(opts,val,label,set){ var td=el('td'); var s=el('select'); s.setAttribute('aria-label',label+', '+b.name); opts.forEach(function(o){ var op=el('option',null,o[1]); op.value=o[0]; s.appendChild(op); }); s.value=val;
+        s.addEventListener('change',function(){ set(s.value); commit(); }); td.appendChild(s); tr.appendChild(td); }
+      inp('text',b.name,'bn-'+b.id,'Name',function(v){ b.name=v.trim()||b.name; },'170px');
+      inp('number',b.amount,'ba-'+b.id,'Amount',function(v){ b.amount=num(v); },'100px');
+      sel([['weekly','Weekly'],['monthly','Monthly'],['annual','Yearly']],b.freq,'How often',function(v){ b.freq=v; });
+      var nd=(dueDates(b,today(),addDays(today(),400))[0])||b.anchor;
+      inp('date',nd,'bd-'+b.id,'Next due date',function(v){ if(v) b.anchor=v; });
+      sel([['debit','Debit card'],['credit','Credit card']],b.card,'Paid with',function(v){ b.card=v; });
+      var lines=S.lines.filter(function(l){ return l.g==='fixed'; }).map(function(l){ return [l.id,l.label]; });
+      if(!lines.some(function(l){ return l[0]==='renewals'; })) lines.push(['renewals','Annual renewals (not in plan yet)']);
+      sel(lines,b.line||'subs','Plan line',function(v){ b.line=v; });
+      var d=el('td','del'); var x=el('button','linkbtn','Remove'); x.type='button'; x.setAttribute('aria-label','Remove '+b.name);
+      x.addEventListener('click',function(){ if(confirm('Remove '+b.name+'?')){ S.bills=S.bills.filter(function(q){ return q!==b; }); commit(); } });
+      d.appendChild(x); tr.appendChild(d); body.appendChild(tr);
+    });
+    t.appendChild(body);
+  }
+
   /* ---- persistence ---- */
   function commit(){ S.updatedAt=new Date().toISOString(); vault.save(S); render(); }
 
   /* ---- render ---- */
   function render(){
     var active=document.activeElement, key=active&&active.dataset?active.dataset.k:null;
-    renderStats(); renderHealth(); renderReview(); renderBell(); renderGoals(); renderPrio(); renderTxns(); renderAccounts(); renderDebts(); renderTracker(); renderPlan();
+    renderStats(); renderHealth(); renderReview(); renderBell(); renderGoals(); renderPrio(); renderTxns(); renderAccounts(); renderBills(); renderDebts(); renderTracker(); renderPlan();
     $('#snap').textContent='Published '+dLabel(vault.published.updatedAt);
     $('#lastChange').textContent=dLabel(S.updatedAt)+', '+new Date(S.updatedAt).toLocaleTimeString('en-NZ',{hour:'numeric',minute:'2-digit'});
     if(key){ var again=document.querySelector('[data-k="'+key+'"]'); if(again) again.focus(); }
@@ -1604,6 +1759,12 @@ var ENC='eyJ2IjoxLCJuIjo2MDAwMDAsInMiOiJQL21wS1RsZ3luTUV0UXZIU09KY25RPT0iLCJpIjo
     render();
 
     $('#rWeek').addEventListener('change',renderReview);
+    $('#nbDue').value=today();
+    $('#billAdd').addEventListener('submit',function(e){
+      e.preventDefault(); var f=$('#nbFreq').value;
+      S.bills.push({id:uid(),name:$('#nbName').value.trim(),amount:num($('#nbAmt').value),freq:f,anchor:$('#nbDue').value||today(),card:$('#nbCard').value,line:f==='annual'?'renewals':'subs'});
+      e.target.reset(); $('#nbDue').value=today(); commit();
+    });
     ROLES.forEach(function(x){ var o=el('option',null,x[1]); o.value=x[0]; $('#aRole').appendChild(o); });
     $('#acctForm').addEventListener('submit',function(e){
       e.preventDefault(); var role=$('#aRole').value;
