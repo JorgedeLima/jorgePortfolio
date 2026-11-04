@@ -2,5 +2,6 @@ User-agent: *
 Allow: /
 Disallow: /jobtracker.html
 Disallow: /finances.html
+Disallow: /brain.html
 
 Sitemap: https://www.jorgedelima.design/sitemap.xml
