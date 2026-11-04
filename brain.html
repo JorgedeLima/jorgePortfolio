@@ -190,6 +190,30 @@
   .sumlist{ list-style:none; padding:0; margin:18px 0 26px; }
   .sumlist li{ display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 0; border-top:1px solid var(--line); }
   .sumlist li b{ font-weight:600; }
+
+  /* ---- content games ---- */
+  .mock{ background:#FFF; border:1px solid var(--line); border-radius:14px; padding:16px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; font-size:14px; line-height:1.4; color:#222; box-shadow:0 1px 2px rgba(22,24,28,.04); }
+  .qtext{ font-size:18px; font-weight:500; letter-spacing:-0.3px; line-height:1.35; margin:18px 0 0; text-wrap:pretty; }
+  .opts{ display:grid; gap:8px; margin-top:16px; }
+  .opts button{ display:flex; align-items:flex-start; gap:12px; text-align:left; min-height:52px; padding:13px 14px; border-radius:12px; border:1px solid var(--line); background:var(--card); font-size:15px; line-height:1.4; cursor:pointer; touch-action:manipulation; }
+  .opts button:hover:not(:disabled){ border-color:var(--ink); }
+  .opts button .n{ font-family:var(--mono); font-size:11px; color:var(--muted); padding-top:3px; flex-shrink:0; }
+  .opts button:disabled{ cursor:default; color:var(--muted); }
+  .opts button.right{ border-color:var(--green); background:var(--greenbg); color:var(--ink); }
+  .opts button.wrong{ border-color:var(--rust); background:var(--rustbg); color:var(--ink); }
+  .why{ margin:14px 0 16px; font-size:14px; color:var(--ink2); background:var(--panel); border-radius:12px; padding:13px 14px; text-wrap:pretty; }
+  .why b{ font-weight:600; color:var(--ink); }
+  .passage{ font-size:17px; line-height:1.6; color:var(--ink); margin:18px 0 24px; text-wrap:pretty; }
+  .passage b{ display:block; font-size:21px; font-weight:500; letter-spacing:-0.5px; margin-bottom:10px; }
+  .seq{ display:flex; flex-wrap:wrap; justify-content:center; gap:8px; margin:auto 0 0; }
+  .seq span{ min-width:52px; padding:12px 8px; border-radius:11px; background:var(--card); border:1px solid var(--line); text-align:center; font-size:22px; font-weight:500; font-variant-numeric:tabular-nums; }
+  .seq span.q{ border:1.5px dashed var(--ink); color:var(--rust); }
+  .rule{ text-align:center; font-size:13.5px; color:var(--ink2); min-height:20px; margin:-6px 0 0; }
+  .linkbtn{ background:none; border:none; margin:12px auto 0; display:block; font-size:13.5px; color:var(--muted); text-decoration:underline; text-underline-offset:2px; cursor:pointer; min-height:40px; }
+  .slide{ display:grid; gap:6px; margin:auto 0; width:100%; aspect-ratio:1; }
+  .slide button{ border-radius:12px; border:1px solid var(--line); background:var(--card); font-weight:500; font-variant-numeric:tabular-nums; cursor:pointer; touch-action:manipulation; }
+  .slide button.home{ background:var(--greenbg); border-color:#C3DCCD; color:var(--green); }
+  .slide .gap{ border-radius:12px; background:var(--panel); }
 </style>
 </head>
 <body>
@@ -229,7 +253,12 @@ var IC={
   grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="4.5" height="4.5" rx="1"/><rect x="9.75" y="4" width="4.5" height="4.5" rx="1" fill="currentColor"/><rect x="15.5" y="4" width="4.5" height="4.5" rx="1"/><rect x="4" y="9.75" width="4.5" height="4.5" rx="1"/><rect x="9.75" y="9.75" width="4.5" height="4.5" rx="1"/><rect x="15.5" y="9.75" width="4.5" height="4.5" rx="1" fill="currentColor"/><rect x="4" y="15.5" width="4.5" height="4.5" rx="1" fill="currentColor"/><rect x="9.75" y="15.5" width="4.5" height="4.5" rx="1"/><rect x="15.5" y="15.5" width="4.5" height="4.5" rx="1"/></svg>',
   digits:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8l2-1.5V17"/><path d="M10.5 8.5a2 2 0 1 1 3.4 1.4L10.5 17h4"/><path d="M17 7h3l-2 4a2.5 2.5 0 1 1-1.8 4.3"/></svg>',
   sum:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><path d="M7 4.5v5M4.5 7h5"/><path d="M14.5 7h5"/><path d="M5 15l4 4M9 15l-4 4"/><path d="M14.5 15.5h5M14.5 18.5h5"/></svg>',
-  ink:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c3 4 5.5 7 5.5 10a5.5 5.5 0 0 1-11 0c0-3 2.5-6 5.5-10z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></svg>'
+  ink:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.5c3 4 5.5 7 5.5 10a5.5 5.5 0 0 1-11 0c0-3 2.5-6 5.5-10z"/><path d="M9.5 14.5a2.5 2.5 0 0 0 2.5 2.5"/></svg>',
+  write:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></svg>',
+  read:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 5.5c3-1 6-1 8.5 1v13c-2.5-2-5.5-2-8.5-1z"/><path d="M20.5 5.5c-3-1-6-1-8.5 1v13c2.5-2 5.5-2 8.5-1z"/></svg>',
+  design:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4" width="17" height="12.5" rx="2"/><path d="M8 20.5h8"/><path d="M10.5 8l5.5 2.2-2.3.9-.9 2.3z"/></svg>',
+  logic:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5.5" cy="12" r="1.8"/><circle cx="11" cy="12" r="1.8"/><path d="M16 9.8a2.3 2.3 0 1 1 2.9 2.2c-.6.2-.9.7-.9 1.3v.5"/><path d="M18 17v.01"/></svg>',
+  slide:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><path d="M14 16.5h5M17 14.5l2 2-2 2"/></svg>'
 };
 
 /* ---------- games catalogue ---------- */
@@ -241,14 +270,24 @@ var GAMES={
   sum:{ name:'Quick Sums', skill:'Speed', icon:IC.sum, blurb:'Solve as many as you can in 45 seconds.',
     how:['Type the answer. It checks itself as soon as you have typed enough digits.','Aim for 10 correct.','Higher levels bring bigger numbers, then times and divide.'] },
   ink:{ name:'Ink', skill:'Attention', icon:IC.ink, blurb:'Name the colour, ignore the word.',
-    how:['A colour word appears in coloured ink.','Tap the colour of the ink, not what the word says.','30 seconds. Speed and accuracy both count.'] }
+    how:['A colour word appears in coloured ink.','Tap the colour of the ink, not what the word says.','30 seconds. Speed and accuracy both count.'] },
+  write:{ name:'Tighten', skill:'Writing', icon:IC.write, blurb:'Pick the clearest sentence or the right word.',
+    how:['Choose the clearest version, or the word that fits.','After each answer you see why, so you learn as you go.','6 questions. The timer gets shorter as you level up.'] },
+  read:{ name:'Skim', skill:'Reading', icon:IC.read, blurb:'Read against the clock, then answer.',
+    how:['Read a short passage. It disappears when the timer runs out.','Answer 2 questions from memory.','2 passages. Reading speed goes up with your level.'] },
+  design:{ name:'Critique', skill:'Design', icon:IC.design, blurb:'Spot the main problem in a screen or decision.',
+    how:['Look at a small interface or product scenario.','Pick the biggest problem, then read why.','5 questions, timed. Later levels bring research and metrics calls.'] },
+  logic:{ name:'Next in Line', skill:'Reasoning', icon:IC.logic, blurb:'Find the rule, type the next number.',
+    how:['You see 5 numbers that follow a rule.','Type the next one. Wrong or skipped shows you the rule.','75 seconds. Aim for 6 correct.'] },
+  slide:{ name:'Slide', skill:'Planning', icon:IC.slide, blurb:'Slide the tiles back into order.',
+    how:['Put the tiles in order from 1, left to right, top to bottom.','Tap a tile in line with the gap to slide it. Fewer moves score higher.','The clock starts on your first move. 3×3, then 4×4 from level 8.'] }
 };
-var ORDER=['recall','span','sum','ink'];
+var ORDER=['recall','span','sum','ink','write','read','design','logic','slide'];
 var MAXL=12, PER_SESSION=3;
 
 /* ---------- storage ---------- */
 var KEY='brain.v1';
-function blank(){ return {v:1, goal:4, levels:{recall:1,span:1,sum:1,ink:1}, plays:[], sessions:[], plan:null}; }
+function blank(){ return {v:1, goal:4, levels:{recall:1,span:1,sum:1,ink:1,write:1,read:1,design:1,logic:1,slide:1}, seen:{}, plays:[], sessions:[], plan:null}; }
 function load(){
   try{ var s=JSON.parse(localStorage.getItem(KEY)); if(s && s.v===1){ var b=blank(); for(var k in b) if(!(k in s)) s[k]=b[k]; for(var g in b.levels) if(!s.levels[g]) s.levels[g]=1; return s; } }catch(e){}
   return blank();
@@ -267,7 +306,11 @@ function sessionDays(){ var o={}; S.sessions.forEach(function(s){ o[s.date]=1; }
 /* ---------- plan ---------- */
 function lastPlayed(id){ for(var i=S.plays.length-1;i>=0;i--) if(S.plays[i].id===id) return S.plays[i].date+'|'+i; return ''; }
 function makePlan(){
-  var ids=ORDER.slice().sort(function(a,b){ var x=lastPlayed(a), y=lastPlayed(b); return x<y?-1:x>y?1:ORDER.indexOf(a)-ORDER.indexOf(b); }).slice(0,PER_SESSION);
+  // Least recently played first, one game per skill so each session trains different things.
+  var sorted=ORDER.slice().sort(function(a,b){ var x=lastPlayed(a), y=lastPlayed(b); return x<y?-1:x>y?1:ORDER.indexOf(a)-ORDER.indexOf(b); });
+  var ids=[], skills={};
+  sorted.forEach(function(id){ if(ids.length<PER_SESSION && !skills[GAMES[id].skill]){ ids.push(id); skills[GAMES[id].skill]=1; } });
+  sorted.forEach(function(id){ if(ids.length<PER_SESSION && ids.indexOf(id)<0) ids.push(id); });
   return {date:today(), games:ids, done:[]};
 }
 function plan(){
@@ -316,7 +359,7 @@ function viewToday(){
   $('#view').innerHTML=
     '<p class="eyebrow">'+new Date().toLocaleDateString('en-NZ',{weekday:'long',day:'numeric',month:'long'})+'</p>'+
     '<h1>'+greet+'</h1>'+
-    '<p class="sub">'+(complete?'Today’s session is done. ':'Three games, about five minutes. ')+weekMsg+'</p>'+
+    '<p class="sub">'+(complete?'Today’s session is done. ':'Three games, five to eight minutes. ')+weekMsg+'</p>'+
     weekBlock()+
     '<h2>Today’s session <span>'+p.done.length+' of '+p.games.length+'</span></h2>'+
     '<div class="card" style="margin-top:14px"><ul class="plan">'+items+'</ul>'+
@@ -611,6 +654,258 @@ ENGINES.ink=function(level,done){
   nextW(); tick(); T.i(tick,200);
   return function(){ ended=true; T.clear(); document.removeEventListener('keydown',kd); };
 };
+
+/* =====================================================================
+   Content games: Tighten (writing), Skim (reading), Critique (design)
+   All content below is original to this app.
+===================================================================== */
+function tierOf(level){ return level<=4?1:level<=8?2:3; }
+function draw(id,bank,n,level){
+  var tier=tierOf(level), pool=bank.filter(function(x){ return x.tier<=tier; });
+  if(!S.seen) S.seen={};
+  var seen=S.seen[id]||[], fresh=pool.filter(function(x){ return seen.indexOf(x.key)<0; });
+  if(fresh.length<n){ seen=[]; fresh=pool.slice(); }
+  shuffle(fresh); fresh.sort(function(a,b){ return (b.tier===tier)-(a.tier===tier); });
+  var out=fresh.slice(0,n); out.forEach(function(x){ seen.push(x.key); }); S.seen[id]=seen; save();
+  return out;
+}
+function keyed(prefix,bank){ bank.forEach(function(x,i){ x.key=prefix+i; }); return bank; }
+
+/* Generic multiple-choice runner. Option 0 is always the right answer; order is shuffled on screen. */
+function quiz(id,items,cfg,done){
+  var T=timers(), i=0, score=0, qn=0, g=GAMES[id], answered=true, cur=null, total=items.filter(function(x){ return x.kind!=='passage'; }).length;
+  function sub(){ return 'Question '+Math.max(1,qn)+' of '+total; }
+  function kd(e){
+    if(!cur) return;
+    if(!answered && /^[1-4]$/.test(e.key)){ var b=stage.querySelectorAll('.opts button')[+e.key-1]; if(b){ e.preventDefault(); answer(+b.dataset.k); } }
+    else if(answered && e.key==='Enter'){ var n=$('#nq')||$('#rd'); if(n&&!n.hidden){ e.preventDefault(); n.click(); } }
+  }
+  document.addEventListener('keydown',kd);
+  function show(){
+    T.clear(); window.scrollTo(0,0); stage.scrollTop=0;
+    if(i>=items.length){ document.removeEventListener('keydown',kd); return done({score:score,of:total,perf:total?score/total:0,detail:cfg.detail(score,total)}); }
+    var it=items[i]; cur=it;
+    if(it.kind==='passage'){
+      answered=true;
+      var words=it.text.split(/\s+/).length, secs=Math.round(words/cfg.wpm*60)+3, t0=Date.now();
+      stage.innerHTML='<p class="prompt">Read it once. It disappears when the timer runs out.</p><div class="passage"><b>'+h(it.title)+'</b>'+h(it.text)+'</div><button class="btn" id="rd">I’ve read it</button>';
+      function tk(){ var left=Math.max(0,secs-(Date.now()-t0)/1000); setBar(g.name,'Passage '+it.n+' of '+cfg.passages+' · '+cfg.wpm+' wpm',Math.ceil(left)+'s',(1-left/secs)*100); if(left<=0){ i++; show(); } }
+      tk(); T.i(tk,200);
+      $('#rd').onclick=function(){ i++; show(); };
+      return;
+    }
+    qn++; answered=false;
+    var order=shuffle(it.opts.map(function(_,k){ return k; })), last=i===items.length-1;
+    stage.innerHTML=(it.mock?'<div class="mock" aria-label="Interface example">'+it.mock+'</div>':'')+
+      '<p class="qtext">'+h(it.q)+'</p><div class="opts">'+order.map(function(k,j){ return '<button data-k="'+k+'"><span class="n">'+(j+1)+'</span><span>'+h(it.opts[k])+'</span></button>'; }).join('')+'</div>'+
+      '<div class="why" id="why" hidden></div><button class="btn" id="nq" hidden>'+(last?'See result':'Next')+'</button>';
+    stage.querySelector('.opts').addEventListener('click',function(e){ var b=e.target.closest('button'); if(b) answer(+b.dataset.k); });
+    if(cfg.limit){ var t0=Date.now(), lim=cfg.limit;
+      function tk(){ var left=Math.max(0,lim-(Date.now()-t0)/1000); setBar(g.name,sub(),Math.ceil(left)+'s',(1-left/lim)*100); if(left<=0) answer(-1); }
+      tk(); T.i(tk,200);
+    } else setBar(g.name,sub(),'',((qn-1)/total)*100);
+  }
+  function answer(k){
+    if(answered) return; answered=true; T.clear();
+    var it=cur, ok=k===0; if(ok) score++; else buzz();
+    stage.querySelectorAll('.opts button').forEach(function(b){ var bk=+b.dataset.k; b.disabled=true; if(bk===0) b.classList.add('right'); else if(bk===k) b.classList.add('wrong'); });
+    var w=$('#why'); w.hidden=false; w.innerHTML='<b>'+(ok?'Right.':k<0?'Time’s up.':'Not quite.')+'</b> '+h(it.why||'');
+    if(!it.why && ok) w.hidden=true;
+    setBar(GAMES[id].name,sub(),'',(qn/total)*100);
+    var n=$('#nq'); n.hidden=false; n.onclick=function(){ i++; show(); }; n.focus({preventScroll:true});
+    w.scrollIntoView({block:'nearest'});
+  }
+  show();
+  return function(){ T.clear(); document.removeEventListener('keydown',kd); };
+}
+
+/* ---- Tighten: writing ---- */
+var WRITE=keyed('w',[
+ {tier:1,q:'Choose the right word: “We need ___ meetings this week.”',opts:['fewer','less'],why:'Fewer for things you can count, like meetings. Less for amounts, like time or money.'},
+ {tier:1,q:'Choose the right word: “The team shared ___ findings on Friday.”',opts:['their','there','they’re'],why:'Their shows ownership. There is a place. They’re is “they are”.'},
+ {tier:1,q:'Choose the right word: “___ testing the prototype tomorrow.”',opts:['They’re','Their','There'],why:'They’re = they are. Read it out in full to check.'},
+ {tier:1,q:'Choose the right word: “The app lost ___ momentum after launch.”',opts:['its','it’s'],why:'It’s always means “it is” or “it has”. The possessive its has no apostrophe.'},
+ {tier:1,q:'Which version is clearest?',opts:['We’re reviewing the designs.','At this point in time we are currently in the process of reviewing the designs.','Currently, at this time, the designs are being reviewed by us.'],why:'Same meaning in a fifth of the words. “At this point in time” and “in the process of” add nothing.'},
+ {tier:1,q:'Which payment error message is best?',opts:['Your card was declined. Check the details or try another card.','Error 402: payment failure occurred.','Oops! Something went wrong with your payment!!'],why:'It says what happened and what to do next, without jargon or drama.'},
+ {tier:1,q:'Choose the right word: “The change will ___ conversion.”',opts:['affect','effect'],why:'Affect is usually the verb. Effect is usually the noun: “the change had an effect”.'},
+ {tier:1,q:'Which sentence is correct?',opts:['Send the deck to Mere and me.','Send the deck to Mere and I.','Send the deck to Mere and myself.'],why:'Drop “Mere and” and test it: you’d say “send it to me”.'},
+ {tier:2,q:'Which version is clearest?',opts:['We decided to delay the launch.','The decision was made to delay the launch.','A delay of the launch was decided upon.'],why:'Active voice names who decided. Passive voice hides the owner.'},
+ {tier:2,q:'A dialog asks “Delete this project?” Which button label is best?',opts:['Delete project','OK','Yes'],why:'A label that names the action makes sense even if the question is skipped.'},
+ {tier:2,q:'Choose the right word: “Neither the designer nor the engineers ___ convinced.”',opts:['were','was'],why:'With neither/nor, the verb agrees with the nearer subject: “engineers were”.'},
+ {tier:2,q:'Choose the right word: “The illustrations ___ the copy well.”',opts:['complement','compliment'],why:'Complement means to go well with or complete. Compliment means praise.'},
+ {tier:2,q:'Which version is clearest?',opts:['New users may struggle with onboarding.','Users who are new may find that onboarding is something they struggle with.','Onboarding can be a struggle for users that are new to it.'],why:'Put the subject and verb up front, then cut the padding.'},
+ {tier:2,q:'Choose the right word: “Each of the options ___ trade-offs.”',opts:['has','have'],why:'Each is singular, even when followed by a plural noun.'},
+ {tier:2,q:'Which update is best for a stakeholder?',opts:['Checkout conversion rose from 2.1% to 2.6% after we cut the form from 9 fields to 5.','Conversion went up after we did a lot of work on various things in checkout.','We significantly and meaningfully improved checkout.'],why:'Specific numbers and a cause. Adverbs like “significantly” don’t prove anything.'},
+ {tier:2,q:'Choose the right word: “The research ___ us to rethink the brief.”',opts:['led','lead'],why:'The past tense of lead is led. Lead the metal sounds the same, which causes the mix-up.'},
+ {tier:3,q:'Which version is strongest?',opts:['The navigation is confusing: 4 of 6 participants couldn’t find Settings.','It could perhaps be argued that the navigation might be somewhat confusing.','Navigation is maybe a bit confusing for some people, possibly.'],why:'Evidence replaces hedging. If you’re unsure, say how unsure and why, once.'},
+ {tier:3,q:'Choose the right word: “Fewer users churned, ___ revenue still fell.”',opts:['but','so','because'],why:'The second clause contrasts with the first, so it needs a contrast word.'},
+ {tier:3,q:'Choose the right word: “The redesign, ___ shipped in March, cut support tickets.”',opts:['which','that'],why:'Commas mark extra information, which takes “which”. “That” brings in essential information, with no commas.'},
+ {tier:3,q:'Which version is clearest?',opts:['The tool lets you plan sprints, track bugs and write specs.','The tool lets you plan sprints, tracking bugs, and to write specs.','Planning sprints, bugs tracked and specs can be written with the tool.'],why:'Parallel structure: plan, track and write share the same form.'},
+ {tier:3,q:'Which empty state is best?',opts:['You haven’t saved any jobs yet. Tap the heart on a listing to save it here.','No items.','Nothing to see here!'],why:'It explains why the screen is empty and how to fill it.'},
+ {tier:3,q:'Choose the right word: “Our guiding ___ is clarity over cleverness.”',opts:['principle','principal'],why:'A principle is a rule or belief. A principal is a person in charge, or a sum of money.'},
+ {tier:3,q:'Which sentence is correct?',opts:['After testing the prototype, we moved the button.','After testing the prototype, the button was moved.','The button, after testing the prototype, was moved.'],why:'In the other two, the button seems to have tested the prototype. Put the doer right after the opening phrase.'},
+ {tier:3,q:'Which version is clearest?',opts:['Users abandon the form at the address step.','It has been observed that there is a tendency for users to abandon the form at the address step.','There is a tendency of abandonment occurring at the address step of the form.'],why:'Turn hidden verbs back into verbs: “abandonment occurring” becomes “abandon”.'}
+]);
+ENGINES.write=function(level,done){
+  var items=draw('write',WRITE,6,level);
+  return quiz('write',items,{limit:Math.max(12,Math.round(31-level*1.6)),detail:function(s,t){ return s+' of '+t+' right, with '+Math.max(12,Math.round(31-level*1.6))+' seconds per question.'; }},done);
+};
+
+/* ---- Skim: reading ---- */
+var READ=keyed('r',[
+ {tier:1,title:'The forest’s gardener',text:'Kererū, the New Zealand wood pigeon, plays an outsized role in native forests. It is the only bird left with a beak wide enough to swallow the largest native fruit, such as taraire and karaka. After eating, it flies off and drops the seeds far from the parent tree. Without it, several tree species would struggle to spread. Kererū are heavy, noisy fliers, and you often hear the whoosh of their wings before you see them. They are protected, and numbers have recovered in some areas thanks to pest control.',
+  qs:[{q:'Why does the kererū matter to forests?',opts:['It spreads large seeds','It controls pests','It pollinates flowers']},{q:'How do you often notice a kererū first?',opts:['The sound of its wings','Its call at dawn','Its nest in the canopy']}]},
+ {tier:1,title:'Why gaps help',text:'If you want to remember something, spreading practice out works better than cramming. This is called the spacing effect. It was first described in the 1880s by Hermann Ebbinghaus, who tested his own memory with lists of nonsense syllables. Studying the same material in short sessions over several days leads to longer-lasting memory than one long session, even when the total time is the same. The gaps feel less productive, because you forget a little in between. That small struggle to recall is part of what makes the memory stick.',
+  qs:[{q:'What does the spacing effect say?',opts:['Spread-out practice beats cramming','Longer sessions beat shorter ones','Nonsense words are easier to remember']},{q:'Why do the gaps feel less productive?',opts:['You forget a little in between','The material gets harder','You study for less time in total']}]},
+ {tier:1,title:'A city of small volcanoes',text:'Auckland sits on a volcanic field with around 50 small volcanoes. Most erupted only once, and the next eruption is expected to form a new volcano rather than reawaken an old one. The youngest, Rangitoto, formed about 600 years ago, recently enough that people living on nearby Motutapu Island left footprints in its ash. Scientists cannot predict where the next vent will open, so emergency plans cover the whole region rather than any single cone.',
+  qs:[{q:'What is expected of the next eruption?',opts:['A new volcano will form','Rangitoto will reawaken','It will happen on Motutapu']},{q:'Why do emergency plans cover the whole region?',opts:['Nobody knows where the next vent will open','Every cone is still active','Rangitoto is the most dangerous']}]},
+ {tier:1,title:'Sleep and learning',text:'Sleep plays a direct part in learning. During deep sleep, the brain replays and strengthens memories formed during the day. Missing sleep after learning something new makes it harder to recall later, even if you catch up on rest afterwards. Most adults need seven to nine hours. Caffeine can hide tiredness, but it blocks the signal of sleepiness rather than removing the need for sleep, and its effects can last six hours or more.',
+  qs:[{q:'What happens during deep sleep, according to the passage?',opts:['Memories from the day are strengthened','Caffeine leaves the body','New skills are learned from scratch']},{q:'How does caffeine work, according to the passage?',opts:['It blocks the signal of sleepiness','It replaces the need for sleep','It makes deep sleep longer']}]},
+ {tier:2,title:'The power of defaults',text:'When an organ donation system asks people to opt out rather than opt in, sign-up rates are often far higher. The choice is the same, but the default changes behaviour. Defaults work for several reasons: deciding takes effort, people read the default as a recommendation, and changing it can feel like a loss. Designers use the same lever in software, from pre-selected plans to privacy settings. That power cuts both ways. A default that serves the business rather than the person can quietly erode trust, and regulators increasingly treat manipulative defaults as deception.',
+  qs:[{q:'Why do defaults change behaviour, according to the passage?',opts:['Deciding takes effort and the default feels recommended','People cannot change them','They are required by law']},{q:'What risk does the passage raise?',opts:['Self-serving defaults can erode trust','Defaults slow down sign-ups','Regulators ban all defaults']}]},
+ {tier:2,title:'The first checklist',text:'In 1935, a prototype bomber crashed on a demonstration flight because its experienced crew forgot to release a control lock. The aircraft was not too hard to fly; it had too many steps to remember. The response was not more training but a simple checklist, read before take-off. Checklists later spread to surgery, where a short list of checks before, during and after an operation was linked to fewer complications in a 2009 study across eight hospitals. Their value is not that people are careless, but that memory fails under routine and pressure.',
+  qs:[{q:'What caused the 1935 crash?',opts:['The crew forgot to release a control lock','The aircraft was too complex to fly','An engine failed on take-off']},{q:'What is the main point about checklists?',opts:['They protect against memory failures under pressure','They replace the need for experience','They only work in aviation']}]},
+ {tier:2,title:'More options, slower choices',text:'Hick’s law describes how the time it takes to choose rises as the number of options increases, but not in a straight line: doubling the options adds a roughly fixed amount of time rather than doubling it. This is one reason designers group long menus into categories. The law has limits. It holds best when options are unfamiliar and equally likely. Experts who know exactly where an item lives barely slow down at all, which is why professional tools can afford dense interfaces that would overwhelm a newcomer.',
+  qs:[{q:'What happens when the options double, according to Hick’s law?',opts:['Choice time rises by a roughly fixed amount','Choice time doubles','Choice time stays the same']},{q:'Why can expert tools be dense?',opts:['Experts already know where things are','Experts prefer fewer options','Hick’s law doesn’t apply to software']}]},
+ {tier:3,title:'When numbers become targets',text:'Goodhart’s law is often summarised as: when a measure becomes a target, it stops being a good measure. A call centre that rewards short calls may find agents ending difficult calls early. A product team rewarded for daily active users may add notifications that bring people back without giving them anything of value. The number improves while the thing it was meant to represent gets worse. One defence is to pair metrics that pull against each other, such as speed with resolution rate, or engagement with 90-day retention, so that gaming one shows up in the other.',
+  qs:[{q:'Why might rewarding short calls backfire?',opts:['Agents may end hard calls early','Customers prefer long calls','Calls become harder to measure']},{q:'What defence does the passage suggest?',opts:['Pair metrics that pull against each other','Stop measuring altogether','Track only one metric at a time']}]},
+ {tier:3,title:'The planes that came back',text:'During the Second World War, analysts studied bombers returning from missions and mapped where they had been hit. The obvious plan was to add armour where the holes clustered. The statistician Abraham Wald argued the opposite. The planes being studied were the ones that made it back. Areas with few holes, such as the engines, were likely where hits brought planes down. This is survivorship bias: drawing conclusions only from cases that passed a filter. In product work, interviewing only current customers carries the same risk, because the people who left are missing from the sample.',
+  qs:[{q:'Why armour the areas with few holes?',opts:['Planes hit there probably didn’t return','Those areas were easier to armour','The engines already had armour']},{q:'Which product practice does the passage warn about?',opts:['Interviewing only current customers','Running too many experiments','Tracking churn too closely']}]},
+ {tier:3,title:'Peaks and endings',text:'People judge an experience less by its total and more by two moments: its most intense point and its end. In one study, patients rated an uncomfortable medical procedure as less unpleasant when it ended with a few extra minutes of milder discomfort, even though it lasted longer overall. For designers, this suggests a frustrating step is easier to forgive if the journey ends well, and that the final screen of a flow deserves more care than its length suggests. It is not a licence to ignore the middle; a bad enough peak is remembered regardless.',
+  qs:[{q:'Which two moments shape how people remember an experience?',opts:['The most intense point and the end','The start and the end','The longest and shortest steps']},{q:'What does the passage caution?',opts:['A bad enough peak is still remembered','Endings don’t matter in short flows','Longer experiences are always rated worse']}]}
+]);
+ENGINES.read=function(level,done){
+  var ps=draw('read',READ,2,level), items=[], wpm=180+level*20;
+  ps.forEach(function(p,n){ items.push({kind:'passage',title:p.title,text:p.text,n:n+1}); p.qs.forEach(function(q){ items.push({q:q.q,opts:q.opts}); }); });
+  return quiz('read',items,{wpm:wpm,passages:ps.length,detail:function(s,t){ return s+' of '+t+' questions right after reading at '+wpm+' words per minute.'; }},done);
+};
+
+/* ---- Critique: product design ---- */
+var BTN='padding:9px 14px;background:#222;color:#fff;border-radius:8px;text-align:center';
+var DESIGN=keyed('d',[
+ {tier:1,mock:'<div style="font-weight:600;font-size:16px">Your order has shipped</div><div style="color:#D2D2D2;margin-top:6px;line-height:1.5">Track your parcel with the link below. It should arrive in 2 to 3 working days.</div><div style="margin-top:12px;color:#2456A6;font-weight:600">Track parcel</div>',
+  q:'What’s the main problem?',opts:['The body text contrast is too low','There’s too much white space','The heading is too large','It needs an icon'],why:'Light grey on white fails WCAG AA, which needs 4.5:1 for body text. It’s hard to read outdoors and for people with low vision.'},
+ {tier:1,mock:'<div style="display:flex;align-items:center;justify-content:space-between;background:#F2F2F2;border-radius:10px;padding:10px 12px"><span>Your trial ends in 3 days.</span><span style="font-size:10px;color:#555;line-height:1">✕</span></div>',
+  q:'What’s the main problem?',opts:['The close target is too small to tap','The message is unclear','The background is too light','It should be a full-screen modal'],why:'Touch targets should be at least 44 by 44 points on iOS or 48 by 48 dp on Android.'},
+ {tier:1,mock:'<div style="font-weight:600;font-size:16px">Delete “Q3 Roadmap”?</div><div style="color:#555;margin-top:4px">This removes it for everyone on the team.</div><div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px"><span style="padding:9px 14px;border:1px solid #ccc;border-radius:8px">Cancel</span><span style="'+BTN+'">OK</span></div>',
+  q:'What’s the main problem?',opts:['The buttons don’t say what they do','The dialog is too small','It needs an illustration','The title should be bolder'],why:'For a destructive action, name it: “Delete roadmap”. “OK” trains people to confirm without reading.'},
+ {tier:1,mock:'<div style="font-size:12px;color:#555;margin-bottom:4px">Phone number</div><div style="border:1.5px solid #D93025;border-radius:8px;padding:9px 10px">021 555 01</div><div style="color:#D93025;font-size:12px;margin-top:5px">Invalid input</div>',
+  q:'What’s the main problem?',opts:['The error doesn’t say how to fix it','The red is too bright','The field is too wide','The label should be inside the field'],why:'Say what’s expected: “Enter a mobile number with 9 to 10 digits, like 021 555 0123.”'},
+ {tier:1,mock:'<div style="font-weight:600;font-size:16px;margin-bottom:6px">Welcome to Tally</div><div style="font-size:12.5px;line-height:1.45;color:#333">Tally helps you send invoices, track expenses, reconcile bank feeds, set up recurring payments, create quotes, manage contacts, run GST reports, invite your accountant, connect over 800 apps, customise templates, set reminders for overdue invoices and much more. To get started, first connect your bank, then add your business details, then import your contacts, then create your first invoice.</div><div style="margin-top:10px;'+BTN+'">Continue</div>',
+  q:'What’s the main problem?',opts:['A wall of text with nothing to scan','The text is too dark','It should use a serif font','It needs a back button'],why:'People scan, they don’t read. Show the 3 setup steps as a short list and leave the feature tour for later.'},
+ {tier:2,mock:'<div style="border:1px solid #ddd;border-radius:8px;padding:10px;color:#AAA">Email</div><div style="border:1px solid #ddd;border-radius:8px;padding:10px;color:#AAA;margin-top:8px">Password</div><div style="margin-top:10px;'+BTN+'">Sign in</div>',
+  q:'What’s the main problem?',opts:['Placeholder text is doing the job of labels','The fields are too tall','The button is the wrong colour','Password should come first'],why:'Placeholders disappear as you type, are hard to check afterwards and often fail contrast. Use visible labels.'},
+ {tier:2,mock:'<div style="font-weight:600">Edit invoice #1042</div><div style="display:flex;gap:8px;margin-top:12px"><span style="flex:1;text-align:center;padding:10px;background:#B8430F;color:#fff;border-radius:8px">Save</span><span style="flex:1;text-align:center;padding:10px;background:#B8430F;color:#fff;border-radius:8px">Delete</span></div>',
+  q:'What’s the main problem?',opts:['Save and a destructive Delete look identical','The buttons are too rounded','The labels are too short','They should be text links'],why:'One clear primary action. Make Delete secondary or move it away, and style it as destructive.'},
+ {tier:2,mock:'<div style="font-weight:600;margin-bottom:6px">Servers</div>'+[['#2E9E5B','api-sydney'],['#D93025','api-auckland'],['#2E9E5B','api-singapore']].map(function(r){ return '<div style="display:flex;align-items:center;gap:10px;padding:7px 0;border-top:1px solid #eee"><span style="width:10px;height:10px;border-radius:50%;background:'+r[0]+'"></span>'+r[1]+'</div>'; }).join(''),
+  q:'What’s the main problem?',opts:['Status relies on colour alone','The list needs a search bar','Names should be in capitals','The rows are too tight'],why:'About 1 in 12 men have a colour vision deficiency. Add a word like “Down” or a distinct icon shape.'},
+ {tier:2,mock:'<div style="text-align:left;font-weight:600;font-size:16px">Upgrade to Team</div><div style="text-align:center;color:#555;margin-top:6px">Shared folders, admin controls and priority support.</div><div style="text-align:right;margin-top:12px"><span style="display:inline-block;'+BTN+'">Upgrade</span></div>',
+  q:'What’s the main problem?',opts:['Mixed alignment breaks the reading line','The font is too small','The button needs an icon','The card needs a border'],why:'Left, centre and right alignment in one small card makes the eye jump. Pick one edge.'},
+ {tier:2,q:'A survey says users want more features. Usage data shows 80% of people use only 3 features. What’s the best next step?',opts:['Interview users about the jobs behind their requests','Build the most-requested features','Remove the unused features','Run the survey again with more people'],why:'Requests are solutions people imagine. Understand the underlying task before deciding what to build.'},
+ {tier:3,mock:'<div style="display:flex;justify-content:space-between"><span>2 × Tickets</span><span>$49.00</span></div><div style="display:flex;justify-content:space-between;margin-top:6px;color:#555"><span>Delivery</span><span>Free</span></div><div style="margin-top:12px;'+BTN+'">Pay $58.90</div><div style="font-size:9px;color:#C4C4C4;text-align:center;margin-top:4px">incl. booking fee</div>',
+  q:'What’s the main problem?',opts:['A fee appears only at the end, in tiny print','There are too many line items','The pay button should be green','The prices need more decimals'],why:'This is drip pricing. It erodes trust, raises abandonment and can breach consumer law. Show the full price up front.'},
+ {tier:3,mock:'<div style="text-align:center;font-weight:600;font-size:17px">Get 10% off your first order</div><div style="margin-top:12px;'+BTN+'">Yes please</div><div style="margin-top:9px;text-align:center;font-size:12.5px;color:#777;text-decoration:underline">No thanks, I prefer paying full price</div>',
+  q:'What’s the main problem?',opts:['The decline option shames the user','The discount is too small','The modal should be bigger','It needs a countdown timer'],why:'This is confirmshaming. It may lift sign-ups a little and costs trust. A plain “No thanks” respects the choice.'},
+ {tier:3,mock:'<div style="font-weight:600;margin-bottom:8px">Customer satisfaction</div><div style="display:flex;gap:8px"><div style="display:flex;flex-direction:column;justify-content:space-between;font-size:11px;color:#777;height:110px;text-align:right;width:24px"><span>100</span><span>95</span></div><div style="flex:1;display:flex;align-items:flex-end;gap:24px;height:110px;border-left:1px solid #ccc;border-bottom:1px solid #ccc;padding:0 18px"><div style="flex:1;height:60%;background:#2456A6"></div><div style="flex:1;height:20%;background:#BBB"></div></div></div><div style="display:flex;gap:24px;padding:0 18px 0 50px;font-size:11px;color:#555;margin-top:5px"><span style="flex:1;text-align:center">Us · 98</span><span style="flex:1;text-align:center">Them · 96</span></div>',
+  q:'What’s the main problem?',opts:['The axis starts at 95, exaggerating a 2-point gap','There are too few bars','It needs more colours','The labels should be rotated'],why:'A bar’s length should be honest. Bars should start at zero, or use a dot plot if the gap is what matters.'},
+ {tier:3,q:'Adding a progress bar to onboarding lifted completion from 61% to 68% in its first week. What should you check before calling it a win?',opts:['Whether it holds past the first weeks, and what else shipped that week','Whether the bar uses the brand colour','Whether completion can reach 100%','Whether competitors use progress bars'],why:'Rule out novelty effects and anything else that changed. A holdout group gives you a fair comparison.'},
+ {tier:3,q:'An A/B test shows variant B winning (p = 0.04) after 2 days. The plan was 14 days. What do you do?',opts:['Keep running to the planned sample size','Ship B now','Restart the test with a new variant','Loosen the threshold to 0.1'],why:'Stopping when a result first looks significant (peeking) inflates false positives. The full run also covers weekly cycles.'}
+]);
+ENGINES.design=function(level,done){
+  var items=draw('design',DESIGN,5,level), lim=Math.max(10,Math.round(28-level*1.5));
+  return quiz('design',items,{limit:lim,detail:function(s,t){ return s+' of '+t+' spotted, with '+lim+' seconds each.'; }},done);
+};
+
+/* ---- Next in Line: sequences ---- */
+function makeSeq(level){
+  var tier=tierOf(level+1);
+  var types=tier===1?['add','mul','add']:tier===2?['add','incdiff','alt','square','mul','dbl1']:['incdiff','alt','fib','inter','square1','dbl1','mulAdd'];
+  for(var tries=0;tries<50;tries++){
+    var t=pick(types), s=[], rule='', a, b, d, r, k;
+    if(t==='add'){ a=rnd(1,20); d=rnd(2,tier===1?9:15); for(k=0;k<6;k++) s.push(a+k*d); rule='Add '+d+' each time.'; }
+    else if(t==='mul'){ a=rnd(1,5); r=tier===1?2:rnd(2,3); s=[a]; for(k=1;k<6;k++) s.push(s[k-1]*r); rule='Multiply by '+r+' each time.'; }
+    else if(t==='incdiff'){ a=rnd(1,10); d=rnd(1,4); var st=tier===3?rnd(2,3):1; s=[a]; for(k=1;k<6;k++){ s.push(s[k-1]+d); d+=st; } rule='The gap grows by '+st+' each time.'; }
+    else if(t==='alt'){ a=rnd(5,20); var p=rnd(3,9), q=rnd(1,p-1); s=[a]; for(k=1;k<6;k++) s.push(s[k-1]+(k%2?p:-q)); rule='Add '+p+', then subtract '+q+', repeating.'; }
+    else if(t==='square'){ a=rnd(1,6); for(k=0;k<6;k++) s.push((a+k)*(a+k)); rule='Square numbers: '+a+'², '+(a+1)+'², and so on.'; }
+    else if(t==='square1'){ a=rnd(1,6); var c=rnd(1,5); for(k=0;k<6;k++) s.push((a+k)*(a+k)+c); rule='Square numbers plus '+c+'.'; }
+    else if(t==='dbl1'){ a=rnd(1,6); s=[a]; for(k=1;k<6;k++) s.push(s[k-1]*2+1); rule='Double it, then add 1.'; }
+    else if(t==='mulAdd'){ a=rnd(1,4); var m=rnd(2,3), ad=rnd(-2,3); if(!ad) ad=1; s=[a]; for(k=1;k<6;k++) s.push(s[k-1]*m+ad); rule='Multiply by '+m+', then '+(ad>0?'add '+ad:'subtract '+(-ad))+'.'; }
+    else if(t==='fib'){ a=rnd(1,5); b=rnd(a,8); s=[a,b]; for(k=2;k<6;k++) s.push(s[k-1]+s[k-2]); rule='Each number is the sum of the two before it.'; }
+    else if(t==='inter'){ var a1=rnd(1,10), d1=rnd(2,5), b1=rnd(20,40), d2=-rnd(1,4); for(k=0;k<3;k++){ s.push(a1+k*d1); s.push(b1+k*d2); } rule='Two sequences take turns: one adds '+d1+', the other subtracts '+(-d2)+'.'; }
+    if(s.every(function(x){ return x>=0 && x<5000 && x===Math.round(x); })) return {shown:s.slice(0,5), ans:String(s[5]), rule:rule};
+  }
+  return {shown:[2,4,6,8,10],ans:'12',rule:'Add 2 each time.'};
+}
+ENGINES.logic=function(level,done){
+  var T=timers(), dur=75, t0=Date.now(), correct=0, wrong=0, target=6, cur=null, typed='', live=true, ended=false, g=GAMES.logic;
+  stage.innerHTML='<p class="prompt" id="pr">What comes next?</p><div class="seq" id="sq"></div><div class="typed" id="ty"></div><p class="rule" id="ru"></p><div class="pad" id="pd"></div><button class="linkbtn" id="sk">Skip this one</button>';
+  var sq=$('#sq'), ty=$('#ty'), pr=$('#pr'), ru=$('#ru');
+  function nextQ(){ var n; do{ n=makeSeq(level); }while(cur && n.shown.join()===cur.shown.join()); cur=n; sq.innerHTML=cur.shown.map(function(x){ return '<span>'+x+'</span>'; }).join('')+'<span class="q">?</span>'; typed=''; ty.textContent=''; ty.className='typed'; ru.textContent=''; }
+  function feedback(ok){ stage.classList.remove('flash-ok','flash-bad'); void stage.offsetWidth; stage.classList.add(ok?'flash-ok':'flash-bad'); }
+  var unkey=keypad($('#pd'),function(k){
+    if(!live) return;
+    if(k==='del'){ typed=typed.slice(0,-1); ty.textContent=typed; return; }
+    if(k==='ok'){ if(typed.length) judge(); return; }
+    if(typed.length>=5) return;
+    typed+=k; ty.textContent=typed;
+    if(typed===cur.ans || typed.length>=cur.ans.length) judge();
+  });
+  $('#sk').onclick=function(){ if(live){ typed=''; judge(); } };
+  function judge(){
+    var ok=typed===cur.ans;
+    if(ok){ correct++; feedback(true); ru.textContent=cur.rule; live=false; T.t(function(){ if(!ended){ live=true; nextQ(); } },700); }
+    else { wrong++; buzz(); feedback(false); live=false; ty.className='typed bad'; ty.textContent=cur.ans; ru.textContent=cur.rule; T.t(function(){ if(!ended){ live=true; nextQ(); } },2200); }
+    pr.textContent=correct+' correct'+(wrong?' · '+wrong+' missed':'');
+  }
+  function tick(){
+    var left=Math.max(0,dur-(Date.now()-t0)/1000);
+    setBar(g.name,'Target '+target,Math.ceil(left)+'s',(1-left/dur)*100);
+    if(left<=0 && !ended){ ended=true; live=false; T.clear(); unkey();
+      var att=correct+wrong, acc=att?correct/att:0, perf=Math.min(1,correct/target)*acc;
+      done({score:correct,of:target,unit:'correct',perf:perf,detail:correct+' patterns solved and '+wrong+' missed in '+dur+' seconds.'}); }
+  }
+  nextQ(); tick(); T.i(tick,200);
+  return function(){ ended=true; T.clear(); unkey(); };
+};
+
+/* ---- Slide: sliding tile puzzle ---- */
+ENGINES.slide=function(level,done){
+  var T=timers(), n=level<=7?3:4, par=level<=7?6+level*3:14+(level-8)*8, limit=level<=7?150:240, t0=null, moves=0, ended=false, g=GAMES.slide;
+  var N=n*n, board=[]; for(var i=1;i<N;i++) board.push(i); board.push(0);
+  function nb(p){ var r=Math.floor(p/n), c=p%n, o=[]; if(r>0) o.push(p-n); if(r<n-1) o.push(p+n); if(c>0) o.push(p-1); if(c<n-1) o.push(p+1); return o; }
+  function solved(){ for(var i=0;i<N-1;i++) if(board[i]!==i+1) return false; return true; }
+  var blank=N-1, prev=-1;
+  for(var s=0;s<par || solved();s++){ var opts=nb(blank).filter(function(p){ return p!==prev; }), m=pick(opts); board[blank]=board[m]; board[m]=0; prev=blank; blank=m; }
+  stage.innerHTML='<p class="prompt" id="pr">Put the tiles in order, 1 to '+(N-1)+'</p><div class="slide" id="sl" style="grid-template-columns:repeat('+n+',1fr)"></div><p class="muted" style="text-align:center;margin:14px 0 0">Tap a tile in the same row or column as the gap to slide it.</p>';
+  var sl=$('#sl');
+  function paint(){
+    sl.innerHTML=board.map(function(v,p){ return v? '<button data-p="'+p+'" class="'+(v===p+1?'home':'')+'" style="font-size:'+(n===3?30:24)+'px">'+v+'</button>' : '<span class="gap" aria-hidden="true"></span>'; }).join('');
+  }
+  function bar(){ var el=t0?(Date.now()-t0)/1000:0, left=Math.max(0,limit-el); setBar(g.name,'Moves '+moves+' · par '+par,Math.ceil(left)+'s',(el/limit)*100); return left; }
+  function slideFrom(p){
+    if(ended) return; var b=board.indexOf(0), pr_=Math.floor(p/n), pc=p%n, br=Math.floor(b/n), bc=b%n, step;
+    if(pr_===br && pc!==bc) step=pc>bc?1:-1; else if(pc===bc && pr_!==br) step=pr_>br?n:-n; else return;
+    if(!t0) t0=Date.now();
+    while(b!==p){ board[b]=board[b+step]; board[b+step]=0; b+=step; moves++; }
+    paint(); bar();
+    if(solved()) finish(true);
+  }
+  function finish(ok){
+    ended=true; T.clear(); document.removeEventListener('keydown',kd);
+    var secs=t0?Math.round((Date.now()-t0)/1000):0, perf=ok?Math.min(1,(par*1.6)/Math.max(1,moves)):0.3;
+    T.t(function(){ done({score:ok?moves:0,of:par,unit:ok?'moves':'unsolved',perf:perf,detail:ok?'Solved in '+moves+' moves and '+secs+' seconds. Par was '+par+'.':'Time ran out after '+moves+' moves. The next one will be a little easier.'}); }, ok?500:0);
+  }
+  sl.addEventListener('pointerdown',function(e){ var b=e.target.closest('button'); if(!b) return; e.preventDefault(); slideFrom(+b.dataset.p); });
+  sl.addEventListener('click',function(e){ if(e.detail===0){ var b=e.target.closest('button'); if(b) slideFrom(+b.dataset.p); } });
+  function kd(e){ var b=board.indexOf(0), r=Math.floor(b/n), c=b%n, t=-1;
+    if(e.key==='ArrowUp' && r<n-1) t=b+n; else if(e.key==='ArrowDown' && r>0) t=b-n; else if(e.key==='ArrowLeft' && c<n-1) t=b+1; else if(e.key==='ArrowRight' && c>0) t=b-1;
+    if(t>=0){ e.preventDefault(); slideFrom(t); } }
+  document.addEventListener('keydown',kd);
+  paint(); bar();
+  T.i(function(){ if(!ended && bar()<=0) finish(false); },250);
+  return function(){ ended=true; T.clear(); document.removeEventListener('keydown',kd); };
+};
+
 
 render();
 })();
