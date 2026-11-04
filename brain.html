@@ -351,7 +351,7 @@ function weekBlock(){
 
 function viewToday(){
   var p=plan(), complete=planComplete(p), hr=new Date().getHours();
-  var greet=hr<12?'Morning, George.':hr<18?'Afternoon, George.':'Evening, George.';
+  var greet=hr<12?'Morning, Jorge.':hr<18?'Afternoon, Jorge.':'Evening, Jorge.';
   var items=p.games.map(function(id,i){ var g=GAMES[id], d=p.done.indexOf(id)>-1;
     return '<li class="'+(d?'done':'')+'"><span class="ix">'+(d?'✓':(i+1))+'</span><div><div class="nm">'+g.name+'</div><div class="sk">'+g.skill+'</div></div><span class="lv">Lvl '+S.levels[id]+'</span></li>'; }).join('');
   var weekN=0, days=sessionDays(), ws=weekStart(new Date()); for(var i=0;i<7;i++) if(days[iso(addDays(ws,i))]) weekN++;
