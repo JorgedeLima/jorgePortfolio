@@ -874,9 +874,12 @@ var ENC='eyJ2IjoxLCJuIjo2MDAwMDAsInMiOiJQL21wS1RsZ3luTUV0UXZIU09KY25RPT0iLCJpIjo
     if(keep && opts.indexOf(keep)>=0) sel.value=keep;
     var w=sel.value;
     var wk=upcoming(7), wkSum=wk.reduce(function(t,x){ return t+num(x.b.amount); },0);
-    $('#rLogged').textContent=!w?'Last week is already reviewed. To correct balances, use Check-in under Tracker.':w?('Guilt-free spending logged or imported for this week: '+money(spentBetween(w,addDays(w,6)),1)+'. Weekly guilt-free budget: '+money(weeklyBudget())+'.'+(wk.length?' Bills due in the next 7 days: '+money(wkSum,1)+' ('+wk.length+').':'')):'';
+    // Between reviews the form only saves balances: no spending or note to fill in.
+    var between=!w;
+    $('#rExtra').closest('.field').hidden=between; $('#rNote').closest('.field').hidden=between; $('#rNote').required=!between;
+    $('#reviewForm button[type=submit]').textContent=between?'Save balances':'Complete review';
+    $('#rLogged').textContent=between?'Last week is reviewed. Next review: '+dayLabel(addDays(mondayOf(today()),7))+'. You can still save today\'s balances here.':w?('Guilt-free spending logged or imported for this week: '+money(spentBetween(w,addDays(w,6)),1)+'. Weekly guilt-free budget: '+money(weeklyBudget())+'.'+(wk.length?' Bills due in the next 7 days: '+money(wkSum,1)+' ('+wk.length+').':'')):'';
     var l=latest(); $('#rInv').placeholder=invOf(l); $('#rInv').closest('.field').hidden=hasInvAccounts(); balanceInputs($('#rAccts'),'ra-');
-    $('#reviewForm button').disabled=!w;
 
     var n=streak(); $('#rStreak').textContent=n+(n===1?' week':' weeks');
     var dots=$('#rDots'); dots.innerHTML=''; var weeks=challengeWeeks(), done=0;
@@ -1794,10 +1797,16 @@ var ENC='eyJ2IjoxLCJuIjo2MDAwMDAsInMiOiJQL21wS1RsZ3luTUV0UXZIU09KY25RPT0iLCJpIjo
     $('#impCancel').addEventListener('click',function(){ pending=null; $('#impPanel').hidden=true; $('#rImpMsg').textContent='Import cancelled. Nothing was saved.'; });
     $('#reviewForm').addEventListener('submit',function(e){
       e.preventDefault();
-      var w=$('#rWeek').value; if(!w) return;
+      var w=$('#rWeek').value, date=today();
+      if(!w){
+        S.checkins=S.checkins.filter(function(c){return c.date!==date;});
+        S.checkins.push({id:uid(),date:date,bal:readBalances($('#rAccts')),inv:hasInvAccounts()?null:($('#rInv').value!==''?num($('#rInv').value):invOf(latest())),note:'Balances'});
+        $('#rInv').value='';
+        $('#rMsg').textContent='Balances saved for today.';
+        commit(); return;
+      }
       var extra=num($('#rExtra').value), sun=addDays(w,6);
       if(extra>0) S.spends.push({id:uid(),date:sun>today()?today():sun,amount:extra,what:'Weekly review: unlogged spending'});
-      var date=today();
       S.checkins=S.checkins.filter(function(c){return c.date!==date;});
       S.checkins.push({id:uid(),date:date,bal:readBalances($('#rAccts')),inv:hasInvAccounts()?null:($('#rInv').value!==''?num($('#rInv').value):invOf(latest())),note:'Weekly review'});
       var spent=spentBetween(w,sun);
